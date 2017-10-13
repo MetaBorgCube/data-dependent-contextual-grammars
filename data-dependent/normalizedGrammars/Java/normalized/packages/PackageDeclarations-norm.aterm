@@ -1,0 +1,256 @@
+Module(
+  Unparameterized("normalized/packages/PackageDeclarations-norm")
+, [Imports([Module(Unparameterized("normalized/lexical/Identifiers-norm")), Module(Unparameterized("normalized/interfaces/Annotations-norm"))])]
+, [ SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Lit("\"package\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\107"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\103"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\".\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\46"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\";\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\59"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$PackageDeclaration\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\80"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\107"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\103"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$Annotation\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\65"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$Id\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\73"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Layout()))
+          , Rhs([Cf(Layout())])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Opt(Layout())), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterSep(Sort("Id"), Lit("\".\"")))
+          , Rhs([Cf(Sort("Id"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("Id"), Lit("\".\"")))
+          , Rhs(
+              [ Cf(IterSep(Sort("Id"), Lit("\".\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\".\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Id"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("Id"), Lit("\".\"")))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("Id"), Lit("\".\"")))
+          , Rhs([Cf(IterSep(Sort("Id"), Lit("\".\"")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("Annotation")))
+          , Rhs([Cf(Sort("Annotation"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("Annotation")))
+          , Rhs(
+              [ Cf(Iter(Sort("Annotation")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Annotation"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(IterStar(Sort("Annotation"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterStar(Sort("Annotation")))
+          , Rhs([Cf(Iter(Sort("Annotation")))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("PackageDeclaration")), Constructor("PackageDeclaration"))
+          , Rhs(
+              [ Cf(IterStar(Sort("Annotation")))
+              , Cf(Opt(Layout()))
+              , Lit("\"package\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterSep(Sort("Id"), Lit("\".\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\";\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("PackageDeclaration")), Constructor("PackageDeclaration-Plhdr"))
+          , Rhs([Lit("\"$PackageDeclaration\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Annotation")), Constructor("Annotation-Plhdr"))
+          , Rhs([Lit("\"$Annotation\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Id")), Constructor("Id-Plhdr"))
+          , Rhs([Lit("\"$Id\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProduction(
+            Cf(Layout())
+          , Rhs([Cf(Layout()), Cf(Layout())])
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProduction(
+            FileStart()
+          , Rhs([Start(), CharClass(Simple(Present(Numeric("\\256"))))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Restrictions(
+        [ Follow(
+            [Lit("\"$PackageDeclaration\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$Annotation\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$Id\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Priorities(
+        [ Assoc(
+            SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          , Left()
+          , SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

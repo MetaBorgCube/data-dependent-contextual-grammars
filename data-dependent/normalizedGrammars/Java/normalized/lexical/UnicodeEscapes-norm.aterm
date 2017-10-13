@@ -1,0 +1,132 @@
+Module(
+  Unparameterized("normalized/lexical/UnicodeEscapes-norm")
+, []
+, [ SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Lit("\"\\\\\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\92"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Iter(CharClass(Simple(Present(Numeric("\\117")))))
+          , Rhs([CharClass(Simple(Present(Numeric("\\117"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Iter(CharClass(Simple(Present(Numeric("\\117")))))
+          , Rhs(
+              [ Iter(CharClass(Simple(Present(Numeric("\\117")))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            IterStar(CharClass(Simple(Present(Numeric("\\117")))))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            IterStar(CharClass(Simple(Present(Numeric("\\117")))))
+          , Rhs([Iter(CharClass(Simple(Present(Numeric("\\117")))))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Sort("UnicodeEscape"), Constructor("UnicodeEscape"))
+          , Rhs(
+              [ Lit("\"\\\\\"")
+              , Iter(CharClass(Simple(Present(Numeric("\\117")))))
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Range(Numeric("\\97"), Numeric("\\102"))
+                        )
+                      )
+                    )
+                  )
+                )
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Range(Numeric("\\97"), Numeric("\\102"))
+                        )
+                      )
+                    )
+                  )
+                )
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Range(Numeric("\\97"), Numeric("\\102"))
+                        )
+                      )
+                    )
+                  )
+                )
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Range(Numeric("\\97"), Numeric("\\102"))
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Layout())
+          , Rhs([Cf(Layout()), Cf(Layout())])
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProduction(
+            FileStart()
+          , Rhs([Start(), CharClass(Simple(Present(Numeric("\\256"))))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Priorities(
+        [ Assoc(
+            SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          , Left()
+          , SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

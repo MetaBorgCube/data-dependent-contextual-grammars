@@ -1,0 +1,75 @@
+module TypeExpr
+
+imports
+  Lexical
+  Names
+  Extensions
+  TypesAndExceptions
+  
+context-free syntax
+  
+  TypeExpr.LabelName           = "?" LabelName ":" TypeExpr 
+  TypeExpr.LabelName2          = LabelName ":" TypeExpr 
+  TypeExpr.TypeExprConstr1     = TypeExpr TypeConstr
+  TypeExpr.Star                = TypeExpr "*" {TypeExpr "*"}+ {non-assoc}
+  TypeExpr.Arrow               = TypeExpr "->" TypeExpr {right}  
+  TypeExpr.TypeExprAsId        = TypeExpr "as" "'" Ident
+  TypeExpr.TypeExprPrivate     = "private" TypeExpr
+  TypeExpr.Tag                 = "'" Ident
+  TypeExpr.AnyTypexpr          = "_"
+  TypeExpr                     = "(" TypeExpr ")" {bracket} 
+  TypeExpr.TypeExprConstr2     = TypeConstr
+  TypeExpr.TypeExprTypeConstr  = "(" TypeExpr "," {TypeExpr ","}+ ")" TypeConstr
+  TypeExpr.PolymorphicVariant  = PolymorphicVariantType
+  TypeExpr.EmptyAngleBrackets  = "<" ".." ">"
+  TypeExpr.EmptyAngleBrackets2 = "<" ">"
+  TypeExpr.AngleBrackets1      = "<" {MethodType ";"}+ ">"
+  TypeExpr.AngleBrackets2      = "<" {MethodType ";"}+ ";" ">"
+  TypeExpr.AngleBrackets3      = "<" {MethodType ";"}+ ";" ".." ">"
+  TypeExpr.TypeExprHash1       = "#" ClassPath
+  TypeExpr.TypeExprHash2       = TypeExpr "#" ClassPath
+  TypeExpr.TypeExprHash3       = "(" {TypeExpr ","}+ ")" "#" ClassPath
+  TypeExpr.TypeExprPackage     = "(" "module" PackageType ")"  
+  
+  SemiColonDotsOpt = 
+  SemiColonDotsOpt.SemiColonDots =  ";" ".."  
+  
+  PolymorphicVariantType.PolymorphicVariantType1 = "[" OptBar {TagSpec "|"}* "]"
+  PolymorphicVariantType.PolymorphicVariantType2 = "[>" {TagSpec "|"}* "]"
+  PolymorphicVariantType.PolymorphicVariantType3 = "[<"  OptBar {TagSpecFull "|"}+ "]"
+  PolymorphicVariantType.PolymorphicVariantType4 = "[<"  OptBar {TagSpecFull "|"}+ ">" QuoteTagName+  "]"
+  QuoteTagName.TagName = "`" TagName
+  
+  PolyTypeExpr.Polytype1 = TypeExpr
+  PolyTypeExpr.Polytype2 = QuoteIdent+ "." TypeExpr
+  QuoteIdent.Indent      = "'" Ident
+  
+  MethodType.MethodType = MethodName ":" PolyTypeExpr
+  
+  TagSpec.TagSpec1 = "`" TagName 
+  TagSpec.TagSpec1 = "`" TagName "of" TypeExpr
+  TagSpec.TagSpec2 = TypeExpr
+  
+  TagSpecFull.TagSpecFull =  "`" TagName AndTypeExpr*
+  TagSpecFull.TagSpecFull =  "`" TagName "of" TypeExpr AndTypeExpr*
+  TagSpecFull = TypeExpr
+  AndTypeExpr.TypeExpr = "&" TypeExpr
+  
+  TypeExpr.TypeExprAttr     = TypeExpr Attribute
+context-free priorities
+  { TypeExpr.LabelName 
+    TypeExpr.LabelName2
+  } >
+  TypeExpr.TypeExprConstr1 >
+  TypeExpr.Star >  
+  { right:
+    TypeExpr.Arrow
+  } >
+    TypeExpr.TypeExprAttr >
+    TypeExpr.TypeExprAsId >
+    TypeExpr.TypeExprPrivate
+    
+context-free priorities  
+
+  {TypeExpr "*"}+ = {TypeExpr "*"}+ "*" TypeExpr <2> .> {TypeExpr.Star TypeExpr.Arrow TypeExpr.TypeExprAsId},
+  {TypeExpr "*"}+ = TypeExpr <0> .> {TypeExpr.Star TypeExpr.Arrow TypeExpr.TypeExprAsId}   

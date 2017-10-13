@@ -1,0 +1,44 @@
+module ModuleTypes
+
+imports
+  Lexical
+  Classes
+  Names
+  TypesAndExceptions
+  ModuleExpressions
+  TypeExpr
+  
+context-free syntax
+  
+//  Specification.SpecificationVal = "val" ValueName ":" TypeExpr
+//  Specification.External  = "external" ValueName ":" TypeExpr "=" ExternalDeclaration
+//  Specification.TypeDef   = TypeDefinition
+//  Specification.ExceptionDef = "exception" ConstrDecl
+//  Specification.ClassSpec   = ClassSpecification
+//  Specification.ClassTypeDef = ClassTypeDefinition
+//  Specification.ModuleDef1 = "module" ModuleName ModuleNameTypeParam* "=" ModuleExpr
+//  Specification.ModuleDef1 = "module" ModuleName ModuleNameTypeParam* ":" ModuleType "=" ModuleExpr  
+//  Specification.ModuleDef2 = "module" ModuleName ModuleNameTypeParam* ":" ModuleType
+//  Specification.ModuleType1 = "module" "type" ModTypeName
+//  Specification.ModuleType2 = "module" "type" ModTypeName "=" ModuleType
+//  Specification.Open        = "open" ModulePath
+//  Specification.Include     = "include" ModuleType
+  
+  ModuleType.ModuleTypePath = ModTypePath
+  ModuleType.Signature      = "sig"  DefinitionSemi* "end"
+  ModuleType.Functor        = "functor" "(" ModuleName ":" ModuleType ")" "->" ModuleType
+  ModuleType.ModuleTypeOf   = "module" "type" "of" ModuleExpr
+//  ModuleType.Arg            = ModuleType "->" ModuleType {left}
+  ModuleType = "(" ModuleType ")" {bracket}
+  ModuleType.ModuleTypeWith = ModuleType "with" {ModConstraint "and"}+
+  DefinitionSemi.Definition =   Definition DoubleSemiColonOpt
+  
+
+  ModConstraint.ModConsType1 = "type" TypeParams? TypeConstr "=" TypeExpr
+  ModConstraint.ModConsType2 = "type" TypeParameters?  TypeConstrName ":="  TypeParameters?  TypeConstr
+  ModConstraint.ModeConsModule1 = "module" ModulePath "=" ExtendedModulePath
+  ModConstraint.ModeConsModule2 = "module" ModuleName ":=" ExtendedModulePath
+  
+context-free priorities
+  ModuleType.ModuleTypeWith >
+  ModuleType.Functor  

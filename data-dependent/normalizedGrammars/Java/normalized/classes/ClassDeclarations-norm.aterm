@@ -1,0 +1,1419 @@
+Module(
+  Unparameterized("normalized/classes/ClassDeclarations-norm")
+, [ Imports(
+      [ Module(Unparameterized("normalized/lexical/Identifiers-norm"))
+      , Module(Unparameterized("normalized/types/ReferenceTypes-norm"))
+      , Module(Unparameterized("normalized/classes/FieldDeclarations-norm"))
+      , Module(Unparameterized("normalized/classes/MethodDeclarations-norm"))
+      , Module(Unparameterized("normalized/classes/InstanceInitializers-norm"))
+      , Module(Unparameterized("normalized/classes/StaticInitializers-norm"))
+      , Module(Unparameterized("normalized/classes/EnumDeclarations-norm"))
+      , Module(Unparameterized("normalized/classes/ConstructorDeclarations-norm"))
+      , Module(Unparameterized("normalized/interfaces/Annotations-norm"))
+      , Module(Unparameterized("normalized/interfaces/InterfaceDeclarations-norm"))
+      ]
+    )
+  ]
+, [ SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Lit("\"class\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"{\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\123"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"}\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\125"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"public\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\98"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"protected\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"private\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\118"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"abstract\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\98"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"static\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"final\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\102"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"strictfp\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\102"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"<\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\60"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\">\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\62"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"&\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\38"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"extends\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\120"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"implements\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\",\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\44"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\";\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\59"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$EnumDeclaration\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\69"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$NormalClassDeclaration\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\78"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$ClassModifier\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\77"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\102"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$TypeParameters\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\80"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$TypeParameter\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\80"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$Annotation\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\65"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$Id\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\73"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$SuperClass\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\83"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$SuperInterfaces\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\83"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\73"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\102"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$ClassType\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$InstanceInitializer\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\73"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\73"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\122"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$StaticInitializer\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\83"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\73"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\122"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$ClassBodyDeclaration\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\66"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$ConstructorDeclaration\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$FieldDeclaration\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\70"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$MethodDeclaration\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\77"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\104"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$ClassDeclaration\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$InterfaceDeclaration\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\73"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\102"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$ClassMemberDeclaration\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\77"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\98"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("ClassType"), Lit("\",\"")))
+          , Rhs([Cf(Sort("ClassType"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("ClassType"), Lit("\",\"")))
+          , Rhs(
+              [ Cf(IterSep(Sort("ClassType"), Lit("\",\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\",\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("ClassType"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("ClassType"), Lit("\",\"")))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("ClassType"), Lit("\",\"")))
+          , Rhs([Cf(IterSep(Sort("ClassType"), Lit("\",\"")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("ClassType"), Lit("\"&\"")))
+          , Rhs([Cf(Sort("ClassType"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("ClassType"), Lit("\"&\"")))
+          , Rhs(
+              [ Cf(IterSep(Sort("ClassType"), Lit("\"&\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\"&\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("ClassType"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("ClassType"), Lit("\"&\"")))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("ClassType"), Lit("\"&\"")))
+          , Rhs([Cf(IterSep(Sort("ClassType"), Lit("\"&\"")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("Annotation")))
+          , Rhs([Cf(Sort("Annotation"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("Annotation")))
+          , Rhs(
+              [ Cf(Iter(Sort("Annotation")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Annotation"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(IterStar(Sort("Annotation"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterStar(Sort("Annotation")))
+          , Rhs([Cf(Iter(Sort("Annotation")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("TypeParameter"), Lit("\",\"")))
+          , Rhs([Cf(Sort("TypeParameter"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("TypeParameter"), Lit("\",\"")))
+          , Rhs(
+              [ Cf(IterSep(Sort("TypeParameter"), Lit("\",\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\",\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TypeParameter"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("TypeParameter"), Lit("\",\"")))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("TypeParameter"), Lit("\",\"")))
+          , Rhs([Cf(IterSep(Sort("TypeParameter"), Lit("\",\"")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Layout()))
+          , Rhs([Cf(Layout())])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Opt(Layout())), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(Iter(Sort("ClassBodyDeclaration")))
+          , Rhs([Cf(Sort("ClassBodyDeclaration"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("ClassBodyDeclaration")))
+          , Rhs(
+              [ Cf(Iter(Sort("ClassBodyDeclaration")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("ClassBodyDeclaration"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(IterStar(Sort("ClassBodyDeclaration"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterStar(Sort("ClassBodyDeclaration")))
+          , Rhs([Cf(Iter(Sort("ClassBodyDeclaration")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Sort("SuperInterfaces")))
+          , Rhs([Cf(Sort("SuperInterfaces"))])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Opt(Sort("SuperInterfaces"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(Opt(Sort("SuperClass")))
+          , Rhs([Cf(Sort("SuperClass"))])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Opt(Sort("SuperClass"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(Opt(Sort("TypeParameters")))
+          , Rhs([Cf(Sort("TypeParameters"))])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Opt(Sort("TypeParameters"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(Iter(Sort("ClassModifier")))
+          , Rhs([Cf(Sort("ClassModifier"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("ClassModifier")))
+          , Rhs(
+              [ Cf(Iter(Sort("ClassModifier")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("ClassModifier"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(IterStar(Sort("ClassModifier"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterStar(Sort("ClassModifier")))
+          , Rhs([Cf(Iter(Sort("ClassModifier")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("ClassDeclaration"))
+          , Rhs([Cf(Sort("NormalClassDeclaration"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("ClassDeclaration"))
+          , Rhs([Cf(Sort("EnumDeclaration"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("NormalClassDeclaration")), Constructor("ClassDeclaration"))
+          , Rhs(
+              [ Cf(IterStar(Sort("ClassModifier")))
+              , Cf(Opt(Layout()))
+              , Lit("\"class\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Id"))
+              , Cf(Opt(Layout()))
+              , Cf(Opt(Sort("TypeParameters")))
+              , Cf(Opt(Layout()))
+              , Cf(Opt(Sort("SuperClass")))
+              , Cf(Opt(Layout()))
+              , Cf(Opt(Sort("SuperInterfaces")))
+              , Cf(Opt(Layout()))
+              , Lit("\"{\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterStar(Sort("ClassBodyDeclaration")))
+              , Cf(Opt(Layout()))
+              , Lit("\"}\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("ClassModifier"))
+          , Rhs([Cf(Sort("Annotation"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassModifier")), Constructor("Public"))
+          , Rhs([Lit("\"public\"")])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassModifier")), Constructor("Protected"))
+          , Rhs([Lit("\"protected\"")])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassModifier")), Constructor("Private"))
+          , Rhs([Lit("\"private\"")])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassModifier")), Constructor("Abstract"))
+          , Rhs([Lit("\"abstract\"")])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassModifier")), Constructor("Static"))
+          , Rhs([Lit("\"static\"")])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassModifier")), Constructor("Final"))
+          , Rhs([Lit("\"final\"")])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassModifier")), Constructor("Strictfp"))
+          , Rhs([Lit("\"strictfp\"")])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeParameters")), Constructor("TypeParameters"))
+          , Rhs(
+              [ Lit("\"<\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterSep(Sort("TypeParameter"), Lit("\",\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\">\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeParameter")), Constructor("TypeParameter"))
+          , Rhs(
+              [ Cf(IterStar(Sort("Annotation")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Id"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeParameter")), Constructor("TypeParameterExtendsClassType"))
+          , Rhs(
+              [ Cf(IterStar(Sort("Annotation")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Id"))
+              , Cf(Opt(Layout()))
+              , Lit("\"extends\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterSep(Sort("ClassType"), Lit("\"&\"")))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("SuperClass")), Constructor("SuperClass"))
+          , Rhs(
+              [Lit("\"extends\""), Cf(Opt(Layout())), Cf(Sort("ClassType"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("SuperInterfaces")), Constructor("SuperInterface"))
+          , Rhs(
+              [ Lit("\"implements\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterSep(Sort("ClassType"), Lit("\",\"")))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("ClassBodyDeclaration"))
+          , Rhs([Cf(Sort("ClassMemberDeclaration"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("ClassBodyDeclaration"))
+          , Rhs([Cf(Sort("InstanceInitializer"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("ClassBodyDeclaration"))
+          , Rhs([Cf(Sort("StaticInitializer"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("ClassBodyDeclaration"))
+          , Rhs([Cf(Sort("ConstructorDeclaration"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("ClassMemberDeclaration"))
+          , Rhs([Cf(Sort("FieldDeclaration"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("ClassMemberDeclaration"))
+          , Rhs([Cf(Sort("MethodDeclaration"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("ClassMemberDeclaration"))
+          , Rhs([Cf(Sort("ClassDeclaration"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("ClassMemberDeclaration"))
+          , Rhs([Cf(Sort("InterfaceDeclaration"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassMemberDeclaration")), Constructor("SemiColon"))
+          , Rhs([Lit("\";\"")])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("EnumDeclaration")), Constructor("EnumDeclaration-Plhdr"))
+          , Rhs([Lit("\"$EnumDeclaration\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("NormalClassDeclaration")), Constructor("NormalClassDeclaration-Plhdr"))
+          , Rhs([Lit("\"$NormalClassDeclaration\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassModifier")), Constructor("ClassModifier-Plhdr"))
+          , Rhs([Lit("\"$ClassModifier\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeParameters")), Constructor("TypeParameters-Plhdr"))
+          , Rhs([Lit("\"$TypeParameters\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeParameter")), Constructor("TypeParameter-Plhdr"))
+          , Rhs([Lit("\"$TypeParameter\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Annotation")), Constructor("Annotation-Plhdr"))
+          , Rhs([Lit("\"$Annotation\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Id")), Constructor("Id-Plhdr"))
+          , Rhs([Lit("\"$Id\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("SuperClass")), Constructor("SuperClass-Plhdr"))
+          , Rhs([Lit("\"$SuperClass\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("SuperInterfaces")), Constructor("SuperInterfaces-Plhdr"))
+          , Rhs([Lit("\"$SuperInterfaces\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassType")), Constructor("ClassType-Plhdr"))
+          , Rhs([Lit("\"$ClassType\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("InstanceInitializer")), Constructor("InstanceInitializer-Plhdr"))
+          , Rhs([Lit("\"$InstanceInitializer\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("StaticInitializer")), Constructor("StaticInitializer-Plhdr"))
+          , Rhs([Lit("\"$StaticInitializer\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassBodyDeclaration")), Constructor("ClassBodyDeclaration-Plhdr"))
+          , Rhs([Lit("\"$ClassBodyDeclaration\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ConstructorDeclaration")), Constructor("ConstructorDeclaration-Plhdr"))
+          , Rhs([Lit("\"$ConstructorDeclaration\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("FieldDeclaration")), Constructor("FieldDeclaration-Plhdr"))
+          , Rhs([Lit("\"$FieldDeclaration\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("MethodDeclaration")), Constructor("MethodDeclaration-Plhdr"))
+          , Rhs([Lit("\"$MethodDeclaration\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassDeclaration")), Constructor("ClassDeclaration-Plhdr"))
+          , Rhs([Lit("\"$ClassDeclaration\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("InterfaceDeclaration")), Constructor("InterfaceDeclaration-Plhdr"))
+          , Rhs([Lit("\"$InterfaceDeclaration\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassMemberDeclaration")), Constructor("ClassMemberDeclaration-Plhdr"))
+          , Rhs([Lit("\"$ClassMemberDeclaration\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProduction(
+            Cf(Layout())
+          , Rhs([Cf(Layout()), Cf(Layout())])
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProduction(
+            FileStart()
+          , Rhs([Start(), CharClass(Simple(Present(Numeric("\\256"))))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Restrictions(
+        [ Follow(
+            [Lit("\"$EnumDeclaration\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$NormalClassDeclaration\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$ClassModifier\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$TypeParameters\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$TypeParameter\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$Annotation\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$Id\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$SuperClass\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$SuperInterfaces\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$ClassType\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$InstanceInitializer\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$StaticInitializer\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$ClassBodyDeclaration\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$ConstructorDeclaration\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$FieldDeclaration\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$MethodDeclaration\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$ClassDeclaration\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$InterfaceDeclaration\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$ClassMemberDeclaration\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Priorities(
+        [ Assoc(
+            SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          , Left()
+          , SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

@@ -1,0 +1,94 @@
+module Classes
+
+imports
+  Lexical
+  Names
+  TypeExpr
+  Patterns
+  Expressions
+  ModuleExpressions
+  
+context-free syntax
+  
+  ClassType.ClassType      = LabelNameOpt TypeExpr "->" ClassType
+  LabelNameOpt.LabelNameQ  = "?" LabelName ":"
+  LabelNameOpt.LabelName   = LabelName ":"
+  LabelNameOpt.NoLabelName = 
+  
+  ClassType = ClassBodyType
+  
+  ClassBodyType.ClassBodyTypeObject = "object" OptTypeExpr ClassFieldSpec* "end"
+  ClassBodyType.ClassBodyType       = OptTypeExprList ClassPath
+  OptTypeExpr.TypeExpr              = "(" TypeExpr ")"
+  OptTypeExpr =
+  OptTypeExprList.TypeExprList = "[" {TypeExpr ","}+ "]"
+  OptTypeExprList =
+  
+  ClassFieldSpec.Inherit    = 	"inherit" ClassType
+  ClassFieldSpec.Val        = "val" Mutable? Virtual? InstVarName ":" PolyTypeExpr
+  ClassFieldSpec.Method     = "method" Private? Virtual? MethodName ":" PolyTypeExpr
+  ClassFieldSpec.Constraint = "constraint" TypeExpr "=" TypeExpr  
+      
+  ClassExpr.ClassPath   = ClassPath
+  ClassExpr.TEClassPath = "[" {TypeExpr ","}+ "]" ClassPath
+  ClassExpr             = "(" ClassExpr ")" {bracket}
+  ClassExpr.ClassExprCT = "(" ClassExpr ":" ClassType ")"
+  ClassExpr.ClassArgs   = ClassExpr Arg+ {non-assoc}
+  ClassExpr.ClassFun    = "fun" Parameter+ "->" ClassExpr
+  ClassExpr.LetClass    = "let" LetBinding AndLetBinding* "in" ClassExpr
+  ClassExpr.LetRecClass = "let" "rec" LetBinding AndLetBinding* "in" ClassExpr
+  ClassExpr.Object      = "object" ClassBody "end"
+  
+  ClassField.Inheritance     = Inherit ClassExpr AsOption
+  AsOption.NoAsValue         = 
+  AsOption.AsValue           = "as" LowerCaseIdent
+  ClassField.ClassValue      = Val Mutable? InstVarName ColonTypeExprOpt "=" Expr
+  ColonTypeExprOpt.NoValue   = 
+  ColonTypeExprOpt.TypeExpr  = ":" TypeExpr
+  ClassField.VirtualValue    = "val" Mutable? "virtual" InstVarName ":" TypeExpr
+  ClassField.VirtualValue2   = "val" "virtual" Mutable  InstVarName ":" TypeExpr
+  ClassField.Method1         = Method Private? MethodName Parameter* "=" Expr  
+  ClassField.Method2         = Method Private? MethodName Parameter* ":" PolyTypeExpr "=" Expr  
+  ClassField.Method3         = "method" Private? "virtual" MethodName ":" PolyTypeExpr
+  ClassField.Method4         = "method" "virtual" Private MethodName ":" PolyTypeExpr
+  ClassField.ClassConstraint = "constraint" TypeExpr "=" TypeExpr
+  ClassField.Initializer     = "initializer" Expr
+  ClassField.Method5         = Method Private? MethodName ":" "type" TypeConstrName+ "." TypeExpr "=" Expr
+  
+  Inherit.Inherit1 = "inherit"
+  Inherit.Inherit2 = "inherit!"
+  Val.Val1         = "val"
+  Val.Val2         = "val!"  
+  Method.Method1   = "method"
+  Method.Method2   = "method!"
+  
+  Private.Private = "private"
+  Mutable.Mutable = "mutable"
+  Virtual.Virtual = "virtual"
+  
+  ClassDefinition.ClassDefinition = "class" {ClassBinding "and"}+
+  ClassBody.ClassBody             = ClassFieldOptSemiColon*
+  ClassBody.ClassBody             = "(" Pattern ")" ClassFieldOptSemiColon*
+  ClassBody.ClassBody             = "(" Pattern ":" TypeExpr ")" ClassFieldOptSemiColon*
+  
+  ClassFieldOptSemiColon.ClassField = ClassField SemiColon?
+  
+  ClassBinding.ClassBinding     = Virtual? OptTypeParameters ClassName Parameter* ColonClassTypeOpt "=" ClassExpr
+  ColonClassTypeOpt.NoClassType = 
+  ColonClassTypeOpt.ClassType   = ":" ClassType
+  OptTypeParameters.NoParam     =
+  OptTypeParameters.Params      = "[" TypeParameters "]"
+  TypeParameters.TypeParameters = {QuoteIdent ","}+
+  QuoteIdent.Ident              = "'" Ident
+  
+  ClassSpecification.ClassSpecification = "class" {ClassSpec "and"}+
+  ClassSpec.ClassSpec                   = Virtual? OptTypeParameters ClassName ":" ClassType
+  
+  ClassTypeDefinition.ClassTypeDefinition = "class" "type" {ClassTypeDef "and"}+
+  ClassTypeDef.ClassTypeDef               = Virtual? OptTypeParameters ClassName "=" ClassBodyType
+  
+  ExternalDeclaration.ExternalDecl = StringLiteral+
+  
+context-free priorities
+  
+  ClassType.ClassType <1> .> {TypeExpr.Star TypeExpr.Arrow}  

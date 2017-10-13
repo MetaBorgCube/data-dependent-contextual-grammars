@@ -1,0 +1,102 @@
+Module(
+  Unparameterized("normalized/lexical/LineTerminators-norm")
+, []
+, [ SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Lex(Sort("LineTerminator"))
+          , Rhs([CharClass(Simple(Present(Numeric("\\10"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("LineTerminator"))
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\13"))))
+              , CharClass(Simple(Present(Numeric("\\10"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("LineTerminator"))
+          , Rhs([Lex(Sort("CarriageReturn"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("LineTerminator"))
+          , Rhs([Lex(Sort("EndOfFile"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("CarriageReturn"))
+          , Rhs([CharClass(Simple(Present(Numeric("\\13"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(Lex(Sort("EndOfFile")), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(Sort("EndOfFile"))
+          , Rhs([Lex(Sort("EndOfFile"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("CarriageReturn"))
+          , Rhs([Lex(Sort("CarriageReturn"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("LineTerminator"))
+          , Rhs([Lex(Sort("LineTerminator"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Layout())
+          , Rhs([Cf(Layout()), Cf(Layout())])
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProduction(
+            FileStart()
+          , Rhs([Start(), CharClass(Simple(Present(Numeric("\\256"))))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Restrictions(
+        [ Follow(
+            [Lex(Sort("CarriageReturn"))]
+          , List([CharClass(Simple(Present(Numeric("\\10"))))])
+          )
+        , Follow(
+            [Lex(Sort("EndOfFile"))]
+          , List(
+              [CharClass(Simple(Present(Range(Numeric("\\0"), Numeric("\\255")))))]
+            )
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Priorities(
+        [ Assoc(
+            SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          , Left()
+          , SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

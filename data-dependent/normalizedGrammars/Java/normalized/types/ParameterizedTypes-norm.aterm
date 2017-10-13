@@ -1,0 +1,405 @@
+Module(
+  Unparameterized("normalized/types/ParameterizedTypes-norm")
+, [Imports([Module(Unparameterized("normalized/types/ReferenceTypes-norm")), Module(Unparameterized("normalized/interfaces/Annotations-norm"))])]
+, [ SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Lit("\"<\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\60"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\",\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\44"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\">\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\62"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"extends\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\120"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"?\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\63"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"super\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$TypeArguments\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\65"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\103"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$TypeArgument\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\65"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\103"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$WildCard\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\87"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$Annotation\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\65"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$ReferenceType\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\82"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\102"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("Annotation")))
+          , Rhs([Cf(Sort("Annotation"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("Annotation")))
+          , Rhs(
+              [ Cf(Iter(Sort("Annotation")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Annotation"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(IterStar(Sort("Annotation"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterStar(Sort("Annotation")))
+          , Rhs([Cf(Iter(Sort("Annotation")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Layout()))
+          , Rhs([Cf(Layout())])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Opt(Layout())), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterSep(Sort("TypeArgument"), Lit("\",\"")))
+          , Rhs([Cf(Sort("TypeArgument"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("TypeArgument"), Lit("\",\"")))
+          , Rhs(
+              [ Cf(IterSep(Sort("TypeArgument"), Lit("\",\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\",\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TypeArgument"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("TypeArgument"), Lit("\",\"")))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("TypeArgument"), Lit("\",\"")))
+          , Rhs([Cf(IterSep(Sort("TypeArgument"), Lit("\",\"")))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeArguments")), Constructor("TypeArguments"))
+          , Rhs(
+              [ Lit("\"<\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterSep(Sort("TypeArgument"), Lit("\",\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\">\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("TypeArgument"))
+          , Rhs([Cf(Sort("ReferenceType"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeArgument")), Constructor("WildCard"))
+          , Rhs([Cf(Sort("WildCard"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("WildCard")), Constructor("WildCard"))
+          , Rhs(
+              [Cf(IterStar(Sort("Annotation"))), Cf(Opt(Layout())), Lit("\"?\"")]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("WildCard")), Constructor("WildCardExtends"))
+          , Rhs(
+              [ Cf(IterStar(Sort("Annotation")))
+              , Cf(Opt(Layout()))
+              , Lit("\"?\"")
+              , Cf(Opt(Layout()))
+              , Lit("\"extends\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("ReferenceType"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("WildCard")), Constructor("WildCardSuper"))
+          , Rhs(
+              [ Cf(IterStar(Sort("Annotation")))
+              , Cf(Opt(Layout()))
+              , Lit("\"?\"")
+              , Cf(Opt(Layout()))
+              , Lit("\"super\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("ReferenceType"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeArguments")), Constructor("TypeArguments-Plhdr"))
+          , Rhs([Lit("\"$TypeArguments\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeArgument")), Constructor("TypeArgument-Plhdr"))
+          , Rhs([Lit("\"$TypeArgument\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("WildCard")), Constructor("WildCard-Plhdr"))
+          , Rhs([Lit("\"$WildCard\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Annotation")), Constructor("Annotation-Plhdr"))
+          , Rhs([Lit("\"$Annotation\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ReferenceType")), Constructor("ReferenceType-Plhdr"))
+          , Rhs([Lit("\"$ReferenceType\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProduction(
+            Cf(Layout())
+          , Rhs([Cf(Layout()), Cf(Layout())])
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProduction(
+            FileStart()
+          , Rhs([Start(), CharClass(Simple(Present(Numeric("\\256"))))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Restrictions(
+        [ Follow(
+            [Lit("\"$TypeArguments\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$TypeArgument\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$WildCard\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$Annotation\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$ReferenceType\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Priorities(
+        [ Assoc(
+            SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          , Left()
+          , SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

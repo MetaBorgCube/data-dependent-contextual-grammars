@@ -1,0 +1,56 @@
+Module(
+  Unparameterized("normalized/expressions/Main-norm")
+, [ Imports(
+      [ Module(Unparameterized("normalized/expressions/PrimaryExpressions-norm"))
+      , Module(Unparameterized("normalized/expressions/ClassInstanceCreation-norm"))
+      , Module(Unparameterized("normalized/expressions/ArrayCreation-norm"))
+      , Module(Unparameterized("normalized/expressions/FieldAccess-norm"))
+      , Module(Unparameterized("normalized/expressions/ArrayAccess-norm"))
+      , Module(Unparameterized("normalized/expressions/MethodInvocation-norm"))
+      , Module(Unparameterized("normalized/expressions/MethodReference-norm"))
+      , Module(Unparameterized("normalized/expressions/Postfix-norm"))
+      , Module(Unparameterized("normalized/expressions/UnaryOperators-norm"))
+      , Module(Unparameterized("normalized/expressions/BinaryOperators-norm"))
+      , Module(Unparameterized("normalized/expressions/AssignmentOperators-norm"))
+      ]
+    )
+  ]
+, [ SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Cf(Layout())
+          , Rhs([Cf(Layout()), Cf(Layout())])
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProduction(
+            FileStart()
+          , Rhs([Start(), CharClass(Simple(Present(Numeric("\\256"))))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Priorities(
+        [ Assoc(
+            SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          , Left()
+          , SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

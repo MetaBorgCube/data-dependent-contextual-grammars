@@ -1,0 +1,1635 @@
+Module(
+  Unparameterized("normalized/expressions/Disambiguation-norm")
+, [ Imports(
+      [ Module(Unparameterized("normalized/expressions/ClassInstanceCreation-norm"))
+      , Module(Unparameterized("normalized/expressions/Postfix-norm"))
+      , Module(Unparameterized("normalized/expressions/UnaryOperators-norm"))
+      , Module(Unparameterized("normalized/expressions/BinaryOperators-norm"))
+      , Module(Unparameterized("normalized/expressions/ArrayAccess-norm"))
+      , Module(Unparameterized("normalized/expressions/FieldAccess-norm"))
+      , Module(Unparameterized("normalized/expressions/MethodInvocation-norm"))
+      , Module(Unparameterized("normalized/expressions/AssignmentOperators-norm"))
+      , Module(Unparameterized("normalized/expressions/LambdaExpressions-norm"))
+      , Module(Unparameterized("normalized/names/Names-norm"))
+      ]
+    )
+  ]
+, [ SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Cf(Layout())
+          , Rhs([Cf(Layout()), Cf(Layout())])
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProduction(
+            FileStart()
+          , Rhs([Start(), CharClass(Simple(Present(Numeric("\\256"))))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Restrictions(
+        [ Follow(
+            [Lit("\"+\"")]
+          , List([CharClass(Simple(Present(Numeric("\\43"))))])
+          )
+        , Follow(
+            [Lit("\"-\"")]
+          , List([CharClass(Simple(Present(Numeric("\\45"))))])
+          )
+        , Follow(
+            [Lit("\"/\"")]
+          , List([CharClass(Simple(Present(Numeric("\\47"))))])
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Priorities(
+        [ Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("FieldAccess")), Constructor("Field")))
+            , SimpleGroup(
+                SdfProduction(
+                  Cf(Sort("Expression"))
+                , Rhs([Cf(Sort("ExpressionName"))])
+                , NoAttrs()
+                )
+              )
+            ]
+          )
+        , Chain(
+            [ WithArguments(
+                SimpleGroup(
+                  SdfProduction(
+                    Cf(Sort("ElementValue"))
+                  , Rhs([Cf(Sort("Expression"))])
+                  , NoAttrs()
+                  )
+                )
+              , Default(["0"])
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("QualifiedInstance")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("QualifiedInstance")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("CastPrimitive")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("CastReference")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("CastPrimitive")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("CastReference")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("CastPrimitive")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("CastPrimitive")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("CastPrimitive")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("CastReference")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PreIncr")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("CastReference")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PreDecr")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("CastReference")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Plus")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("CastReference")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Minus")))
+            ]
+          )
+        , Chain(
+            [ NonTransitive(
+                WithArguments(
+                  SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("CastReference")))
+                , Default(["4"])
+                )
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Plus")))
+            ]
+          )
+        , Chain(
+            [ NonTransitive(
+                WithArguments(
+                  SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("CastReference")))
+                , Default(["4"])
+                )
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Minus")))
+            ]
+          )
+        , Chain(
+            [ WithArguments(
+                SimpleRefGroup(SortConsRef(Cf(Sort("ArrayAccess")), Constructor("ArrayAccess")))
+              , Default(["0"])
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+            ]
+          )
+        , Chain(
+            [ WithArguments(
+                SimpleRefGroup(SortConsRef(Cf(Sort("ArrayAccess")), Constructor("ArrayAccess")))
+              , Default(["0"])
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+            ]
+          )
+        , Chain(
+            [ WithArguments(
+                SimpleRefGroup(SortConsRef(Cf(Sort("FieldAccess")), Constructor("Field")))
+              , Default(["0"])
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+            ]
+          )
+        , Chain(
+            [ WithArguments(
+                SimpleRefGroup(SortConsRef(Cf(Sort("FieldAccess")), Constructor("Field")))
+              , Default(["0"])
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+            ]
+          )
+        , Chain(
+            [ WithArguments(
+                SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InvokeQExp")))
+              , Default(["0"])
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+            ]
+          )
+        , Chain(
+            [ WithArguments(
+                SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InvokeQExp")))
+              , Default(["0"])
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+            ]
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PreIncr")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PreDecr")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Plus")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Minus")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Complement")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostIncr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Not")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PreIncr")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PreDecr")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Plus")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Minus")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Complement")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PostDecr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Not")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PreIncr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PreIncr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PreIncr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PreDecr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PreDecr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("PreDecr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Plus")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Plus")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Plus")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Minus")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Minus")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Minus")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Complement")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Complement")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Complement")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Not")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Not")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Not")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+            ]
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Add")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Sub")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Add")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Sub")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Add")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Sub")))
+            ]
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Add")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Sub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Sub")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Add")))
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Add")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LeftShift")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Add")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("RightShift")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Add")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("URightShift")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Sub")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LeftShift")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Sub")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("RightShift")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Sub")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("URightShift")))
+            ]
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LeftShift")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("RightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("RightShift")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LeftShift")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("URightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("URightShift")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("RightShift")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("URightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("URightShift")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("RightShift")))
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LeftShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InstanceOf")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LeftShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LeftShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LeftShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LeftShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("RightShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InstanceOf")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("RightShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("RightShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("RightShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("RightShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("URightShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InstanceOf")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("URightShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("URightShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("URightShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("URightShift")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+            ]
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InstanceOf")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InstanceOf")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InstanceOf")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InstanceOf")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InstanceOf")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InstanceOf")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InstanceOf")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InstanceOf")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InstanceOf")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Eq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("InstanceOf")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("NotEq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Eq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("NotEq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Eq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("NotEq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Eq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("NotEq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Eq")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("NotEq")))
+            ]
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Eq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("NotEq")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("NotEq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Eq")))
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Eq")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("And")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("NotEq")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("And")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("And")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Xor")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Xor")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Or")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Or")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LazyAnd")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LazyAnd")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LazyOr")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LazyOr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            ]
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Assign")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMul")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignDiv")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignMod")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAdd")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignSub")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignLeftShift")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignRightShift")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignURightShift")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignAnd")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignXor")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("AssignOr")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LambdaExpression")))
+            ]
+          )
+        , Assoc(
+            SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          , Left()
+          , SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1507886938825
+Build-Jdk: 1.8.0_144
+Built-By: udesou
+Bundle-Description: Maven parent POM for Java projects
+Bundle-License: https://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: data-dependent
+Bundle-SymbolicName: data-dependent
+Bundle-Version: 2.3.0
+Created-By: Apache Maven Bundle Plugin
+Eclipse-BuddyPolicy: registered
+Embed-Transitive: true
+Export-Package: .DS_Store,org,org.metaborg
+Import-Package: org.metaborg.sdf2table.io,com.google.common.collect;prov
+ ider=metaborg;mandatory:=provider;version=0,org.openjdk.jmh.annotations
+ ;provider=metaborg;mandatory:=provider;version=0,org.openjdk.jmh.runner
+ ;provider=metaborg;mandatory:=provider;version=0,org.openjdk.jmh.runner
+ .options;provider=metaborg;mandatory:=provider;version=0
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-2.4.1.201501161923

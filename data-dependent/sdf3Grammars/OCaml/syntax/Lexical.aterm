@@ -1,0 +1,2342 @@
+Module(
+  Unparameterized("Lexical")
+, []
+, [ SDFSection(
+      LexicalSyntax(
+        [ SdfProduction(SortDef("Ident"), Rhs([Sort("LowerCaseIdent")]), NoAttrs())
+        , SdfProduction(SortDef("Ident"), Rhs([Sort("CapitalizedIdent")]), NoAttrs())
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(Range(Short("a"), Short("z")), Short("\\_"))
+                    )
+                  )
+                )
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(
+                          Range(Short("A"), Short("Z"))
+                        , Conc(
+                            Range(Short("a"), Short("z"))
+                          , Conc(
+                              Range(Short("0"), Short("9"))
+                            , Conc(Short("\\_"), Short("\\'"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs(
+              [ CharClass(Simple(Present(Range(Short("A"), Short("Z")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(
+                          Range(Short("A"), Short("Z"))
+                        , Conc(
+                            Range(Short("a"), Short("z"))
+                          , Conc(
+                              Range(Short("0"), Short("9"))
+                            , Conc(Short("\\_"), Short("\\'"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("IntegerLiteral")
+          , Rhs(
+              [ Opt(Lit("\"-\""))
+              , CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("IntegerLiteral")
+          , Rhs(
+              [ Opt(Lit("\"-\""))
+              , Alt(Lit("\"0x\""), Lit("\"0X\""))
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Short("0"), Short("9"))
+                      , Conc(
+                          Range(Short("A"), Short("F"))
+                        , Range(Short("a"), Short("f"))
+                        )
+                      )
+                    )
+                  )
+                )
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(
+                          Range(Short("0"), Short("9"))
+                        , Conc(
+                            Range(Short("A"), Short("F"))
+                          , Conc(Range(Short("a"), Short("f")), Short("\\_"))
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("IntegerLiteral")
+          , Rhs(
+              [ Opt(Lit("\"-\""))
+              , Alt(Lit("\"0o\""), Lit("\"0O\""))
+              , CharClass(Simple(Present(Range(Short("0"), Short("7")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("7")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("IntegerLiteral")
+          , Rhs(
+              [ Opt(Lit("\"-\""))
+              , Alt(Lit("\"0b\""), Lit("\"0B\""))
+              , CharClass(Simple(Present(Range(Short("0"), Short("1")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("1")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("PositiveInt")
+          , Rhs(
+              [ CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("PositiveInt")
+          , Rhs(
+              [ Alt(Lit("\"0x\""), Lit("\"0X\""))
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Short("0"), Short("9"))
+                      , Conc(
+                          Range(Short("A"), Short("F"))
+                        , Range(Short("a"), Short("f"))
+                        )
+                      )
+                    )
+                  )
+                )
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(
+                          Range(Short("0"), Short("9"))
+                        , Conc(
+                            Range(Short("A"), Short("F"))
+                          , Conc(Range(Short("a"), Short("f")), Short("\\_"))
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("PositiveInt")
+          , Rhs(
+              [ Alt(Lit("\"0o\""), Lit("\"0O\""))
+              , CharClass(Simple(Present(Range(Short("0"), Short("7")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("7")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("PositiveInt")
+          , Rhs(
+              [ Alt(Lit("\"0b\""), Lit("\"0B\""))
+              , CharClass(Simple(Present(Range(Short("0"), Short("1")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("1")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("SpecialInt")
+          , Rhs(
+              [ CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("SpecialInt")
+          , Rhs(
+              [ Alt(Lit("\"0x\""), Lit("\"0X\""))
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Short("0"), Short("9"))
+                      , Conc(
+                          Range(Short("A"), Short("F"))
+                        , Range(Short("a"), Short("f"))
+                        )
+                      )
+                    )
+                  )
+                )
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(
+                          Range(Short("0"), Short("9"))
+                        , Conc(
+                            Range(Short("A"), Short("F"))
+                          , Conc(Range(Short("a"), Short("f")), Short("\\_"))
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("SpecialInt")
+          , Rhs(
+              [ Alt(Lit("\"0o\""), Lit("\"0O\""))
+              , CharClass(Simple(Present(Range(Short("0"), Short("7")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("7")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("SpecialInt")
+          , Rhs(
+              [ Alt(Lit("\"0b\""), Lit("\"0B\""))
+              , CharClass(Simple(Present(Range(Short("0"), Short("1")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("1")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("Int32Literal")
+          , Rhs(
+              [Sort("SpecialInt"), CharClass(Simple(Present(Short("l"))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("Int64Literal")
+          , Rhs(
+              [Sort("SpecialInt"), CharClass(Simple(Present(Short("L"))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("NativeIntLiteral")
+          , Rhs(
+              [Sort("SpecialInt"), CharClass(Simple(Present(Short("n"))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("NegativeInt32")
+          , Rhs([Lit("\"-\""), Sort("Int32Literal")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("NegativeInt64")
+          , Rhs([Lit("\"-\""), Sort("Int64Literal")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("NegativeNativeInt")
+          , Rhs([Lit("\"-\""), Sort("NativeIntLiteral")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("NegativeInt")
+          , Rhs([Lit("\"-\""), Sort("PositiveInt")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("PositiveFloat")
+          , Rhs(
+              [ CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              , CharClass(Simple(Present(Conc(Short("e"), Short("E")))))
+              , Opt(
+                  CharClass(Simple(Present(Conc(Short("\\+"), Short("\\-")))))
+                )
+              , CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("PositiveFloat")
+          , Rhs(
+              [ CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              , Lit("\".\"")
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("PositiveFloat")
+          , Rhs(
+              [ CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              , Lit("\".\"")
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              , CharClass(Simple(Present(Conc(Short("e"), Short("E")))))
+              , Opt(
+                  CharClass(Simple(Present(Conc(Short("\\+"), Short("\\-")))))
+                )
+              , CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("NegativeFloat")
+          , Rhs([Lit("\"-\""), Sort("PositiveFloat")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("FloatLiteral")
+          , Rhs(
+              [ Opt(Lit("\"-\""))
+              , CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              , CharClass(Simple(Present(Conc(Short("e"), Short("E")))))
+              , Opt(
+                  CharClass(Simple(Present(Conc(Short("\\+"), Short("\\-")))))
+                )
+              , CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("FloatLiteral")
+          , Rhs(
+              [ Opt(Lit("\"-\""))
+              , CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              , Lit("\".\"")
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("FloatLiteral")
+          , Rhs(
+              [ Opt(Lit("\"-\""))
+              , CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              , Lit("\".\"")
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              , CharClass(Simple(Present(Conc(Short("e"), Short("E")))))
+              , Opt(
+                  CharClass(Simple(Present(Conc(Short("\\+"), Short("\\-")))))
+                )
+              , CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+              , IterStar(
+                  CharClass(
+                    Simple(
+                      Present(
+                        Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("CharLiteral")
+          , Rhs(
+              [ CharClass(Simple(Present(Short("\\'"))))
+              , Alt(Sort("RegularChar"), Sort("EscapeSequence"))
+              , CharClass(Simple(Present(Short("\\'"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("EscapeSequence")
+          , Rhs(
+              [ Sequence(
+                  CharClass(Simple(Present(Short("\\\\"))))
+                , [ CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Short("\\\\")
+                          , Conc(
+                              Short("\\\"")
+                            , Conc(
+                                Short("\\'")
+                              , Conc(
+                                  Short("n")
+                                , Conc(Short("t"), Conc(Short("b"), Short("r")))
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ]
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("EscapeSequence")
+          , Rhs(
+              [ Sequence(
+                  CharClass(Simple(Present(Short("\\\\"))))
+                , [ CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+                  , CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+                  , CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+                  ]
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("EscapeSequence")
+          , Rhs(
+              [ Sequence(
+                  CharClass(Simple(Present(Short("\\\\"))))
+                , [ CharClass(Simple(Present(Short("x"))))
+                  , CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Short("0"), Short("9"))
+                          , Conc(
+                              Range(Short("A"), Short("F"))
+                            , Range(Short("a"), Short("f"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  , CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Short("0"), Short("9"))
+                          , Conc(
+                              Range(Short("A"), Short("F"))
+                            , Range(Short("a"), Short("f"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  ]
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("StringLiteral")
+          , Rhs(
+              [ CharClass(Simple(Present(Short("\\\""))))
+              , IterStar(Sort("StringChar"))
+              , CharClass(Simple(Present(Short("\\\""))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(SortDef("StringChar"), Rhs([Sort("RegularCharStr")]), NoAttrs())
+        , SdfProduction(SortDef("StringChar"), Rhs([Sort("EscapeSequence")]), NoAttrs())
+        , SdfProduction(
+            SortDef("StringChar")
+          , Rhs(
+              [ CharClass(Simple(Present(Short("\\\\"))))
+              , CharClass(Simple(Present(Short("\\n"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("StringChar")
+          , Rhs(
+              [ CharClass(Simple(Present(Short("\\\\"))))
+              , CharClass(Simple(Present(Short("\\ "))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("RegularChar")
+          , Rhs(
+              [CharClass(
+                 Comp(Simple(Present(Conc(Short("\\'"), Short("\\\\")))))
+               )]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("RegularCharStr")
+          , Rhs(
+              [CharClass(
+                 Comp(Simple(Present(Conc(Short("\\\""), Short("\\\\")))))
+               )]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("OperatorCharList")
+          , Rhs(
+              [ Iter(
+                  Alt(
+                    Sort("HashInfixSymbol")
+                  , Alt(
+                      Lit("\"!\"")
+                    , Alt(
+                        Lit("\"$\"")
+                      , Alt(
+                          Lit("\"%\"")
+                        , Alt(
+                            Lit("\"&\"")
+                          , Alt(
+                              Lit("\"*\"")
+                            , Alt(
+                                Lit("\"+\"")
+                              , Alt(
+                                  Lit("\"-\"")
+                                , Alt(
+                                    Lit("\".\"")
+                                  , Alt(
+                                      Lit("\"/\"")
+                                    , Alt(
+                                        Lit("\":\"")
+                                      , Alt(
+                                          Lit("\"<\"")
+                                        , Alt(
+                                            Lit("\"=\"")
+                                          , Alt(
+                                              Lit("\">\"")
+                                            , Alt(
+                                                Lit("\"?\"")
+                                              , Alt(
+                                                  Lit("\"@\"")
+                                                , Alt(Lit("\"|\""), Alt(Lit("\"~\""), Lit("\"^\"")))
+                                                )
+                                              )
+                                            )
+                                          )
+                                        )
+                                      )
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("OperatorChar")
+          , Rhs(
+              [ Alt(
+                  Lit("\"!\"")
+                , Alt(
+                    Lit("\"$\"")
+                  , Alt(
+                      Lit("\"%\"")
+                    , Alt(
+                        Lit("\"&\"")
+                      , Alt(
+                          Lit("\"*\"")
+                        , Alt(
+                            Lit("\"+\"")
+                          , Alt(
+                              Lit("\"-\"")
+                            , Alt(
+                                Lit("\".\"")
+                              , Alt(
+                                  Lit("\"/\"")
+                                , Alt(
+                                    Lit("\":\"")
+                                  , Alt(
+                                      Lit("\"<\"")
+                                    , Alt(
+                                        Lit("\"=\"")
+                                      , Alt(
+                                          Lit("\">\"")
+                                        , Alt(
+                                            Lit("\"?\"")
+                                          , Alt(
+                                              Lit("\"@\"")
+                                            , Alt(Lit("\"|\""), Alt(Lit("\"~\""), Lit("\"^\"")))
+                                            )
+                                          )
+                                        )
+                                      )
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("PrefixSymbol")
+          , Rhs([Lit("\"!\""), IterStar(Sort("OperatorChar"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("PrefixSymbol")
+          , Rhs([Lit("\"!\""), Lit("\"=\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("PrefixSymbol")
+          , Rhs(
+              [Alt(Lit("\"?\""), Lit("\"~\"")), Iter(Sort("OperatorChar"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("Label")
+          , Rhs([Lit("\"~\""), Sort("LowerCaseIdent")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("LabelColon")
+          , Rhs([Lit("\"~\""), Sort("LowerCaseIdent"), Lit("\":\"")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("OptLabel")
+          , Rhs([Lit("\"?\""), Sort("LowerCaseIdent")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("OptLabelColon")
+          , Rhs([Lit("\"?\""), Sort("LowerCaseIdent"), Lit("\":\"")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol1")
+          , Rhs(
+              [ Alt(
+                  Lit("\"lsl\"")
+                , Alt(Lit("\"lsr\""), Alt(Lit("\"asr\""), Lit("\"**\"")))
+                )
+              , IterStar(Sort("OperatorChar"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol2")
+          , Rhs(
+              [ Alt(
+                  Lit("\"mod\"")
+                , Alt(
+                    Lit("\"land\"")
+                  , Alt(
+                      Lit("\"lor\"")
+                    , Alt(
+                        Lit("\"lxor\"")
+                      , Alt(Lit("\"/\""), Alt(Lit("\"%\""), Lit("\"*\"")))
+                      )
+                    )
+                  )
+                )
+              , IterStar(Sort("OperatorChar"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol3")
+          , Rhs(
+              [Alt(Lit("\"+\""), Lit("\"-\"")), IterStar(Sort("OperatorChar"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol4")
+          , Rhs(
+              [Alt(Lit("\"@\""), Lit("\"^\"")), IterStar(Sort("OperatorChar"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol5")
+          , Rhs(
+              [ Alt(
+                  Lit("\"=\"")
+                , Alt(
+                    Lit("\"<\"")
+                  , Alt(
+                      Lit("\">\"")
+                    , Alt(Lit("\"|\""), Alt(Lit("\"&\""), Lit("\"$\"")))
+                    )
+                  )
+                )
+              , IterStar(Sort("OperatorChar"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol6")
+          , Rhs([Alt(Sort("AND"), Lit("\"&&\""))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol7")
+          , Rhs([Alt(Lit("\"||\""), Lit("\"or\""))])
+          , NoAttrs()
+          )
+        , SdfProduction(SortDef("InfixSymbol8"), Rhs([Lit("\":=\"")]), NoAttrs())
+        , SdfProduction(SortDef("HashInfixSymbol"), Rhs([Lit("\"#\"")]), NoAttrs())
+        , SdfProduction(
+            SortDef("HashInfixSymbol")
+          , Rhs([Lit("\"#\""), Iter(Sort("OperatorChar"))])
+          , NoAttrs()
+          )
+        , SdfProduction(SortDef("AND"), Rhs([Lit("\"&\"")]), NoAttrs())
+        , SdfProduction(
+            SortDef("InfixSymbol1")
+          , Rhs([Lit("\")\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol2")
+          , Rhs([Lit("\"**\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol3")
+          , Rhs([Lit("\"->\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol5")
+          , Rhs([Lit("\"&\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol5")
+          , Rhs([Lit("\"&&\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol5")
+          , Rhs([Lit("\"<-\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol5")
+          , Rhs([Lit("\"|\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("InfixSymbol5")
+          , Rhs([Lit("\"||\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("Keyword")
+          , Rhs(
+              [ Alt(
+                  Lit("\"_\"")
+                , Alt(
+                    Lit("\"and\"")
+                  , Alt(
+                      Lit("\"as\"")
+                    , Alt(
+                        Lit("\"assert\"")
+                      , Alt(
+                          Lit("\"asr\"")
+                        , Alt(
+                            Lit("\"begin\"")
+                          , Alt(
+                              Lit("\"class\"")
+                            , Alt(
+                                Lit("\"constraint\"")
+                              , Alt(
+                                  Lit("\"do\"")
+                                , Alt(
+                                    Lit("\"done\"")
+                                  , Alt(
+                                      Lit("\"downto\"")
+                                    , Alt(
+                                        Lit("\"else\"")
+                                      , Alt(
+                                          Lit("\"end\"")
+                                        , Alt(
+                                            Lit("\"exception\"")
+                                          , Alt(
+                                              Lit("\"external\"")
+                                            , Alt(
+                                                Lit("\"false\"")
+                                              , Alt(
+                                                  Lit("\"for\"")
+                                                , Alt(
+                                                    Lit("\"fun\"")
+                                                  , Alt(
+                                                      Lit("\"function\"")
+                                                    , Alt(
+                                                        Lit("\"functor\"")
+                                                      , Alt(
+                                                          Lit("\"if\"")
+                                                        , Alt(
+                                                            Lit("\"in\"")
+                                                          , Alt(
+                                                              Lit("\"include\"")
+                                                            , Alt(
+                                                                Lit("\"inherit\"")
+                                                              , Alt(
+                                                                  Lit("\"initializer\"")
+                                                                , Alt(
+                                                                    Lit("\"land\"")
+                                                                  , Alt(
+                                                                      Lit("\"lazy\"")
+                                                                    , Alt(
+                                                                        Lit("\"let\"")
+                                                                      , Alt(
+                                                                          Lit("\"lor\"")
+                                                                        , Alt(
+                                                                            Lit("\"lsl\"")
+                                                                          , Alt(
+                                                                              Lit("\"lsr\"")
+                                                                            , Alt(
+                                                                                Lit("\"lxor\"")
+                                                                              , Alt(
+                                                                                  Lit("\"match\"")
+                                                                                , Alt(
+                                                                                    Lit("\"method\"")
+                                                                                  , Alt(
+                                                                                      Lit("\"mod\"")
+                                                                                    , Alt(
+                                                                                        Lit("\"module\"")
+                                                                                      , Alt(
+                                                                                          Lit("\"mutable\"")
+                                                                                        , Alt(
+                                                                                            Lit("\"new\"")
+                                                                                          , Alt(
+                                                                                              Lit("\"object\"")
+                                                                                            , Alt(
+                                                                                                Lit("\"of\"")
+                                                                                              , Alt(
+                                                                                                  Lit("\"open\"")
+                                                                                                , Alt(
+                                                                                                    Lit("\"or\"")
+                                                                                                  , Alt(
+                                                                                                      Lit("\"private\"")
+                                                                                                    , Alt(
+                                                                                                        Lit("\"rec\"")
+                                                                                                      , Alt(
+                                                                                                          Lit("\"sig\"")
+                                                                                                        , Alt(
+                                                                                                            Lit("\"struct\"")
+                                                                                                          , Alt(
+                                                                                                              Lit("\"then\"")
+                                                                                                            , Alt(
+                                                                                                                Lit("\"to\"")
+                                                                                                              , Alt(
+                                                                                                                  Lit("\"true\"")
+                                                                                                                , Alt(
+                                                                                                                    Lit("\"try\"")
+                                                                                                                  , Alt(
+                                                                                                                      Lit("\"type\"")
+                                                                                                                    , Alt(
+                                                                                                                        Lit("\"val\"")
+                                                                                                                      , Alt(
+                                                                                                                          Lit("\"virtual\"")
+                                                                                                                        , Alt(Lit("\"when\""), Alt(Lit("\"while\""), Lit("\"with\"")))
+                                                                                                                        )
+                                                                                                                      )
+                                                                                                                    )
+                                                                                                                  )
+                                                                                                                )
+                                                                                                              )
+                                                                                                            )
+                                                                                                          )
+                                                                                                        )
+                                                                                                      )
+                                                                                                    )
+                                                                                                  )
+                                                                                                )
+                                                                                              )
+                                                                                            )
+                                                                                          )
+                                                                                        )
+                                                                                      )
+                                                                                    )
+                                                                                  )
+                                                                                )
+                                                                              )
+                                                                            )
+                                                                          )
+                                                                        )
+                                                                      )
+                                                                    )
+                                                                  )
+                                                                )
+                                                              )
+                                                            )
+                                                          )
+                                                        )
+                                                      )
+                                                    )
+                                                  )
+                                                )
+                                              )
+                                            )
+                                          )
+                                        )
+                                      )
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"_\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"in\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"and\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"as\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"assert\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"asr\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"begin\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"class\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"constraint\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"do\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"done\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"downto\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"else\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"end\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"exception\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"external\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"false\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"for\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"fun\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"function\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"functor\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"if\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"include\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"inherit\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"initializer\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"land\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"lazy\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"let\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"lor\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"lsl\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"lsr\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"lxor\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"match\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"method\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"mod\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"module\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"mutable\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"new\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"object\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"of\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"open\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"or\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"private\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"rec\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"sig\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"struct\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"then\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"to\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"true\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"try\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"type\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"val\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"virtual\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"when\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"while\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("LowerCaseIdent")
+          , Rhs([Lit("\"with\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"_\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"in\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"and\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"as\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"assert\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"asr\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"begin\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"class\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"constraint\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"do\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"done\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"downto\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"else\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"end\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"exception\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"external\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"false\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"for\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"fun\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"function\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"functor\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"if\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"include\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"inherit\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"initializer\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"land\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"lazy\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"let\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"lor\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"lsl\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"lsr\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"lxor\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"match\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"method\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"mod\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"module\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"mutable\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"new\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"object\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"of\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"open\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"or\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"private\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"rec\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"sig\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"struct\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"then\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"to\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"true\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"try\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"type\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"val\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"virtual\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"when\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"while\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("CapitalizedIdent")
+          , Rhs([Lit("\"with\"")])
+          , Attrs([Reject()])
+          )
+        , SdfProduction(
+            SortDef("Comment")
+          , Rhs(
+              [ Lit("\"(*\"")
+              , IterStar(
+                  Alt(
+                    CharClass(
+                      Comp(Simple(Present(Conc(Short("\\("), Short("\\*")))))
+                    )
+                  , Alt(
+                      Sort("Comment")
+                    , Alt(Sort("Star"), Alt(Sort("OpenParenthesis"), Sort("CommentLiteral")))
+                    )
+                  )
+                )
+              , Lit("\"*)\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("CommentLiteral")
+          , Rhs(
+              [ CharClass(Simple(Present(Short("\\\""))))
+              , Alt(Lit("\"(*\""), Lit("\"(**\""))
+              , CharClass(Simple(Present(Short("\\\""))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(SortDef("OpenParenthesis"), Rhs([Lit("\"(\"")]), NoAttrs())
+        , SdfProduction(SortDef("Star"), Rhs([Lit("\"*\"")]), NoAttrs())
+        , SdfProduction(Layout(), Rhs([Sort("Comment")]), NoAttrs())
+        , SdfProduction(
+            Layout()
+          , Rhs(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Short("\\ ")
+                      , Conc(Short("\\t"), Conc(Short("\\n"), Short("\\r")))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            SortDef("NoLineNumDirectiveLayout")
+          , Rhs(
+              [ Alt(
+                  Sort("Comment")
+                , CharClass(Simple(Present(Conc(Short("\\ "), Short("\\t")))))
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Lex(SortDef("LineNumDirective"))
+          , Rhs(
+              [ Lit("\"#\"")
+              , Lex(IterStar(Sort("NoLineNumDirectiveLayout")))
+              , Iter(
+                  CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+                )
+              , Lex(IterStar(Sort("NoLineNumDirectiveLayout")))
+              , Lit("\"\\\"\"")
+              , Lex(IterStar(Sort("StringChar")))
+              , Lit("\"\\\"\"")
+              , Lex(IterStar(Sort("NoLineNumDirectiveLayout")))
+              , Lit("\"\\n\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(SortDef("LineNumDirective"))
+          , Rhs(
+              [ Lit("\"#\"")
+              , Lex(IterStar(Sort("NoLineNumDirectiveLayout")))
+              , Iter(
+                  CharClass(Simple(Present(Range(Short("0"), Short("9")))))
+                )
+              , Lex(IterStar(Sort("NoLineNumDirectiveLayout")))
+              , Lit("\"\\n\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Layout())
+          , Rhs([Lex(Sort("LineNumDirective"))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      LexicalRestrictions(
+        [ Follow(
+            [Sort("OpenParenthesis")]
+          , Single(CharClass(Simple(Present(Short("\\*")))))
+          )
+        , Follow(
+            [Sort("Star")]
+          , Single(CharClass(Simple(Present(Short("\\)")))))
+          )
+        , Follow(
+            [Sort("LowerCaseIdent")]
+          , Single(
+              CharClass(
+                Simple(
+                  Present(
+                    Conc(
+                      Range(Short("A"), Short("Z"))
+                    , Conc(
+                        Range(Short("a"), Short("z"))
+                      , Conc(
+                          Range(Short("0"), Short("9"))
+                        , Conc(Short("\\_"), Short("\\'"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        , Follow(
+            [Sort("CapitalizedIdent")]
+          , Single(
+              CharClass(
+                Simple(
+                  Present(
+                    Conc(
+                      Range(Short("A"), Short("Z"))
+                    , Conc(
+                        Range(Short("a"), Short("z"))
+                      , Conc(
+                          Range(Short("0"), Short("9"))
+                        , Conc(Short("\\_"), Short("\\'"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        , Follow(
+            [Sort("IntegerLiteral")]
+          , Single(
+              CharClass(
+                Simple(
+                  Present(
+                    Conc(
+                      Range(Short("0"), Short("9"))
+                    , Conc(
+                        Range(Short("A"), Short("F"))
+                      , Conc(
+                          Range(Short("a"), Short("f"))
+                        , Conc(
+                            Short("x")
+                          , Conc(
+                              Short("o")
+                            , Conc(
+                                Short("b")
+                              , Conc(
+                                  Short("X")
+                                , Conc(
+                                    Short("O")
+                                  , Conc(
+                                      Short("B")
+                                    , Conc(
+                                        Short("\\_")
+                                      , Conc(Short("\\."), Conc(Short("e"), Short("E")))
+                                      )
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        , Follow(
+            [Sort("PositiveInt")]
+          , Single(
+              CharClass(
+                Simple(
+                  Present(
+                    Conc(
+                      Range(Short("0"), Short("9"))
+                    , Conc(
+                        Range(Short("A"), Short("F"))
+                      , Conc(
+                          Range(Short("a"), Short("f"))
+                        , Conc(
+                            Short("x")
+                          , Conc(
+                              Short("o")
+                            , Conc(
+                                Short("b")
+                              , Conc(
+                                  Short("X")
+                                , Conc(
+                                    Short("O")
+                                  , Conc(
+                                      Short("B")
+                                    , Conc(
+                                        Short("\\_")
+                                      , Conc(
+                                          Short("\\.")
+                                        , Conc(
+                                            Short("e")
+                                          , Conc(
+                                              Short("E")
+                                            , Conc(Short("l"), Conc(Short("L"), Short("n")))
+                                            )
+                                          )
+                                        )
+                                      )
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        , Follow(
+            [Sort("SpecialInt")]
+          , Single(
+              CharClass(
+                Simple(
+                  Present(
+                    Conc(
+                      Range(Short("0"), Short("9"))
+                    , Conc(
+                        Short("\\_")
+                      , Conc(
+                          Range(Short("A"), Short("F"))
+                        , Conc(
+                            Range(Short("a"), Short("f"))
+                          , Conc(
+                              Short("\\.")
+                            , Conc(
+                                Short("e")
+                              , Conc(
+                                  Short("E")
+                                , Conc(
+                                    Short("x")
+                                  , Conc(
+                                      Short("o")
+                                    , Conc(
+                                        Short("b")
+                                      , Conc(Short("X"), Conc(Short("O"), Short("B")))
+                                      )
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        , Follow(
+            [Sort("PositiveFloat"), Sort("FloatLiteral")]
+          , Single(
+              CharClass(
+                Simple(
+                  Present(
+                    Conc(
+                      Range(Short("0"), Short("9"))
+                    , Conc(
+                        Short("\\_")
+                      , Conc(
+                          Short("\\.")
+                        , Conc(Short("e"), Conc(Short("E"), Short("\\-")))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        , Follow(
+            [ Sort("InfixSymbol1")
+            , Sort("InfixSymbol2")
+            , Sort("InfixSymbol3")
+            , Sort("InfixSymbol4")
+            , Sort("InfixSymbol5")
+            ]
+          , Single(
+              CharClass(
+                Simple(
+                  Present(
+                    Conc(
+                      Short("\\!")
+                    , Conc(
+                        Short("\\$")
+                      , Conc(
+                          Short("\\%")
+                        , Conc(
+                            Short("\\&")
+                          , Conc(
+                              Short("\\*")
+                            , Conc(
+                                Short("\\+")
+                              , Conc(
+                                  Short("\\-")
+                                , Conc(
+                                    Short("\\.")
+                                  , Conc(
+                                      Short("\\/")
+                                    , Conc(
+                                        Short("\\:")
+                                      , Conc(
+                                          Short("\\<")
+                                        , Conc(
+                                            Short("\\>")
+                                          , Conc(
+                                              Short("\\?")
+                                            , Conc(
+                                                Short("\\@")
+                                              , Conc(Short("\\^"), Conc(Short("\\|"), Short("\\~")))
+                                              )
+                                            )
+                                          )
+                                        )
+                                      )
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        , Follow(
+            [Sort("HashInfixSymbol")]
+          , Single(
+              CharClass(
+                Simple(
+                  Present(
+                    Conc(
+                      Short("\\!")
+                    , Conc(
+                        Short("\\$")
+                      , Conc(
+                          Short("\\%")
+                        , Conc(
+                            Short("\\&")
+                          , Conc(
+                              Short("\\*")
+                            , Conc(
+                                Short("\\+")
+                              , Conc(
+                                  Short("\\-")
+                                , Conc(
+                                    Short("\\.")
+                                  , Conc(
+                                      Short("\\/")
+                                    , Conc(
+                                        Short("\\:")
+                                      , Conc(
+                                          Short("\\<")
+                                        , Conc(
+                                            Short("\\>")
+                                          , Conc(
+                                              Short("\\?")
+                                            , Conc(
+                                                Short("\\@")
+                                              , Conc(
+                                                  Short("\\^")
+                                                , Conc(Short("\\|"), Conc(Short("\\~"), Short("\\#")))
+                                                )
+                                              )
+                                            )
+                                          )
+                                        )
+                                      )
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        , Follow(
+            [Sort("Label"), Sort("OptLabel")]
+          , Single(CharClass(Simple(Present(Short("\\:")))))
+          )
+        , Follow(
+            [Sort("PrefixSymbol")]
+          , Single(
+              CharClass(
+                Simple(
+                  Present(
+                    Conc(
+                      Short("\\!")
+                    , Conc(
+                        Short("\\$")
+                      , Conc(
+                          Short("\\%")
+                        , Conc(
+                            Short("\\&")
+                          , Conc(
+                              Short("\\*")
+                            , Conc(
+                                Short("\\+")
+                              , Conc(
+                                  Short("\\-")
+                                , Conc(
+                                    Short("\\.")
+                                  , Conc(
+                                      Short("\\/")
+                                    , Conc(
+                                        Short("\\:")
+                                      , Conc(
+                                          Short("\\<")
+                                        , Conc(
+                                            Short("\\>")
+                                          , Conc(
+                                              Short("\\?")
+                                            , Conc(
+                                                Short("\\@")
+                                              , Conc(Short("\\^"), Conc(Short("\\|"), Short("\\~")))
+                                              )
+                                            )
+                                          )
+                                        )
+                                      )
+                                    )
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        , Follow(
+            [Sort("AND")]
+          , Single(CharClass(Simple(Present(Short("\\&")))))
+          )
+        , Follow(
+            [ Lit("\"and\"")
+            , Lit("\"as\"")
+            , Lit("\"assert\"")
+            , Lit("\"asr\"")
+            , Lit("\"begin\"")
+            , Lit("\"class\"")
+            , Lit("\"constraint\"")
+            , Lit("\"do\"")
+            , Lit("\"done\"")
+            , Lit("\"downto\"")
+            , Lit("\"else\"")
+            , Lit("\"end\"")
+            , Lit("\"exception\"")
+            , Lit("\"external\"")
+            , Lit("\"false\"")
+            , Lit("\"for\"")
+            , Lit("\"fun\"")
+            , Lit("\"function\"")
+            , Lit("\"functor\"")
+            , Lit("\"if\"")
+            , Lit("\"include\"")
+            , Lit("\"in\"")
+            , Lit("\"inherit\"")
+            , Lit("\"initializer\"")
+            , Lit("\"land\"")
+            , Lit("\"lazy\"")
+            , Lit("\"let\"")
+            , Lit("\"lor\"")
+            , Lit("\"lsl\"")
+            , Lit("\"lsr\"")
+            , Lit("\"lxor\"")
+            , Lit("\"match\"")
+            , Lit("\"method\"")
+            , Lit("\"mod\"")
+            , Lit("\"module\"")
+            , Lit("\"mutable\"")
+            , Lit("\"new\"")
+            , Lit("\"object\"")
+            , Lit("\"of\"")
+            , Lit("\"open\"")
+            , Lit("\"or\"")
+            , Lit("\"private\"")
+            , Lit("\"prefix\"")
+            , Lit("\"rec\"")
+            , Lit("\"sig\"")
+            , Lit("\"struct\"")
+            , Lit("\"then\"")
+            , Lit("\"to\"")
+            , Lit("\"true\"")
+            , Lit("\"try\"")
+            , Lit("\"type\"")
+            , Lit("\"val\"")
+            , Lit("\"value\"")
+            , Lit("\"virtual\"")
+            , Lit("\"where\"")
+            , Lit("\"while\"")
+            , Lit("\"with\"")
+            ]
+          , Single(
+              CharClass(
+                Simple(
+                  Present(
+                    Conc(
+                      Range(Short("A"), Short("Z"))
+                    , Conc(
+                        Range(Short("a"), Short("z"))
+                      , Conc(Range(Short("0"), Short("9")), Short("\\_"))
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        , Follow(
+            [Lit("\"<\"")]
+          , Single(CharClass(Simple(Present(Short("\\-")))))
+          )
+        , Follow(
+            [Lit("\"[\"")]
+          , Single(CharClass(Simple(Present(Short("\\|")))))
+          )
+        , Follow(
+            [Lit("\"|\"")]
+          , Single(CharClass(Simple(Present(Short("\\]")))))
+          )
+        , Follow(
+            [Lit("\";\"")]
+          , Single(CharClass(Simple(Present(Short("\\;")))))
+          )
+        , Follow(
+            [Lit("\"_\"")]
+          , Single(CharClass(Simple(Present(Short("\\_")))))
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      ContextFreeRestrictions(
+        [ Follow(
+            [Opt(Layout())]
+          , Single(
+              CharClass(
+                Simple(
+                  Present(
+                    Conc(
+                      Short("\\ ")
+                    , Conc(Short("\\t"), Conc(Short("\\n"), Short("\\r")))
+                    )
+                  )
+                )
+              )
+            )
+          )
+        , Follow(
+            [Opt(Layout())]
+          , Single(
+              Seq(
+                Simple(Present(Short("\\(")))
+              , Single(CharClass(Simple(Present(Short("\\*")))))
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

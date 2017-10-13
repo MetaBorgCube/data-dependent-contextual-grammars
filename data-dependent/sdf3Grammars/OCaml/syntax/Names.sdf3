@@ -1,0 +1,43 @@
+module Names
+
+imports Lexical
+
+context-free syntax
+  
+  ValuePath.ValuePath = DotModulePathOpt ValueName
+  DotModulePathOpt.NoModulePath =
+  DotModulePathOpt.ModulePath = ModulePath "."
+  
+  ValueName = LowerCaseIdent
+  ValueName.OperatorChar = "(" OperatorCharList ")" // Fix normalization of lists
+  ValueName.Operations = "(" Operations ")"
+  TagName = Ident
+  TypeConstrName = LowerCaseIdent
+  TypeConstr.TypeConstr = ExtendedModulePathDotOpt TypeConstrName
+  ConstrName = CapitalizedIdent
+  LabelName = LowerCaseIdent
+  ModuleName = CapitalizedIdent
+  FieldName = LowerCaseIdent
+  ClassName = LowerCaseIdent
+  InstVarName = LowerCaseIdent
+  MethodName = LowerCaseIdent
+  ModTypeName = Ident
+  ModulePath.ModulePath = ModuleNameDot* ModuleName
+  Constr.Const = ModulePathDotOpt ConstrName
+  ModulePathDotOpt = 
+  ModulePathDotOpt.ModulePath = ModulePath "."
+  Field.FieldName = FieldName
+  Field.PathFieldName = ModulePath "." FieldName
+  ClassPath.ClassPath = ModulePathDotOpt ClassName
+  ModTypePath.ModTypePath = ExtendedModulePathDotOpt ModTypeName
+  ExtendedModulePathDotOpt.None =
+  ExtendedModulePathDotOpt.ExtendedModulePath = ExtendedModulePath "."
+  ModTypeName = Ident
+  ExtendedModulePath.ExtendedModulePath1 = ExtendedModulePathDotOpt ModuleName
+  ExtendedModulePath.ExtendedModulePath2 = ExtendedModulePath "(" ExtendedModulePath ")"
+  ModuleNameDot.ModuleName = ModuleName "."
+  
+  
+lexical syntax
+  
+  Operations = "lsl" | "lsr" | "asr" | "mod" | "land"| "lor" | "lxor"

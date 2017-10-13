@@ -1,0 +1,318 @@
+module Lexical
+
+sorts TopLevel
+
+lexical syntax
+  
+  Ident = LowerCaseIdent
+  Ident = CapitalizedIdent
+  
+  LowerCaseIdent   = [a-z\_][A-Za-z0-9\_\']*
+  CapitalizedIdent =  [A-Z] [A-Za-z0-9\_\']*
+  IntegerLiteral = "-"? [0-9] [0-9\_]*
+  IntegerLiteral = "-"? ("0x"| "0X") [0-9A-Fa-f] [0-9A-Fa-f\_]*
+  IntegerLiteral = "-"? ("0o"| "0O") [0-7] [0-7\_]*
+  IntegerLiteral = "-"? ("0b"| "0B") [0-1] [0-1\_]*
+  
+  PositiveInt    = [0-9] [0-9\_]*
+  PositiveInt    = ("0x"| "0X") [0-9A-Fa-f] [0-9A-Fa-f\_]*
+  PositiveInt    = ("0o"| "0O") [0-7] [0-7\_]*
+  PositiveInt    = ("0b"| "0B") [0-1] [0-1\_]*
+  
+  SpecialInt    = [0-9] [0-9\_]*
+  SpecialInt    = ("0x"| "0X") [0-9A-Fa-f] [0-9A-Fa-f\_]*
+  SpecialInt    = ("0o"| "0O") [0-7] [0-7\_]*
+  SpecialInt    = ("0b"| "0B") [0-1] [0-1\_]*
+  
+  Int32Literal     = SpecialInt [l]
+  Int64Literal     = SpecialInt [L]
+  NativeIntLiteral = SpecialInt [n]
+  
+  NegativeInt32     = "-" Int32Literal
+  NegativeInt64     = "-" Int64Literal
+  NegativeNativeInt = "-" NativeIntLiteral
+  
+  
+  NegativeInt    = "-" PositiveInt
+  
+  PositiveFloat   = [0-9] [0-9\_]* [eE] [\+\-]? [0-9] [0-9\_]*
+  PositiveFloat   = [0-9] [0-9\_]* "." [0-9\_]*
+  PositiveFloat   = [0-9] [0-9\_]* "." [0-9\_]* [eE] [\+\-]? [0-9] [0-9\_]*
+  
+  NegativeFloat    = "-" PositiveFloat
+  
+  FloatLiteral   = "-"? [0-9] [0-9\_]* [eE] [\+\-]? [0-9] [0-9\_]*
+  FloatLiteral   = "-"? [0-9] [0-9\_]* "." [0-9\_]*
+  FloatLiteral   = "-"? [0-9] [0-9\_]* "." [0-9\_]* [eE] [\+\-]? [0-9] [0-9\_]*
+  
+  CharLiteral    = [\'] (RegularChar | EscapeSequence) [\']
+  
+  EscapeSequence = ([\\] [\\\"\'ntbr\ ])
+  EscapeSequence = ([\\] [0-9][0-9][0-9])
+  EscapeSequence = ([\\][x] [0-9A-Fa-f][0-9A-Fa-f])
+  
+  StringLiteral  = [\"] StringChar* [\"]
+  StringChar     = RegularCharStr
+  StringChar     = EscapeSequence
+  StringChar     = [\\][\n]
+  RegularChar    = ~[\'\\]
+  RegularCharStr = ~[\"\\]
+  
+  OperatorCharList = (HashInfixSymbol | "!" | "$" | "%" | "&" | "*" | "+" |  "-" | "." | "/" | ":" | "<" | "=" | ">" | "?" | "@" | "|" | "~" | "^")+
+  
+  
+  OperatorChar  = "!" | "$" | "%" | "&" | "*" | "+" |  "-" | "." | "/" | ":" | "<" | "=" | ">" | "?" | "@" | "|" | "~" | "^"
+  PrefixSymbol  = "!" OperatorChar*
+  PrefixSymbol  = "!" "=" {reject}  
+  PrefixSymbol  = ("?" | "~") OperatorChar+
+  Label         = "~" LowerCaseIdent
+  LabelColon    = "~" LowerCaseIdent ":"
+  OptLabel      = "?" LowerCaseIdent
+  OptLabelColon = "?" LowerCaseIdent ":"
+  
+  
+  
+  InfixSymbol1  = "lsl" | "lsr" | "asr" | "**" OperatorChar* 
+  InfixSymbol2  = "mod" | "land"| "lor" | "lxor" | ("/" | "%" | "*") OperatorChar*
+  InfixSymbol3  = ("+" | "-") OperatorChar*
+  InfixSymbol4  = ("@" | "^") OperatorChar*
+  InfixSymbol5  = ("=" | "<" | ">" | "|" | "&" | "$") OperatorChar*
+  InfixSymbol6  =  AND | "&&"
+  InfixSymbol7  =  "||" | "or"
+  InfixSymbol8  =  ":="
+  
+  HashInfixSymbol = "#" OperatorChar+
+  AND = "&"
+  
+  
+  InfixSymbol1 = ")" {reject}
+  InfixSymbol2 = "**" {reject}
+  InfixSymbol3 = "->" {reject}
+  InfixSymbol5 = "&" {reject}
+  InfixSymbol5 = "&&" {reject}
+  InfixSymbol5 = "<-" {reject}
+  InfixSymbol5 = "|" {reject}
+  InfixSymbol5 = "||" {reject}
+  
+  
+  Keyword = "_" |
+        "and"|       "as"|           "assert"|      "asr"|           "begin"|    
+        "class"|     "constraint"|   "do"|          "done"|          "downto"|   
+        "else"|      "end"|          "exception"|   "external"|      "false"|    
+        "for"|       "fun"|          "function"|    "functor"|       "if"|       
+        "in"|        
+        "include"|      "inherit"|     "initializer"|   "land"|     
+        "lazy"|      "let"|          "lor"|         "lsl"|           "lsr"|     
+        "lxor"|      "match"|        "method"|      "mod"|           "module"|   
+        "mutable"|   "new"|          "object"|      "of"|            "open"|     
+        "or"|        "private"|      "rec"|         "sig"|           "struct"|   
+        "then"|      "to"|           "true"|        "try"|           "type"|     
+        "val"|       "virtual"|      "when"|        "while"|         "with"
+  
+  LowerCaseIdent = "_" {reject}
+  LowerCaseIdent = "in" {reject}
+  LowerCaseIdent = "and" {reject}
+  LowerCaseIdent = "as" {reject}
+  LowerCaseIdent = "assert" {reject}
+  LowerCaseIdent = "asr" {reject}
+  LowerCaseIdent = "begin" {reject}
+  LowerCaseIdent = "class" {reject}
+  LowerCaseIdent = "constraint" {reject}
+  LowerCaseIdent = "do" {reject}
+  LowerCaseIdent = "done" {reject}
+  LowerCaseIdent = "downto" {reject}
+  LowerCaseIdent = "else" {reject}
+  LowerCaseIdent = "end" {reject}
+  LowerCaseIdent = "exception" {reject}
+  LowerCaseIdent = "external" {reject}
+  LowerCaseIdent = "false" {reject}
+  LowerCaseIdent = "for" {reject}
+  LowerCaseIdent = "fun" {reject}
+  LowerCaseIdent = "function" {reject}
+  LowerCaseIdent = "functor" {reject}
+  LowerCaseIdent = "if" {reject}
+  LowerCaseIdent = "include" {reject}
+  LowerCaseIdent = "inherit" {reject}
+  LowerCaseIdent = "initializer" {reject}
+  LowerCaseIdent = "land" {reject}
+  LowerCaseIdent = "lazy" {reject}
+  LowerCaseIdent = "let" {reject}
+  LowerCaseIdent = "lor" {reject}
+  LowerCaseIdent = "lsl" {reject}
+  LowerCaseIdent = "lsr" {reject}
+  LowerCaseIdent = "lxor" {reject}
+  LowerCaseIdent = "match" {reject}
+  LowerCaseIdent = "method" {reject}
+  LowerCaseIdent = "mod" {reject}
+  LowerCaseIdent = "module" {reject}
+  LowerCaseIdent = "mutable" {reject}
+  LowerCaseIdent = "new" {reject}
+  LowerCaseIdent = "object" {reject}
+  LowerCaseIdent = "of" {reject}
+  LowerCaseIdent = "open" {reject}
+  LowerCaseIdent = "or" {reject}
+  LowerCaseIdent = "private" {reject}
+  LowerCaseIdent = "rec" {reject}
+  LowerCaseIdent = "sig" {reject}
+  LowerCaseIdent = "struct" {reject}
+  LowerCaseIdent = "then" {reject}
+  LowerCaseIdent = "to" {reject}
+  LowerCaseIdent = "true" {reject}
+  LowerCaseIdent = "try" {reject}
+  LowerCaseIdent = "type" {reject}
+  LowerCaseIdent = "val" {reject}
+  LowerCaseIdent = "virtual" {reject}
+  LowerCaseIdent = "when" {reject}
+  LowerCaseIdent = "while" {reject}
+  LowerCaseIdent = "with" {reject}
+  
+  CapitalizedIdent 	= "_" {reject}
+  CapitalizedIdent = "in" {reject}
+  CapitalizedIdent = "and" {reject}
+  CapitalizedIdent = "as" {reject}
+  CapitalizedIdent = "assert" {reject}
+  CapitalizedIdent = "asr" {reject}
+  CapitalizedIdent = "begin" {reject}
+  CapitalizedIdent = "class" {reject}
+  CapitalizedIdent = "constraint" {reject}
+  CapitalizedIdent = "do" {reject}
+  CapitalizedIdent = "done" {reject}
+  CapitalizedIdent = "downto" {reject}
+  CapitalizedIdent = "else" {reject}
+  CapitalizedIdent = "end" {reject}
+  CapitalizedIdent = "exception" {reject}
+  CapitalizedIdent = "external" {reject}
+  CapitalizedIdent = "false" {reject}
+  CapitalizedIdent = "for" {reject}
+  CapitalizedIdent = "fun" {reject}
+  CapitalizedIdent = "function" {reject}
+  CapitalizedIdent = "functor" {reject}
+  CapitalizedIdent = "if" {reject}
+  CapitalizedIdent = "include" {reject}
+  CapitalizedIdent = "inherit" {reject}
+  CapitalizedIdent = "initializer" {reject}
+  CapitalizedIdent = "land" {reject}
+  CapitalizedIdent = "lazy" {reject}
+  CapitalizedIdent = "let" {reject}
+  CapitalizedIdent = "lor" {reject}
+  CapitalizedIdent = "lsl" {reject}
+  CapitalizedIdent = "lsr" {reject}
+  CapitalizedIdent = "lxor" {reject}
+  CapitalizedIdent = "match" {reject}
+  CapitalizedIdent = "method" {reject}
+  CapitalizedIdent = "mod" {reject}
+  CapitalizedIdent = "module" {reject}
+  CapitalizedIdent = "mutable" {reject}
+  CapitalizedIdent = "new" {reject}
+  CapitalizedIdent = "object" {reject}
+  CapitalizedIdent = "of" {reject}
+  CapitalizedIdent = "open" {reject}
+  CapitalizedIdent = "or" {reject}
+  CapitalizedIdent = "private" {reject}
+  CapitalizedIdent = "rec" {reject}
+  CapitalizedIdent = "sig" {reject}
+  CapitalizedIdent = "struct" {reject}
+  CapitalizedIdent = "then" {reject}
+  CapitalizedIdent = "to" {reject}
+  CapitalizedIdent = "true" {reject}
+  CapitalizedIdent = "try" {reject}
+  CapitalizedIdent = "type" {reject}
+  CapitalizedIdent = "val" {reject}
+  CapitalizedIdent = "virtual" {reject}
+  CapitalizedIdent = "when" {reject}
+  CapitalizedIdent = "while" {reject}
+  CapitalizedIdent = "with" {reject}
+  
+  
+  
+//  Results in post-parse filtering:
+//
+//  LowerCaseIdent = Keyword {reject}
+//  CapitalizedIdent = Keyword {reject}
+
+  // Due to lexical ambiguities cannot forbid comment chars to appear inside String Literals      
+  // Hack parse just these two cases:
+  // "(*" and "(**"
+  Comment = "(*" (~[\(\*] | Comment | Star | OpenParenthesis | CommentLiteral)* "*)"
+  CommentLiteral = [\"] ("(*" | "(**") [\"]  
+  OpenParenthesis = "("
+  Star = "*"
+  LAYOUT = Comment
+  LAYOUT = [\ \t\n\r]
+  NoLineNumDirectiveLayout = (Comment | [\ \t])*
+  
+ 
+syntax
+  // How to implement this correctly?
+  LineNumDirective-LEX = "\n" "#" NoLineNumDirectiveLayout-LEX [0-9]+ NoLineNumDirectiveLayout-LEX  "\"" StringChar*-LEX "\"" NoLineNumDirectiveLayout-LEX LineNumDirective-LEX
+  LineNumDirective-LEX = "\n" "#" NoLineNumDirectiveLayout-LEX [0-9]+ NoLineNumDirectiveLayout-LEX LineNumDirective-LEX
+  LineNumDirective-LEX = "\n" "#" NoLineNumDirectiveLayout-LEX [0-9]+ NoLineNumDirectiveLayout-LEX  "\"" StringChar*-LEX "\"" NoLineNumDirectiveLayout-LEX "\n"
+  LineNumDirective-LEX = "\n" "#" NoLineNumDirectiveLayout-LEX [0-9]+ NoLineNumDirectiveLayout-LEX "\n"
+  LAYOUT-LEX = LineNumDirective-LEX
+  
+  Start = InitialDirective? LAYOUT?-CF TopLevel-CF LAYOUT?-CF FinalDirective? {ast("<2>")}
+  Start = "#" NoLineNumDirectiveLayout-LEX [0-9]+ {ast("TopLevelEmpty()")}
+  Start = "#" NoLineNumDirectiveLayout-LEX [0-9]+ "\"" StringChar*-LEX "\"" {ast("TopLevelEmpty()")}
+//  Start =  LAYOUT?-CF TopLevel-CF LAYOUT?-CF  {ast("<1>")}
+  
+  InitialDirective = "#" NoLineNumDirectiveLayout-LEX [0-9]+ NoLineNumDirectiveLayout-LEX "\n" InitialDirective?
+  InitialDirective = "#" NoLineNumDirectiveLayout-LEX [0-9]+ NoLineNumDirectiveLayout-LEX "\"" StringChar*-LEX "\"" "\n" InitialDirective?
+  
+  FinalDirective   = "#" NoLineNumDirectiveLayout-LEX [0-9]+ NoLineNumDirectiveLayout-LEX 
+  FinalDirective   = "#" NoLineNumDirectiveLayout-LEX [0-9]+ NoLineNumDirectiveLayout-LEX "\"" StringChar*-LEX "\""
+ //  LineNum          =  "#" [0-9]+ 
+//  
+//  LAYOUT = LineNumDirective  
+
+  
+lexical restrictions
+  InitialDirective -/- [\"]
+//  LineNumDirective -/- [\(].[\*]
+  NoLineNumDirectiveLayout -/- [\ \t]
+  NoLineNumDirectiveLayout -/- [\(].[\*]
+  
+//  LineNum -/- [\"]
+//  LineNum -/- [\ ].[\"]
+  OpenParenthesis -/- [\*]
+  Star -/- [\)]
+  LowerCaseIdent -/- [A-Za-z0-9\_\']
+  CapitalizedIdent -/- [A-Za-z0-9\_\']
+  IntegerLiteral -/- [0-9A-Fa-fxobXOB\_\.eE]
+  PositiveInt -/- [0-9A-Fa-fxobXOB\_\.eElLn]
+  SpecialInt -/- [0-9\_A-Fa-f\.eExobXOB]
+  PositiveFloat FloatLiteral -/- [0-9\_\.eE\-]
+  InfixSymbol1 
+  InfixSymbol2
+  InfixSymbol3
+  InfixSymbol4
+  InfixSymbol5
+  -/- [\!\$\%\&\*\+\-\.\/\:\<\>\?\@\^\|\~]
+  HashInfixSymbol
+   -/- [\!\$\%\&\*\+\-\.\/\:\<\>\?\@\^\|\~\#]
+  Label OptLabel -/- [\:]
+  PrefixSymbol -/- [\!\$\%\&\*\+\-\.\/\:\<\>\?\@\^\|\~]
+  AND -/- [\&]
+  
+  "and"  "as"  "assert" "asr" "begin" "class" "constraint" "do" "done" 
+  "downto" "else" "end" "exception" "external" "false" "for" "fun" "function"
+  "functor" "if" "include" "in" "inherit" "initializer" "land" "lazy" "let"
+  "lor" "lsl" "lsr" "lxor" "match" "method" "mod" "module" "mutable" "new" 
+  "object" "of" "open" "or" "private" "prefix" "rec" "sig" "struct" "then" "to"
+  "true" "try" "type" "val" "value"  "virtual" "where" "while" "with"
+  -/- [A-Za-z0-9\_] 
+
+//  "!" ":" "<" "=" ">"    -/- [\=]
+//  "-" "<"                -/- [\>]
+  "<"                    -/- [\-]
+  "["                    -/- [\|]
+  "|"                    -/- [\]]
+//  ":"                    -/- [\:]
+  ";"                    -/- [\;]
+  "_"                    -/- [\_]
+  
+context-free restrictions
+  
+  LAYOUT? -/- [\ \t\n\r]
+  LAYOUT? -/- [\(].[\*]
+//  LAYOUT? -/- [\#].[0-9]
+  

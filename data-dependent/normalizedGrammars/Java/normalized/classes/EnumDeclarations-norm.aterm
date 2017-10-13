@@ -1,0 +1,754 @@
+Module(
+  Unparameterized("normalized/classes/EnumDeclarations-norm")
+, [ Imports(
+      [ Module(Unparameterized("normalized/lexical/Identifiers-norm"))
+      , Module(Unparameterized("normalized/classes/ClassDeclarations-norm"))
+      , Module(Unparameterized("normalized/interfaces/Annotations-norm"))
+      , Module(Unparameterized("normalized/expressions/Main-norm"))
+      ]
+    )
+  ]
+, [ SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Lit("\"enum\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"{\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\123"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"}\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\125"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"(\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\40"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\",\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\44"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\")\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\41"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\";\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\59"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$EnumDeclaration\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\69"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$ClassModifier\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\77"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\102"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$SuperInterfaces\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\83"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\73"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\102"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$EnumConstant\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\69"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$Annotation\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\65"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$Id\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\73"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$EnumConstantArgs\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\69"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\65"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\103"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$Expression\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\69"))))
+              , CharClass(Simple(Present(Numeric("\\120"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$EnumBodyDeclarations\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\69"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\66"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$ClassBodyDeclaration\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\66"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("Expression"), Lit("\",\"")))
+          , Rhs([Cf(Sort("Expression"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("Expression"), Lit("\",\"")))
+          , Rhs(
+              [ Cf(IterSep(Sort("Expression"), Lit("\",\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\",\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("Expression"), Lit("\",\"")))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("Expression"), Lit("\",\"")))
+          , Rhs([Cf(IterSep(Sort("Expression"), Lit("\",\"")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("ClassBodyDeclaration")))
+          , Rhs([Cf(Sort("ClassBodyDeclaration"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("ClassBodyDeclaration")))
+          , Rhs(
+              [ Cf(Iter(Sort("ClassBodyDeclaration")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("ClassBodyDeclaration"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(IterStar(Sort("ClassBodyDeclaration"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterStar(Sort("ClassBodyDeclaration")))
+          , Rhs([Cf(Iter(Sort("ClassBodyDeclaration")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Sort("EnumConstantArgs")))
+          , Rhs([Cf(Sort("EnumConstantArgs"))])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Opt(Sort("EnumConstantArgs"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(Iter(Sort("Annotation")))
+          , Rhs([Cf(Sort("Annotation"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("Annotation")))
+          , Rhs(
+              [ Cf(Iter(Sort("Annotation")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Annotation"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(IterStar(Sort("Annotation"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterStar(Sort("Annotation")))
+          , Rhs([Cf(Iter(Sort("Annotation")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Layout()))
+          , Rhs([Cf(Layout())])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Opt(Layout())), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(Opt(Sort("EnumBodyDeclarations")))
+          , Rhs([Cf(Sort("EnumBodyDeclarations"))])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Opt(Sort("EnumBodyDeclarations"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterSep(Sort("EnumConstant"), Lit("\",\"")))
+          , Rhs([Cf(Sort("EnumConstant"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("EnumConstant"), Lit("\",\"")))
+          , Rhs(
+              [ Cf(IterSep(Sort("EnumConstant"), Lit("\",\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\",\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("EnumConstant"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("EnumConstant"), Lit("\",\"")))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("EnumConstant"), Lit("\",\"")))
+          , Rhs([Cf(IterSep(Sort("EnumConstant"), Lit("\",\"")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Sort("SuperInterfaces")))
+          , Rhs([Cf(Sort("SuperInterfaces"))])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Opt(Sort("SuperInterfaces"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(Iter(Sort("ClassModifier")))
+          , Rhs([Cf(Sort("ClassModifier"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("ClassModifier")))
+          , Rhs(
+              [ Cf(Iter(Sort("ClassModifier")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("ClassModifier"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(IterStar(Sort("ClassModifier"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterStar(Sort("ClassModifier")))
+          , Rhs([Cf(Iter(Sort("ClassModifier")))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("EnumDeclaration")), Constructor("EnumDeclComma"))
+          , Rhs(
+              [ Cf(IterStar(Sort("ClassModifier")))
+              , Cf(Opt(Layout()))
+              , Lit("\"enum\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Id"))
+              , Cf(Opt(Layout()))
+              , Cf(Opt(Sort("SuperInterfaces")))
+              , Cf(Opt(Layout()))
+              , Lit("\"{\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterStarSep(Sort("EnumConstant"), Lit("\",\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\",\"")
+              , Cf(Opt(Layout()))
+              , Cf(Opt(Sort("EnumBodyDeclarations")))
+              , Cf(Opt(Layout()))
+              , Lit("\"}\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("EnumDeclaration")), Constructor("EnumDecl"))
+          , Rhs(
+              [ Cf(IterStar(Sort("ClassModifier")))
+              , Cf(Opt(Layout()))
+              , Lit("\"enum\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Id"))
+              , Cf(Opt(Layout()))
+              , Cf(Opt(Sort("SuperInterfaces")))
+              , Cf(Opt(Layout()))
+              , Lit("\"{\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterStarSep(Sort("EnumConstant"), Lit("\",\"")))
+              , Cf(Opt(Layout()))
+              , Cf(Opt(Sort("EnumBodyDeclarations")))
+              , Cf(Opt(Layout()))
+              , Lit("\"}\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("EnumConstant")), Constructor("EnumConst"))
+          , Rhs(
+              [ Cf(IterStar(Sort("Annotation")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Id"))
+              , Cf(Opt(Layout()))
+              , Cf(Opt(Sort("EnumConstantArgs")))
+              , Cf(Opt(Layout()))
+              , Lit("\"{\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterStar(Sort("ClassBodyDeclaration")))
+              , Cf(Opt(Layout()))
+              , Lit("\"}\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("EnumConstant")), Constructor("EnumConstNoBody"))
+          , Rhs(
+              [ Cf(IterStar(Sort("Annotation")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Id"))
+              , Cf(Opt(Layout()))
+              , Cf(Opt(Sort("EnumConstantArgs")))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("EnumConstantArgs")), Constructor("EnumConstArgs"))
+          , Rhs(
+              [ Lit("\"(\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterStarSep(Sort("Expression"), Lit("\",\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\")\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("EnumBodyDeclarations")), Constructor("EnumBodyDecs"))
+          , Rhs(
+              [Lit("\";\""), Cf(Opt(Layout())), Cf(IterStar(Sort("ClassBodyDeclaration")))]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("EnumDeclaration")), Constructor("EnumDeclaration-Plhdr"))
+          , Rhs([Lit("\"$EnumDeclaration\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassModifier")), Constructor("ClassModifier-Plhdr"))
+          , Rhs([Lit("\"$ClassModifier\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("SuperInterfaces")), Constructor("SuperInterfaces-Plhdr"))
+          , Rhs([Lit("\"$SuperInterfaces\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("EnumConstant")), Constructor("EnumConstant-Plhdr"))
+          , Rhs([Lit("\"$EnumConstant\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Annotation")), Constructor("Annotation-Plhdr"))
+          , Rhs([Lit("\"$Annotation\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Id")), Constructor("Id-Plhdr"))
+          , Rhs([Lit("\"$Id\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("EnumConstantArgs")), Constructor("EnumConstantArgs-Plhdr"))
+          , Rhs([Lit("\"$EnumConstantArgs\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("Expression-Plhdr"))
+          , Rhs([Lit("\"$Expression\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("EnumBodyDeclarations")), Constructor("EnumBodyDeclarations-Plhdr"))
+          , Rhs([Lit("\"$EnumBodyDeclarations\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassBodyDeclaration")), Constructor("ClassBodyDeclaration-Plhdr"))
+          , Rhs([Lit("\"$ClassBodyDeclaration\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProduction(
+            Cf(Layout())
+          , Rhs([Cf(Layout()), Cf(Layout())])
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProduction(
+            FileStart()
+          , Rhs([Start(), CharClass(Simple(Present(Numeric("\\256"))))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Restrictions(
+        [ Follow(
+            [Lit("\"$EnumDeclaration\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$ClassModifier\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$SuperInterfaces\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$EnumConstant\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$Annotation\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$Id\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$EnumConstantArgs\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$Expression\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$EnumBodyDeclarations\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$ClassBodyDeclaration\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Priorities(
+        [ Assoc(
+            SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          , Left()
+          , SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

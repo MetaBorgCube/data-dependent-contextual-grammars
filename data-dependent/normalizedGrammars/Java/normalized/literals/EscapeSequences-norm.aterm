@@ -1,0 +1,151 @@
+Module(
+  Unparameterized("normalized/literals/EscapeSequences-norm")
+, []
+, [ SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Lit("\"\\\\\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\92"))))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Lex(Sort("EscapeSeq")), Constructor("NamedEscape"))
+          , Rhs(
+              [ Lit("\"\\\\\"")
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Numeric("\\34")
+                      , Conc(
+                          Numeric("\\39")
+                        , Conc(
+                            Numeric("\\92")
+                          , Conc(
+                              Numeric("\\98")
+                            , Conc(
+                                Numeric("\\102")
+                              , Conc(Numeric("\\110"), Conc(Numeric("\\114"), Numeric("\\116")))
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("EscapeSeq"))
+          , Rhs([Lex(Sort("OctalEscape"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Lex(Sort("OctalEscape")), Constructor("OctalEscape1"))
+          , Rhs([Lit("\"\\\\\""), Lex(Sort("LastOcta"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Lex(Sort("OctalEscape")), Constructor("OctalEscape2"))
+          , Rhs(
+              [ Lit("\"\\\\\"")
+              , CharClass(Simple(Present(Range(Numeric("\\48"), Numeric("\\51")))))
+              , Lex(Sort("LastOcta"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Lex(Sort("OctalEscape")), Constructor("OctalEscape2"))
+          , Rhs(
+              [ Lit("\"\\\\\"")
+              , CharClass(Simple(Present(Range(Numeric("\\52"), Numeric("\\55")))))
+              , CharClass(Simple(Present(Range(Numeric("\\48"), Numeric("\\55")))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Lex(Sort("OctalEscape")), Constructor("OctalEscape3"))
+          , Rhs(
+              [ Lit("\"\\\\\"")
+              , CharClass(Simple(Present(Range(Numeric("\\48"), Numeric("\\51")))))
+              , CharClass(Simple(Present(Range(Numeric("\\48"), Numeric("\\55")))))
+              , CharClass(Simple(Present(Range(Numeric("\\48"), Numeric("\\55")))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("LastOcta"))
+          , Rhs(
+              [CharClass(Simple(Present(Range(Numeric("\\48"), Numeric("\\55")))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("LastOcta"))
+          , Rhs([Lex(Sort("LastOcta"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("OctalEscape"))
+          , Rhs([Lex(Sort("OctalEscape"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("EscapeSeq"))
+          , Rhs([Lex(Sort("EscapeSeq"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Layout())
+          , Rhs([Cf(Layout()), Cf(Layout())])
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProduction(
+            FileStart()
+          , Rhs([Start(), CharClass(Simple(Present(Numeric("\\256"))))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Restrictions(
+        [ Follow(
+            [Lex(Sort("LastOcta"))]
+          , List(
+              [CharClass(Simple(Present(Range(Numeric("\\48"), Numeric("\\55")))))]
+            )
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Priorities(
+        [ Assoc(
+            SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          , Left()
+          , SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

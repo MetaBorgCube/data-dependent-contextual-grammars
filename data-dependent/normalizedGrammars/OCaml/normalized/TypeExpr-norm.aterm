@@ -1,0 +1,1764 @@
+Module(
+  Unparameterized("normalized/TypeExpr-norm")
+, [ Imports(
+      [ Module(Unparameterized("normalized/Lexical-norm"))
+      , Module(Unparameterized("normalized/Names-norm"))
+      , Module(Unparameterized("normalized/Extensions-norm"))
+      , Module(Unparameterized("normalized/TypesAndExceptions-norm"))
+      ]
+    )
+  ]
+, [ SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Lit("\"?\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\63"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"*\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\42"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"->\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\45"))))
+              , CharClass(Simple(Present(Numeric("\\62"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"as\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"private\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\118"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"_\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\95"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"<\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\60"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\",\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\44"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"#\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\35"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"(\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\40"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"module\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\")\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\41"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\";\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\59"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"..\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\46"))))
+              , CharClass(Simple(Present(Numeric("\\46"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"[\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\91"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"[>\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\91"))))
+              , CharClass(Simple(Present(Numeric("\\62"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"[<\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\91"))))
+              , CharClass(Simple(Present(Numeric("\\60"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"|\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\124"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\">\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\62"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"]\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\93"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\".\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\46"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"'\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\39"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\":\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\58"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"`\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\96"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"of\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\102"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"&\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\38"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$LabelName\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\76"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\98"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\78"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$TypeConstr\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$ClassPath\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\80"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\104"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$PackageType\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\80"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\107"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\103"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$SemiColonDotsOpt\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\83"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\67"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\79"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$PolymorphicVariantType\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\80"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\104"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\86"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$OptBar\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\79"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\66"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$QuoteTagName\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\81"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\103"))))
+              , CharClass(Simple(Present(Numeric("\\78"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$QuoteIdent\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\81"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\73"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$Ident\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\73"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$MethodType\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\77"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\104"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$MethodName\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\77"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\104"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\78"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$PolyTypeExpr\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\80"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\69"))))
+              , CharClass(Simple(Present(Numeric("\\120"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$TagSpec\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\103"))))
+              , CharClass(Simple(Present(Numeric("\\83"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$TagName\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\103"))))
+              , CharClass(Simple(Present(Numeric("\\78"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\109"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$TagSpecFull\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\103"))))
+              , CharClass(Simple(Present(Numeric("\\83"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\70"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$AndTypeExpr\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\65"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\100"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\69"))))
+              , CharClass(Simple(Present(Numeric("\\120"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$TypeExpr\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\69"))))
+              , CharClass(Simple(Present(Numeric("\\120"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$Attribute\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\65"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\98"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("AndTypeExpr")))
+          , Rhs([Cf(Sort("AndTypeExpr"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("AndTypeExpr")))
+          , Rhs(
+              [ Cf(Iter(Sort("AndTypeExpr")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("AndTypeExpr"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(IterStar(Sort("AndTypeExpr"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterStar(Sort("AndTypeExpr")))
+          , Rhs([Cf(Iter(Sort("AndTypeExpr")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("QuoteIdent")))
+          , Rhs([Cf(Sort("QuoteIdent"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("QuoteIdent")))
+          , Rhs(
+              [ Cf(Iter(Sort("QuoteIdent")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("QuoteIdent"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(IterStar(Sort("QuoteIdent"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterStar(Sort("QuoteIdent")))
+          , Rhs([Cf(Iter(Sort("QuoteIdent")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("QuoteTagName")))
+          , Rhs([Cf(Sort("QuoteTagName"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("QuoteTagName")))
+          , Rhs(
+              [ Cf(Iter(Sort("QuoteTagName")))
+              , Cf(Opt(Layout()))
+              , Cf(Sort("QuoteTagName"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(IterStar(Sort("QuoteTagName"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Cf(IterStar(Sort("QuoteTagName")))
+          , Rhs([Cf(Iter(Sort("QuoteTagName")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("TagSpecFull"), Lit("\"|\"")))
+          , Rhs([Cf(Sort("TagSpecFull"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("TagSpecFull"), Lit("\"|\"")))
+          , Rhs(
+              [ Cf(IterSep(Sort("TagSpecFull"), Lit("\"|\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\"|\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TagSpecFull"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("TagSpecFull"), Lit("\"|\"")))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("TagSpecFull"), Lit("\"|\"")))
+          , Rhs([Cf(IterSep(Sort("TagSpecFull"), Lit("\"|\"")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("TagSpec"), Lit("\"|\"")))
+          , Rhs([Cf(Sort("TagSpec"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("TagSpec"), Lit("\"|\"")))
+          , Rhs(
+              [ Cf(IterSep(Sort("TagSpec"), Lit("\"|\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\"|\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TagSpec"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("TagSpec"), Lit("\"|\"")))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("TagSpec"), Lit("\"|\"")))
+          , Rhs([Cf(IterSep(Sort("TagSpec"), Lit("\"|\"")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("MethodType"), Lit("\";\"")))
+          , Rhs([Cf(Sort("MethodType"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("MethodType"), Lit("\";\"")))
+          , Rhs(
+              [ Cf(IterSep(Sort("MethodType"), Lit("\";\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\";\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("MethodType"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("MethodType"), Lit("\";\"")))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("MethodType"), Lit("\";\"")))
+          , Rhs([Cf(IterSep(Sort("MethodType"), Lit("\";\"")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("TypeExpr"), Lit("\",\"")))
+          , Rhs([Cf(Sort("TypeExpr"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("TypeExpr"), Lit("\",\"")))
+          , Rhs(
+              [ Cf(IterSep(Sort("TypeExpr"), Lit("\",\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\",\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TypeExpr"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("TypeExpr"), Lit("\",\"")))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("TypeExpr"), Lit("\",\"")))
+          , Rhs([Cf(IterSep(Sort("TypeExpr"), Lit("\",\"")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))
+          , Rhs([Cf(Sort("TypeExpr"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))
+          , Rhs(
+              [ Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\"*\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TypeExpr"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("TypeExpr"), Lit("\"*\"")))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStarSep(Sort("TypeExpr"), Lit("\"*\"")))
+          , Rhs([Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Layout()))
+          , Rhs([Cf(Layout())])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Opt(Layout())), Rhs([]), NoAttrs())
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("LabelName"))
+          , Rhs(
+              [ Lit("\"?\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("LabelName"))
+              , Cf(Opt(Layout()))
+              , Lit("\":\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TypeExpr"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("LabelName2"))
+          , Rhs(
+              [ Cf(Sort("LabelName"))
+              , Cf(Opt(Layout()))
+              , Lit("\":\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TypeExpr"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("TypeExprConstr1"))
+          , Rhs(
+              [Cf(Sort("TypeExpr")), Cf(Opt(Layout())), Cf(Sort("TypeConstr"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("Star"))
+          , Rhs(
+              [ Cf(Sort("TypeExpr"))
+              , Cf(Opt(Layout()))
+              , Lit("\"*\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))
+              ]
+            )
+          , Attrs([Assoc(NonAssoc())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("Arrow"))
+          , Rhs(
+              [ Cf(Sort("TypeExpr"))
+              , Cf(Opt(Layout()))
+              , Lit("\"->\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TypeExpr"))
+              ]
+            )
+          , Attrs([Assoc(Right())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("TypeExprAsId"))
+          , Rhs(
+              [ Cf(Sort("TypeExpr"))
+              , Cf(Opt(Layout()))
+              , Lit("\"as\"")
+              , Cf(Opt(Layout()))
+              , Lit("\"'\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Ident"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("TypeExprPrivate"))
+          , Rhs(
+              [Lit("\"private\""), Cf(Opt(Layout())), Cf(Sort("TypeExpr"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("Tag"))
+          , Rhs(
+              [Lit("\"'\""), Cf(Opt(Layout())), Cf(Sort("Ident"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("AnyTypexpr"))
+          , Rhs([Lit("\"_\"")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("TypeExpr"))
+          , Rhs(
+              [ Lit("\"(\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TypeExpr"))
+              , Cf(Opt(Layout()))
+              , Lit("\")\"")
+              ]
+            )
+          , Attrs([Bracket()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("TypeExprConstr2"))
+          , Rhs([Cf(Sort("TypeConstr"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("TypeExprTypeConstr"))
+          , Rhs(
+              [ Lit("\"(\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TypeExpr"))
+              , Cf(Opt(Layout()))
+              , Lit("\",\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterSep(Sort("TypeExpr"), Lit("\",\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\")\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TypeConstr"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("PolymorphicVariant"))
+          , Rhs([Cf(Sort("PolymorphicVariantType"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("EmptyAngleBrackets"))
+          , Rhs(
+              [ Lit("\"<\"")
+              , Cf(Opt(Layout()))
+              , Lit("\"..\"")
+              , Cf(Opt(Layout()))
+              , Lit("\">\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("EmptyAngleBrackets2"))
+          , Rhs(
+              [Lit("\"<\""), Cf(Opt(Layout())), Lit("\">\"")]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("AngleBrackets1"))
+          , Rhs(
+              [ Lit("\"<\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterSep(Sort("MethodType"), Lit("\";\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\">\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("AngleBrackets2"))
+          , Rhs(
+              [ Lit("\"<\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterSep(Sort("MethodType"), Lit("\";\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\";\"")
+              , Cf(Opt(Layout()))
+              , Lit("\">\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("AngleBrackets3"))
+          , Rhs(
+              [ Lit("\"<\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterSep(Sort("MethodType"), Lit("\";\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\";\"")
+              , Cf(Opt(Layout()))
+              , Lit("\"..\"")
+              , Cf(Opt(Layout()))
+              , Lit("\">\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("TypeExprHash1"))
+          , Rhs(
+              [Lit("\"#\""), Cf(Opt(Layout())), Cf(Sort("ClassPath"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("TypeExprHash2"))
+          , Rhs(
+              [ Cf(Sort("TypeExpr"))
+              , Cf(Opt(Layout()))
+              , Lit("\"#\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("ClassPath"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("TypeExprHash3"))
+          , Rhs(
+              [ Lit("\"(\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterSep(Sort("TypeExpr"), Lit("\",\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\")\"")
+              , Cf(Opt(Layout()))
+              , Lit("\"#\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("ClassPath"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("TypeExprPackage"))
+          , Rhs(
+              [ Lit("\"(\"")
+              , Cf(Opt(Layout()))
+              , Lit("\"module\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("PackageType"))
+              , Cf(Opt(Layout()))
+              , Lit("\")\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Sort("SemiColonDotsOpt")), Rhs([]), NoAttrs())
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("SemiColonDotsOpt")), Constructor("SemiColonDots"))
+          , Rhs(
+              [Lit("\";\""), Cf(Opt(Layout())), Lit("\"..\"")]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("PolymorphicVariantType")), Constructor("PolymorphicVariantType1"))
+          , Rhs(
+              [ Lit("\"[\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("OptBar"))
+              , Cf(Opt(Layout()))
+              , Cf(IterStarSep(Sort("TagSpec"), Lit("\"|\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\"]\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("PolymorphicVariantType")), Constructor("PolymorphicVariantType2"))
+          , Rhs(
+              [ Lit("\"[>\"")
+              , Cf(Opt(Layout()))
+              , Cf(IterStarSep(Sort("TagSpec"), Lit("\"|\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\"]\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("PolymorphicVariantType")), Constructor("PolymorphicVariantType3"))
+          , Rhs(
+              [ Lit("\"[<\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("OptBar"))
+              , Cf(Opt(Layout()))
+              , Cf(IterSep(Sort("TagSpecFull"), Lit("\"|\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\"]\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("PolymorphicVariantType")), Constructor("PolymorphicVariantType4"))
+          , Rhs(
+              [ Lit("\"[<\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("OptBar"))
+              , Cf(Opt(Layout()))
+              , Cf(IterSep(Sort("TagSpecFull"), Lit("\"|\"")))
+              , Cf(Opt(Layout()))
+              , Lit("\">\"")
+              , Cf(Opt(Layout()))
+              , Cf(Iter(Sort("QuoteTagName")))
+              , Cf(Opt(Layout()))
+              , Lit("\"]\"")
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("QuoteTagName")), Constructor("TagName"))
+          , Rhs(
+              [Lit("\"`\""), Cf(Opt(Layout())), Cf(Sort("TagName"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("PolyTypeExpr")), Constructor("Polytype1"))
+          , Rhs([Cf(Sort("TypeExpr"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("PolyTypeExpr")), Constructor("Polytype2"))
+          , Rhs(
+              [ Cf(Iter(Sort("QuoteIdent")))
+              , Cf(Opt(Layout()))
+              , Lit("\".\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TypeExpr"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("QuoteIdent")), Constructor("Indent"))
+          , Rhs(
+              [Lit("\"'\""), Cf(Opt(Layout())), Cf(Sort("Ident"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("MethodType")), Constructor("MethodType"))
+          , Rhs(
+              [ Cf(Sort("MethodName"))
+              , Cf(Opt(Layout()))
+              , Lit("\":\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("PolyTypeExpr"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TagSpec")), Constructor("TagSpec1"))
+          , Rhs(
+              [Lit("\"`\""), Cf(Opt(Layout())), Cf(Sort("TagName"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TagSpec")), Constructor("TagSpec1"))
+          , Rhs(
+              [ Lit("\"`\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TagName"))
+              , Cf(Opt(Layout()))
+              , Lit("\"of\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TypeExpr"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TagSpec")), Constructor("TagSpec2"))
+          , Rhs([Cf(Sort("TypeExpr"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TagSpecFull")), Constructor("TagSpecFull"))
+          , Rhs(
+              [ Lit("\"`\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TagName"))
+              , Cf(Opt(Layout()))
+              , Cf(IterStar(Sort("AndTypeExpr")))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TagSpecFull")), Constructor("TagSpecFull"))
+          , Rhs(
+              [ Lit("\"`\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TagName"))
+              , Cf(Opt(Layout()))
+              , Lit("\"of\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("TypeExpr"))
+              , Cf(Opt(Layout()))
+              , Cf(IterStar(Sort("AndTypeExpr")))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("TagSpecFull"))
+          , Rhs([Cf(Sort("TypeExpr"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("AndTypeExpr")), Constructor("TypeExpr"))
+          , Rhs(
+              [Lit("\"&\""), Cf(Opt(Layout())), Cf(Sort("TypeExpr"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("TypeExprAttr"))
+          , Rhs(
+              [Cf(Sort("TypeExpr")), Cf(Opt(Layout())), Cf(Sort("Attribute"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("LabelName")), Constructor("LabelName-Plhdr"))
+          , Rhs([Lit("\"$LabelName\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeConstr")), Constructor("TypeConstr-Plhdr"))
+          , Rhs([Lit("\"$TypeConstr\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ClassPath")), Constructor("ClassPath-Plhdr"))
+          , Rhs([Lit("\"$ClassPath\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("PackageType")), Constructor("PackageType-Plhdr"))
+          , Rhs([Lit("\"$PackageType\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("SemiColonDotsOpt")), Constructor("SemiColonDotsOpt-Plhdr"))
+          , Rhs([Lit("\"$SemiColonDotsOpt\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("PolymorphicVariantType")), Constructor("PolymorphicVariantType-Plhdr"))
+          , Rhs([Lit("\"$PolymorphicVariantType\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("OptBar")), Constructor("OptBar-Plhdr"))
+          , Rhs([Lit("\"$OptBar\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("QuoteTagName")), Constructor("QuoteTagName-Plhdr"))
+          , Rhs([Lit("\"$QuoteTagName\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("QuoteIdent")), Constructor("QuoteIdent-Plhdr"))
+          , Rhs([Lit("\"$QuoteIdent\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Ident")), Constructor("Ident-Plhdr"))
+          , Rhs([Lit("\"$Ident\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("MethodType")), Constructor("MethodType-Plhdr"))
+          , Rhs([Lit("\"$MethodType\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("MethodName")), Constructor("MethodName-Plhdr"))
+          , Rhs([Lit("\"$MethodName\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("PolyTypeExpr")), Constructor("PolyTypeExpr-Plhdr"))
+          , Rhs([Lit("\"$PolyTypeExpr\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TagSpec")), Constructor("TagSpec-Plhdr"))
+          , Rhs([Lit("\"$TagSpec\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TagName")), Constructor("TagName-Plhdr"))
+          , Rhs([Lit("\"$TagName\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TagSpecFull")), Constructor("TagSpecFull-Plhdr"))
+          , Rhs([Lit("\"$TagSpecFull\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("AndTypeExpr")), Constructor("AndTypeExpr-Plhdr"))
+          , Rhs([Lit("\"$AndTypeExpr\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("TypeExpr")), Constructor("TypeExpr-Plhdr"))
+          , Rhs([Lit("\"$TypeExpr\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Attribute")), Constructor("Attribute-Plhdr"))
+          , Rhs([Lit("\"$Attribute\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProduction(
+            Cf(Layout())
+          , Rhs([Cf(Layout()), Cf(Layout())])
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProduction(
+            FileStart()
+          , Rhs([Start(), CharClass(Simple(Present(Numeric("\\256"))))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Restrictions(
+        [ Follow(
+            [Lit("\"$LabelName\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$TypeConstr\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$ClassPath\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$PackageType\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$SemiColonDotsOpt\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$PolymorphicVariantType\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$OptBar\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$QuoteTagName\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$QuoteIdent\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$Ident\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$MethodType\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$MethodName\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$PolyTypeExpr\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$TagSpec\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$TagName\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$TagSpecFull\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$AndTypeExpr\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$TypeExpr\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$Attribute\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Priorities(
+        [ Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("LabelName")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("TypeExprConstr1")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("LabelName2")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("TypeExprConstr1")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("TypeExprConstr1")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Star")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Star")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Arrow")))
+            ]
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Arrow")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Arrow")))
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Arrow")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("TypeExprAttr")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("TypeExprAttr")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("TypeExprAsId")))
+            ]
+          )
+        , Chain(
+            [ SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("TypeExprAsId")))
+            , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("TypeExprPrivate")))
+            ]
+          )
+        , Chain(
+            [ NonTransitive(
+                WithArguments(
+                  SimpleGroup(
+                    SdfProduction(
+                      Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))
+                    , Rhs(
+                        [ Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))
+                        , Cf(Opt(Layout()))
+                        , Lit("\"*\"")
+                        , Cf(Opt(Layout()))
+                        , Cf(Sort("TypeExpr"))
+                        ]
+                      )
+                    , NoAttrs()
+                    )
+                  )
+                , Default(["4"])
+                )
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Star")))
+            ]
+          )
+        , Chain(
+            [ NonTransitive(
+                WithArguments(
+                  SimpleGroup(
+                    SdfProduction(
+                      Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))
+                    , Rhs(
+                        [ Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))
+                        , Cf(Opt(Layout()))
+                        , Lit("\"*\"")
+                        , Cf(Opt(Layout()))
+                        , Cf(Sort("TypeExpr"))
+                        ]
+                      )
+                    , NoAttrs()
+                    )
+                  )
+                , Default(["4"])
+                )
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Arrow")))
+            ]
+          )
+        , Chain(
+            [ NonTransitive(
+                WithArguments(
+                  SimpleGroup(
+                    SdfProduction(
+                      Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))
+                    , Rhs(
+                        [ Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))
+                        , Cf(Opt(Layout()))
+                        , Lit("\"*\"")
+                        , Cf(Opt(Layout()))
+                        , Cf(Sort("TypeExpr"))
+                        ]
+                      )
+                    , NoAttrs()
+                    )
+                  )
+                , Default(["4"])
+                )
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("TypeExprAsId")))
+            ]
+          )
+        , Chain(
+            [ NonTransitive(
+                WithArguments(
+                  SimpleGroup(
+                    SdfProduction(
+                      Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))
+                    , Rhs([Cf(Sort("TypeExpr"))])
+                    , NoAttrs()
+                    )
+                  )
+                , Default(["0"])
+                )
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Star")))
+            ]
+          )
+        , Chain(
+            [ NonTransitive(
+                WithArguments(
+                  SimpleGroup(
+                    SdfProduction(
+                      Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))
+                    , Rhs([Cf(Sort("TypeExpr"))])
+                    , NoAttrs()
+                    )
+                  )
+                , Default(["0"])
+                )
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Arrow")))
+            ]
+          )
+        , Chain(
+            [ NonTransitive(
+                WithArguments(
+                  SimpleGroup(
+                    SdfProduction(
+                      Cf(IterSep(Sort("TypeExpr"), Lit("\"*\"")))
+                    , Rhs([Cf(Sort("TypeExpr"))])
+                    , NoAttrs()
+                    )
+                  )
+                , Default(["0"])
+                )
+              )
+            , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("TypeExprAsId")))
+            ]
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Star")))
+          , NonAssoc()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Star")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Arrow")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("TypeExpr")), Constructor("Arrow")))
+          )
+        , Assoc(
+            SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          , Left()
+          , SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

@@ -1,0 +1,77 @@
+module ModuleExpressions
+
+imports
+  Lexical 
+  TypesAndExceptions 
+  Classes
+  Names
+  TypeExpr
+  ModuleTypes
+  Extensions
+  Expressions
+  
+context-free syntax
+  
+  Definition.DefinitionVal = "val" ValueName ":" TypeExpr
+  Definition.LetDef        = "let" LetBinding AndLetBinding*
+  Definition.LetRecDef     = "let" "rec" LetBinding AndLetBinding*
+  Definition.External      = "external" ValueName ":" TypeExpr "=" ExternalDeclaration
+  Definition.TypeDef       = TypeDefinition
+  Definition.ExceptionDef  = ExceptionDefinition
+  Definition.ClassDef      = ClassDefinition
+  Definition.ClassSpec     = ClassSpecification
+  Definition.ClassTypeDef  = ClassTypeDefinition
+  Definition.ModuleDef1    = "module" ModuleName ModuleNameTypeParam* ColonModuleTypeOpt "=" ModuleExpr
+  Definition.ModuleDef2    = "module" ModuleName ModuleNameTypeParam* ":" ModuleType 
+  Definition.ModuleType    = "module" "type" ModTypeName "=" ModuleType
+  Definition.ModuleType    = "module" "type" ModTypeName 
+//  Definition.ModuleRec1    = "module" "rec" ModuleName ":" ModuleType "=" ModuleExpr AndModuleTypeModuleExpr*
+  Definition.ModuleRec2    = "module" "rec" ModuleName ":" ModuleType AndModuleType*
+  Definition.Open          = "open" ModulePath
+  Definition.Include1      = "include" ModuleExpr
+  Definition.Include2      = "include" ModuleType
+
+
+  
+  AndLetBinding.LetBinding = SemiColon? "and" LetBinding
+  
+  ModuleNameTypeParam.ModuleNameTypeParam = "(" ModuleName ":" ModuleType ")"
+  
+  ColonModuleTypeOpt.NoModuleType =
+  ColonModuleTypeOpt.Moduletype = ":" ModuleType
+  AndModuleTypeModuleExpr.NamedTypedModuleEquals  = "and" ModuleName ":" ModuleType "=" ModuleExpr
+  AndModuleType.NamedTypedModule =  "and" ModuleName ":" ModuleType
+  
+  ModuleExpr.ModExprModPath = ModulePath
+  ModuleExpr.Struct = "struct" ModuleItems? "end"
+  ModuleExpr.Functor = "functor" "(" ModuleName ":" ModuleType ")" "->" ModuleExpr
+  ModuleExpr = "(" ModuleExpr ")" {bracket}
+  ModuleExpr.ModuleExprAppl = ModuleExpr "(" ModuleExpr ")"
+  ModuleExpr.ModuleExprType = "(" ModuleExpr ":" ModuleType ")"
+  ModuleExpr.ModuleExprVal = "(" "val" Expr  ColonPackageTypeOpt ")"
+  ColonPackageTypeOpt.NoPackageType =
+  ColonPackageTypeOpt.PackageType = ":" PackageType
+  
+  ModuleItems.ModuleItems = DoubleSemiColonOpt DefinitionOrExpr DefinitionOrExprList* DoubleSemiColonOpt
+  DoubleSemiColon.DoubleSemiColon = ";;"
+  DoubleSemiColonOpt = 
+  DoubleSemiColonOpt.DoubleSemiColon = ";;"
+  DefinitionOrExpr.Def = Definition SemiColon?
+  DefinitionOrExpr.Expr = Expr SemiColon?
+  
+  DefinitionOrExprList.Def1 = ";;" Definition SemiColon?
+  DefinitionOrExprList.Def2 = Definition SemiColon?     
+  DefinitionOrExprList.Expr = ";;" Expr SemiColon?
+
+// 7.22 Generative functors
+context-free syntax  
+  
+  ModuleExpr.ModuleExprEmptyBrackets = ModuleExpr "(" ")"
+  ModuleExpr.FunctorEmptyBrackets    =  "functor" "(" ")" "->" ModuleExpr
+  ModuleNameTypeParam.EmptyBrackets  = "(" ")"
+  ModuleType.FunctorEmptyBrackets    = "functor" "(" ")" "->" ModuleType
+
+context-free priorities
+
+  Definition.Include1 <1> .> ModuleExpr.ModExprModPath ,
+  { ModuleExpr.Functor ModuleExpr.FunctorEmptyBrackets} > ModuleExpr.ModuleExprAppl

@@ -1,0 +1,1161 @@
+Module(
+  Unparameterized("normalized/literals/FloatingPointLiterals-norm")
+, []
+, [ SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Lit("\".\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\46"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$DeciFloatLiteral\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\70"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\76"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$HexaFloatLiteral\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\72"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\120"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\70"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\76"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$DeciDoubleLiteral\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\98"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\76"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$FloatLiteral\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\70"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\76"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$HexaDoubleLiteral\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\72"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\120"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\68"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              , CharClass(Simple(Present(Numeric("\\98"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\76"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\108"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Layout()))
+          , Rhs([Cf(Layout())])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Opt(Layout())), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Lex(Opt(Lit("\".\"")))
+          , Rhs([Lit("\".\"")])
+          , NoAttrs()
+          )
+        , SdfProduction(Lex(Opt(Lit("\".\""))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Lex(
+              Iter(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              Iter(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  Iter(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\48"), Numeric("\\57"))
+                          , Conc(
+                              Range(Numeric("\\65"), Numeric("\\70"))
+                            , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              IterStar(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              IterStar(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  Iter(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\48"), Numeric("\\57"))
+                          , Conc(
+                              Range(Numeric("\\65"), Numeric("\\70"))
+                            , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(
+              Iter(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  Iter(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\48"), Numeric("\\57"))
+                          , Conc(
+                              Range(Numeric("\\65"), Numeric("\\70"))
+                            , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Iter(CharClass(Simple(Present(Numeric("\\95"))))))
+          , Rhs([CharClass(Simple(Present(Numeric("\\95"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Iter(CharClass(Simple(Present(Numeric("\\95"))))))
+          , Rhs(
+              [ Lex(Iter(CharClass(Simple(Present(Numeric("\\95"))))))
+              , CharClass(Simple(Present(Numeric("\\95"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(IterStar(CharClass(Simple(Present(Numeric("\\95"))))))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(IterStar(CharClass(Simple(Present(Numeric("\\95"))))))
+          , Rhs(
+              [Lex(Iter(CharClass(Simple(Present(Numeric("\\95"))))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStar(CharClass(Simple(Present(Numeric("\\95"))))))
+          , Rhs(
+              [Lex(IterStar(CharClass(Simple(Present(Numeric("\\95"))))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              Alt(Sort("Digit"), CharClass(Simple(Present(Numeric("\\95")))))
+            )
+          , Rhs([Lex(Sort("Digit"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              Alt(Sort("Digit"), CharClass(Simple(Present(Numeric("\\95")))))
+            )
+          , Rhs([CharClass(Simple(Present(Numeric("\\95"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Iter(Sort("DigitsOrUnderscore")))
+          , Rhs([Lex(Sort("DigitsOrUnderscore"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Iter(Sort("DigitsOrUnderscore")))
+          , Rhs(
+              [Lex(Iter(Sort("DigitsOrUnderscore"))), Lex(Sort("DigitsOrUnderscore"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Lex(IterStar(Sort("DigitsOrUnderscore"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Lex(IterStar(Sort("DigitsOrUnderscore")))
+          , Rhs([Lex(Iter(Sort("DigitsOrUnderscore")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStar(Sort("DigitsOrUnderscore")))
+          , Rhs([Lex(IterStar(Sort("DigitsOrUnderscore")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Opt(Sort("DigitsAndUnderscores")))
+          , Rhs([Lex(Sort("DigitsAndUnderscores"))])
+          , NoAttrs()
+          )
+        , SdfProduction(Lex(Opt(Sort("DigitsAndUnderscores"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Lex(
+              Opt(
+                CharClass(Simple(Present(Conc(Numeric("\\43"), Numeric("\\45")))))
+              )
+            )
+          , Rhs(
+              [CharClass(Simple(Present(Conc(Numeric("\\43"), Numeric("\\45")))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              Opt(
+                CharClass(Simple(Present(Conc(Numeric("\\43"), Numeric("\\45")))))
+              )
+            )
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              Opt(
+                CharClass(Simple(Present(Conc(Numeric("\\68"), Numeric("\\100")))))
+              )
+            )
+          , Rhs(
+              [CharClass(Simple(Present(Conc(Numeric("\\68"), Numeric("\\100")))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              Opt(
+                CharClass(Simple(Present(Conc(Numeric("\\68"), Numeric("\\100")))))
+              )
+            )
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Opt(Sort("DeciFloatExponentPart")))
+          , Rhs([Lex(Sort("DeciFloatExponentPart"))])
+          , NoAttrs()
+          )
+        , SdfProduction(Lex(Opt(Sort("DeciFloatExponentPart"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Lex(Opt(Sort("Digits")))
+          , Rhs([Lex(Sort("Digits"))])
+          , NoAttrs()
+          )
+        , SdfProduction(Lex(Opt(Sort("Digits"))), Rhs([]), NoAttrs())
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("FloatLiteral")), Constructor("DeciFloat"))
+          , Rhs([Cf(Sort("DeciFloatLiteral"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("FloatLiteral")), Constructor("HexaFloat"))
+          , Rhs([Cf(Sort("HexaFloatLiteral"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("FloatLiteral")), Constructor("DeciDouble"))
+          , Rhs([Cf(Sort("DeciDoubleLiteral"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("FloatLiteral")), Constructor("HexaDouble"))
+          , Rhs([Cf(Sort("HexaDoubleLiteral"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("DeciFloatLiteral"))
+          , Rhs(
+              [ Lex(Sort("Digits"))
+              , Lit("\".\"")
+              , Lex(Opt(Sort("Digits")))
+              , Lex(Opt(Sort("DeciFloatExponentPart")))
+              , CharClass(Simple(Present(Conc(Numeric("\\70"), Numeric("\\102")))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("DeciFloatLiteral"))
+          , Rhs(
+              [ Lit("\".\"")
+              , Lex(Sort("Digits"))
+              , Lex(Opt(Sort("DeciFloatExponentPart")))
+              , CharClass(Simple(Present(Conc(Numeric("\\70"), Numeric("\\102")))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("DeciFloatLiteral"))
+          , Rhs(
+              [ Lex(Sort("Digits"))
+              , Lex(Sort("DeciFloatExponentPart"))
+              , CharClass(Simple(Present(Conc(Numeric("\\70"), Numeric("\\102")))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("DeciFloatLiteral"))
+          , Rhs(
+              [ Lex(Sort("Digits"))
+              , CharClass(Simple(Present(Conc(Numeric("\\70"), Numeric("\\102")))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("DeciDoubleLiteral"))
+          , Rhs(
+              [ Lex(Sort("Digits"))
+              , Lit("\".\"")
+              , Lex(Opt(Sort("Digits")))
+              , Lex(Opt(Sort("DeciFloatExponentPart")))
+              , Lex(
+                  Opt(
+                    CharClass(Simple(Present(Conc(Numeric("\\68"), Numeric("\\100")))))
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("DeciDoubleLiteral"))
+          , Rhs(
+              [ Lit("\".\"")
+              , Lex(Sort("Digits"))
+              , Lex(Opt(Sort("DeciFloatExponentPart")))
+              , Lex(
+                  Opt(
+                    CharClass(Simple(Present(Conc(Numeric("\\68"), Numeric("\\100")))))
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("DeciDoubleLiteral"))
+          , Rhs(
+              [ Lex(Sort("Digits"))
+              , Lex(Sort("DeciFloatExponentPart"))
+              , Lex(
+                  Opt(
+                    CharClass(Simple(Present(Conc(Numeric("\\68"), Numeric("\\100")))))
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("DeciDoubleLiteral"))
+          , Rhs(
+              [ Lex(Sort("Digits"))
+              , CharClass(Simple(Present(Conc(Numeric("\\68"), Numeric("\\100")))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("DeciFloatExponentPart"))
+          , Rhs(
+              [ CharClass(Simple(Present(Conc(Numeric("\\69"), Numeric("\\101")))))
+              , Lex(Sort("SignedInteger"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("SignedInteger"))
+          , Rhs(
+              [ Lex(
+                  Opt(
+                    CharClass(Simple(Present(Conc(Numeric("\\43"), Numeric("\\45")))))
+                  )
+                )
+              , Lex(Sort("Digits"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("Digits"))
+          , Rhs([Lex(Sort("Digit"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("Digits"))
+          , Rhs(
+              [ Lex(Sort("Digit"))
+              , Lex(Opt(Sort("DigitsAndUnderscores")))
+              , Lex(Sort("Digit"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("Digit"))
+          , Rhs([CharClass(Simple(Present(Numeric("\\48"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("Digit"))
+          , Rhs(
+              [CharClass(Simple(Present(Range(Numeric("\\49"), Numeric("\\57")))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("DigitsAndUnderscores"))
+          , Rhs([Lex(Iter(Sort("DigitsOrUnderscore")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("DigitsOrUnderscore"))
+          , Rhs(
+              [Lex(
+                 Alt(Sort("Digit"), CharClass(Simple(Present(Numeric("\\95")))))
+               )]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("Underscores"))
+          , Rhs(
+              [Lex(Iter(CharClass(Simple(Present(Numeric("\\95"))))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("HexaFloatLiteral"))
+          , Rhs(
+              [ Lex(Sort("HexaSignificand"))
+              , Lex(Sort("BinaryExponent"))
+              , CharClass(Simple(Present(Conc(Numeric("\\70"), Numeric("\\102")))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("HexaDoubleLiteral"))
+          , Rhs(
+              [ Lex(Sort("HexaSignificand"))
+              , Lex(Sort("BinaryExponent"))
+              , Lex(
+                  Opt(
+                    CharClass(Simple(Present(Conc(Numeric("\\68"), Numeric("\\100")))))
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("HexaSignificand"))
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\48"))))
+              , CharClass(Simple(Present(Conc(Numeric("\\88"), Numeric("\\120")))))
+              , Lex(
+                  IterStar(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\48"), Numeric("\\57"))
+                          , Conc(
+                              Range(Numeric("\\65"), Numeric("\\70"))
+                            , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Range(Numeric("\\97"), Numeric("\\102"))
+                        )
+                      )
+                    )
+                  )
+                )
+              , Lex(Opt(Lit("\".\"")))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("HexaSignificand"))
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\48"))))
+              , CharClass(Simple(Present(Conc(Numeric("\\88"), Numeric("\\120")))))
+              , Lex(
+                  IterStar(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\48"), Numeric("\\57"))
+                          , Conc(
+                              Range(Numeric("\\65"), Numeric("\\70"))
+                            , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Range(Numeric("\\97"), Numeric("\\102"))
+                        )
+                      )
+                    )
+                  )
+                )
+              , Lit("\".\"")
+              , Lex(
+                  IterStar(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\48"), Numeric("\\57"))
+                          , Conc(
+                              Range(Numeric("\\65"), Numeric("\\70"))
+                            , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Range(Numeric("\\97"), Numeric("\\102"))
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("BinaryExponent"))
+          , Rhs(
+              [ CharClass(Simple(Present(Conc(Numeric("\\80"), Numeric("\\112")))))
+              , Lex(Sort("SignedInteger"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Lit("\".\"")))
+          , Rhs([Lex(Opt(Lit("\".\"")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(
+              IterStar(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  IterStar(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\48"), Numeric("\\57"))
+                          , Conc(
+                              Range(Numeric("\\65"), Numeric("\\70"))
+                            , Conc(Numeric("\\95"), Range(Numeric("\\97"), Numeric("\\102")))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("HexaDoubleLiteral"))
+          , Rhs([Lex(Sort("HexaDoubleLiteral"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("BinaryExponent"))
+          , Rhs([Lex(Sort("BinaryExponent"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("HexaSignificand"))
+          , Rhs([Lex(Sort("HexaSignificand"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("HexaFloatLiteral"))
+          , Rhs([Lex(Sort("HexaFloatLiteral"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(CharClass(Simple(Present(Numeric("\\95"))))))
+          , Rhs(
+              [Lex(Iter(CharClass(Simple(Present(Numeric("\\95"))))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("Underscores"))
+          , Rhs([Lex(Sort("Underscores"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(
+              Alt(Sort("Digit"), CharClass(Simple(Present(Numeric("\\95")))))
+            )
+          , Rhs(
+              [Lex(
+                 Alt(Sort("Digit"), CharClass(Simple(Present(Numeric("\\95")))))
+               )]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("DigitsOrUnderscore"))
+          , Rhs([Lex(Sort("DigitsOrUnderscore"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("DigitsOrUnderscore")))
+          , Rhs([Lex(Iter(Sort("DigitsOrUnderscore")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("DigitsAndUnderscores"))
+          , Rhs([Lex(Sort("DigitsAndUnderscores"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Sort("DigitsAndUnderscores")))
+          , Rhs([Lex(Opt(Sort("DigitsAndUnderscores")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("Digit"))
+          , Rhs([Lex(Sort("Digit"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(
+              Opt(
+                CharClass(Simple(Present(Conc(Numeric("\\43"), Numeric("\\45")))))
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  Opt(
+                    CharClass(Simple(Present(Conc(Numeric("\\43"), Numeric("\\45")))))
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("SignedInteger"))
+          , Rhs([Lex(Sort("SignedInteger"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(
+              Opt(
+                CharClass(Simple(Present(Conc(Numeric("\\68"), Numeric("\\100")))))
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  Opt(
+                    CharClass(Simple(Present(Conc(Numeric("\\68"), Numeric("\\100")))))
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("DeciDoubleLiteral"))
+          , Rhs([Lex(Sort("DeciDoubleLiteral"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("DeciFloatExponentPart"))
+          , Rhs([Lex(Sort("DeciFloatExponentPart"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Sort("DeciFloatExponentPart")))
+          , Rhs([Lex(Opt(Sort("DeciFloatExponentPart")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Sort("Digits")))
+          , Rhs([Lex(Opt(Sort("Digits")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("Digits"))
+          , Rhs([Lex(Sort("Digits"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("DeciFloatLiteral"))
+          , Rhs([Lex(Sort("DeciFloatLiteral"))])
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("DeciFloatLiteral")), Constructor("DeciFloatLiteral-Plhdr"))
+          , Rhs([Lit("\"$DeciFloatLiteral\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("HexaFloatLiteral")), Constructor("HexaFloatLiteral-Plhdr"))
+          , Rhs([Lit("\"$HexaFloatLiteral\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("DeciDoubleLiteral")), Constructor("DeciDoubleLiteral-Plhdr"))
+          , Rhs([Lit("\"$DeciDoubleLiteral\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("FloatLiteral")), Constructor("FloatLiteral-Plhdr"))
+          , Rhs([Lit("\"$FloatLiteral\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("HexaDoubleLiteral")), Constructor("HexaDoubleLiteral-Plhdr"))
+          , Rhs([Lit("\"$HexaDoubleLiteral\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProduction(
+            Cf(Layout())
+          , Rhs([Cf(Layout()), Cf(Layout())])
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProduction(
+            Start()
+          , Rhs(
+              [Cf(Opt(Layout())), Cf(Sort("FloatLiteral")), Cf(Opt(Layout()))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            FileStart()
+          , Rhs([Start(), CharClass(Simple(Present(Numeric("\\256"))))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Restrictions(
+        [ Follow(
+            [Lex(Sort("DeciFloatLiteral"))]
+          , List(
+              [CharClass(Simple(Present(Conc(Numeric("\\70"), Numeric("\\102")))))]
+            )
+          )
+        , Follow(
+            [Lex(Sort("DeciDoubleLiteral"))]
+          , List(
+              [CharClass(Simple(Present(Conc(Numeric("\\68"), Numeric("\\100")))))]
+            )
+          )
+        , Follow(
+            [Lex(Sort("SignedInteger"))]
+          , List(
+              [CharClass(Simple(Present(Range(Numeric("\\48"), Numeric("\\57")))))]
+            )
+          )
+        , Follow(
+            [Lex(Sort("HexaSignificand"))]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Numeric("\\46")
+                      , Conc(
+                          Range(Numeric("\\48"), Numeric("\\57"))
+                        , Conc(
+                            Range(Numeric("\\65"), Numeric("\\70"))
+                          , Range(Numeric("\\97"), Numeric("\\102"))
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$DeciFloatLiteral\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$HexaFloatLiteral\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$DeciDoubleLiteral\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$FloatLiteral\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$HexaDoubleLiteral\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Priorities(
+        [ Assoc(
+            SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          , Left()
+          , SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

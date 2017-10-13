@@ -1,0 +1,26 @@
+module Java
+
+imports
+  arrays/Main
+  classes/Main
+  interfaces/Main
+  lexical/Main
+  literals/Main
+  names/Names
+  packages/Main
+  statements/Main
+  types/Main  
+  expressions/Main
+  expressions/Disambiguation
+
+sorts
+
+  CompilationUnit
+  
+context-free start-symbols
+
+  Start  
+
+context-free syntax
+
+  Start = CompilationUnit

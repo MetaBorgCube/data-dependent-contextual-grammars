@@ -1,0 +1,649 @@
+Module(
+  Unparameterized("normalized/expressions/BinaryOperators-norm")
+, [Imports([Module(Unparameterized("normalized/types/ReferenceTypes-norm"))])]
+, [ SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Lit("\"*\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\42"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"/\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\47"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"%\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\37"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"+\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\43"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"-\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\45"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"<<\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\60"))))
+              , CharClass(Simple(Present(Numeric("\\60"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\">>\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\62"))))
+              , CharClass(Simple(Present(Numeric("\\62"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\">>>\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\62"))))
+              , CharClass(Simple(Present(Numeric("\\62"))))
+              , CharClass(Simple(Present(Numeric("\\62"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"<\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\60"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\">\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\62"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"<=\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\60"))))
+              , CharClass(Simple(Present(Numeric("\\61"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\">=\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\62"))))
+              , CharClass(Simple(Present(Numeric("\\61"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"instanceof\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\116"))))
+              , CharClass(Simple(Present(Numeric("\\97"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\102"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"==\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\61"))))
+              , CharClass(Simple(Present(Numeric("\\61"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"!=\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\33"))))
+              , CharClass(Simple(Present(Numeric("\\61"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"&\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\38"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"^\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\94"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"|\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\124"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"&&\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\38"))))
+              , CharClass(Simple(Present(Numeric("\\38"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"||\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\124"))))
+              , CharClass(Simple(Present(Numeric("\\124"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"?\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\63"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\":\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\58"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$ReferenceType\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\82"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\102"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              , CharClass(Simple(Present(Numeric("\\99"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\84"))))
+              , CharClass(Simple(Present(Numeric("\\121"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"$Expression\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\36"))))
+              , CharClass(Simple(Present(Numeric("\\69"))))
+              , CharClass(Simple(Present(Numeric("\\120"))))
+              , CharClass(Simple(Present(Numeric("\\112"))))
+              , CharClass(Simple(Present(Numeric("\\114"))))
+              , CharClass(Simple(Present(Numeric("\\101"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\115"))))
+              , CharClass(Simple(Present(Numeric("\\105"))))
+              , CharClass(Simple(Present(Numeric("\\111"))))
+              , CharClass(Simple(Present(Numeric("\\110"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Opt(Layout()))
+          , Rhs([Cf(Layout())])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Opt(Layout())), Rhs([]), NoAttrs())
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("Mul"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"*\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("Div"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"/\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("Mod"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"%\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("Add"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"+\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("Sub"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"-\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("LeftShift"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"<<\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("RightShift"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\">>\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("URightShift"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\">>>\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("Lt"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"<\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("Gt"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\">\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("LtEq"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"<=\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("GtEq"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\">=\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("InstanceOf"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"instanceof\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("ReferenceType"))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("Eq"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"==\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("NotEq"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"!=\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("And"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"&\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("Xor"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"^\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("Or"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"|\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("LazyAnd"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"&&\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("LazyOr"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"||\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("Cond"))
+          , Rhs(
+              [ Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\"?\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              , Cf(Opt(Layout()))
+              , Lit("\":\"")
+              , Cf(Opt(Layout()))
+              , Cf(Sort("Expression"))
+              ]
+            )
+          , Attrs([Assoc(Right())])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("ReferenceType")), Constructor("ReferenceType-Plhdr"))
+          , Rhs([Lit("\"$ReferenceType\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProductionWithCons(
+            SortCons(Cf(Sort("Expression")), Constructor("Expression-Plhdr"))
+          , Rhs([Lit("\"$Expression\"")])
+          , Attrs([Placeholder()])
+          )
+        , SdfProduction(
+            Cf(Layout())
+          , Rhs([Cf(Layout()), Cf(Layout())])
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProduction(
+            FileStart()
+          , Rhs([Start(), CharClass(Simple(Present(Numeric("\\256"))))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Restrictions(
+        [ Follow(
+            [Lit("\"$ReferenceType\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"$Expression\"")]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\65"), Numeric("\\90"))
+                      , Range(Numeric("\\97"), Numeric("\\122"))
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Priorities(
+        [ Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mul")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Div")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Mod")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Add")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Add")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Sub")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Sub")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LeftShift")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LeftShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("RightShift")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("RightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("URightShift")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("URightShift")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Lt")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Gt")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LtEq")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("GtEq")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Eq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Eq")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("NotEq")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("NotEq")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("And")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("And")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Xor")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Xor")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Or")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Or")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LazyAnd")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LazyAnd")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LazyOr")))
+          , Left()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("LazyOr")))
+          )
+        , Assoc(
+            SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+          , Right()
+          , SimpleRefGroup(SortConsRef(Cf(Sort("Expression")), Constructor("Cond")))
+          )
+        , Assoc(
+            SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          , Left()
+          , SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

@@ -1,0 +1,939 @@
+Module(
+  Unparameterized("normalized/lexical/Comments-norm")
+, [Imports([Module(Unparameterized("normalized/lexical/LineTerminators-norm"))])]
+, [ SDFSection(
+      Kernel(
+        [ SdfProduction(
+            Lit("\"//\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\47"))))
+              , CharClass(Simple(Present(Numeric("\\47"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"/*\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\47"))))
+              , CharClass(Simple(Present(Numeric("\\42"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"/**\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\47"))))
+              , CharClass(Simple(Present(Numeric("\\42"))))
+              , CharClass(Simple(Present(Numeric("\\42"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"*/\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\42"))))
+              , CharClass(Simple(Present(Numeric("\\47"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"/**/\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\47"))))
+              , CharClass(Simple(Present(Numeric("\\42"))))
+              , CharClass(Simple(Present(Numeric("\\42"))))
+              , CharClass(Simple(Present(Numeric("\\47"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"*\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\42"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"\\\\\\\\\"")
+          , Rhs(
+              [ CharClass(Simple(Present(Numeric("\\92"))))
+              , CharClass(Simple(Present(Numeric("\\92"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lit("\"\\\\\"")
+          , Rhs([CharClass(Simple(Present(Numeric("\\92"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Iter(CharClass(Simple(Present(Numeric("\\117"))))))
+          , Rhs([CharClass(Simple(Present(Numeric("\\117"))))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Iter(CharClass(Simple(Present(Numeric("\\117"))))))
+          , Rhs(
+              [ Lex(Iter(CharClass(Simple(Present(Numeric("\\117"))))))
+              , CharClass(Simple(Present(Numeric("\\117"))))
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(IterStar(CharClass(Simple(Present(Numeric("\\117"))))))
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(IterStar(CharClass(Simple(Present(Numeric("\\117"))))))
+          , Rhs(
+              [Lex(Iter(CharClass(Simple(Present(Numeric("\\117"))))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStar(CharClass(Simple(Present(Numeric("\\117"))))))
+          , Rhs(
+              [Lex(IterStar(CharClass(Simple(Present(Numeric("\\117"))))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              Iter(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\41"))
+                      , Conc(
+                          Range(Numeric("\\43"), Numeric("\\91"))
+                        , Range(Numeric("\\93"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\41"))
+                      , Conc(
+                          Range(Numeric("\\43"), Numeric("\\91"))
+                        , Range(Numeric("\\93"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              Iter(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\41"))
+                      , Conc(
+                          Range(Numeric("\\43"), Numeric("\\91"))
+                        , Range(Numeric("\\93"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  Iter(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\0"), Numeric("\\41"))
+                          , Conc(
+                              Range(Numeric("\\43"), Numeric("\\91"))
+                            , Range(Numeric("\\93"), Numeric("\\255"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\41"))
+                      , Conc(
+                          Range(Numeric("\\43"), Numeric("\\91"))
+                        , Range(Numeric("\\93"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              IterStar(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\41"))
+                      , Conc(
+                          Range(Numeric("\\43"), Numeric("\\91"))
+                        , Range(Numeric("\\93"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              IterStar(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\41"))
+                      , Conc(
+                          Range(Numeric("\\43"), Numeric("\\91"))
+                        , Range(Numeric("\\93"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  Iter(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\0"), Numeric("\\41"))
+                          , Conc(
+                              Range(Numeric("\\43"), Numeric("\\91"))
+                            , Range(Numeric("\\93"), Numeric("\\255"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(
+              IterStar(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\41"))
+                      , Conc(
+                          Range(Numeric("\\43"), Numeric("\\91"))
+                        , Range(Numeric("\\93"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  IterStar(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\0"), Numeric("\\41"))
+                          , Conc(
+                              Range(Numeric("\\43"), Numeric("\\91"))
+                            , Range(Numeric("\\93"), Numeric("\\255"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Iter(Sort("CommentPart")))
+          , Rhs([Lex(Sort("CommentPart"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Iter(Sort("CommentPart")))
+          , Rhs(
+              [Lex(Iter(Sort("CommentPart"))), Lex(Sort("CommentPart"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(Lex(IterStar(Sort("CommentPart"))), Rhs([]), NoAttrs())
+        , SdfProduction(
+            Lex(IterStar(Sort("CommentPart")))
+          , Rhs([Lex(Iter(Sort("CommentPart")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(Sort("CommentPart")))
+          , Rhs([Lex(Iter(Sort("CommentPart")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              Iter(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\9"))
+                      , Conc(
+                          Range(Numeric("\\11"), Numeric("\\12"))
+                        , Range(Numeric("\\14"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\9"))
+                      , Conc(
+                          Range(Numeric("\\11"), Numeric("\\12"))
+                        , Range(Numeric("\\14"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              Iter(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\9"))
+                      , Conc(
+                          Range(Numeric("\\11"), Numeric("\\12"))
+                        , Range(Numeric("\\14"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  Iter(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\0"), Numeric("\\9"))
+                          , Conc(
+                              Range(Numeric("\\11"), Numeric("\\12"))
+                            , Range(Numeric("\\14"), Numeric("\\255"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\9"))
+                      , Conc(
+                          Range(Numeric("\\11"), Numeric("\\12"))
+                        , Range(Numeric("\\14"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              IterStar(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\9"))
+                      , Conc(
+                          Range(Numeric("\\11"), Numeric("\\12"))
+                        , Range(Numeric("\\14"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs([])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(
+              IterStar(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\9"))
+                      , Conc(
+                          Range(Numeric("\\11"), Numeric("\\12"))
+                        , Range(Numeric("\\14"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  Iter(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\0"), Numeric("\\9"))
+                          , Conc(
+                              Range(Numeric("\\11"), Numeric("\\12"))
+                            , Range(Numeric("\\14"), Numeric("\\255"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(
+              Iter(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\9"))
+                      , Conc(
+                          Range(Numeric("\\11"), Numeric("\\12"))
+                        , Range(Numeric("\\14"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  Iter(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\0"), Numeric("\\9"))
+                          , Conc(
+                              Range(Numeric("\\11"), Numeric("\\12"))
+                            , Range(Numeric("\\14"), Numeric("\\255"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Layout())
+          , Rhs([Lex(Sort("Comment"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("Comment"))
+          , Rhs(
+              [Lit("\"//\""), Lex(Sort("EOLCommentChars")), Lex(Sort("LineTerminator"))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("EOLCommentChars"))
+          , Rhs(
+              [ Lex(
+                  IterStar(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\0"), Numeric("\\9"))
+                          , Conc(
+                              Range(Numeric("\\11"), Numeric("\\12"))
+                            , Range(Numeric("\\14"), Numeric("\\255"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("Comment"))
+          , Rhs(
+              [Lit("\"/*\""), Lex(IterStar(Sort("CommentPart"))), Lit("\"*/\"")]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("Comment"))
+          , Rhs(
+              [Lit("\"/**\""), Lex(IterStar(Sort("CommentPart"))), Lit("\"*/\"")]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("Comment"))
+          , Rhs([Lit("\"/**/\"")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("CommentPart"))
+          , Rhs([Lex(Sort("BlockCommentChars"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("CommentPart"))
+          , Rhs([Lex(Sort("EscChar"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("CommentPart"))
+          , Rhs([Lex(Sort("EscEscChar"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("CommentPart"))
+          , Rhs([Lex(Sort("Asterisk"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("CommentPart"))
+          , Rhs([Lex(Sort("UnicodeEscape"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("BlockCommentChars"))
+          , Rhs(
+              [ Lex(
+                  Iter(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\0"), Numeric("\\41"))
+                          , Conc(
+                              Range(Numeric("\\43"), Numeric("\\91"))
+                            , Range(Numeric("\\93"), Numeric("\\255"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("Asterisk"))
+          , Rhs([Lit("\"*\"")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("EscEscChar"))
+          , Rhs([Lit("\"\\\\\\\\\"")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("EscChar"))
+          , Rhs([Lit("\"\\\\\"")])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Lex(Sort("UnicodeEscape"))
+          , Rhs(
+              [ Lit("\"\\\\\"")
+              , Lex(Iter(CharClass(Simple(Present(Numeric("\\117"))))))
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Range(Numeric("\\97"), Numeric("\\102"))
+                        )
+                      )
+                    )
+                  )
+                )
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Range(Numeric("\\97"), Numeric("\\102"))
+                        )
+                      )
+                    )
+                  )
+                )
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Range(Numeric("\\97"), Numeric("\\102"))
+                        )
+                      )
+                    )
+                  )
+                )
+              , CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\48"), Numeric("\\57"))
+                      , Conc(
+                          Range(Numeric("\\65"), Numeric("\\70"))
+                        , Range(Numeric("\\97"), Numeric("\\102"))
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Iter(CharClass(Simple(Present(Numeric("\\117"))))))
+          , Rhs(
+              [Lex(Iter(CharClass(Simple(Present(Numeric("\\117"))))))]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(
+              Iter(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\41"))
+                      , Conc(
+                          Range(Numeric("\\43"), Numeric("\\91"))
+                        , Range(Numeric("\\93"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  Iter(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\0"), Numeric("\\41"))
+                          , Conc(
+                              Range(Numeric("\\43"), Numeric("\\91"))
+                            , Range(Numeric("\\93"), Numeric("\\255"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("UnicodeEscape"))
+          , Rhs([Lex(Sort("UnicodeEscape"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("Asterisk"))
+          , Rhs([Lex(Sort("Asterisk"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("EscEscChar"))
+          , Rhs([Lex(Sort("EscEscChar"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("EscChar"))
+          , Rhs([Lex(Sort("EscChar"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("BlockCommentChars"))
+          , Rhs([Lex(Sort("BlockCommentChars"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("CommentPart"))
+          , Rhs([Lex(Sort("CommentPart"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(IterStar(Sort("CommentPart")))
+          , Rhs([Lex(IterStar(Sort("CommentPart")))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(
+              IterStar(
+                CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\9"))
+                      , Conc(
+                          Range(Numeric("\\11"), Numeric("\\12"))
+                        , Range(Numeric("\\14"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          , Rhs(
+              [ Lex(
+                  IterStar(
+                    CharClass(
+                      Simple(
+                        Present(
+                          Conc(
+                            Range(Numeric("\\0"), Numeric("\\9"))
+                          , Conc(
+                              Range(Numeric("\\11"), Numeric("\\12"))
+                            , Range(Numeric("\\14"), Numeric("\\255"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("LineTerminator"))
+          , Rhs([Lex(Sort("LineTerminator"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("EOLCommentChars"))
+          , Rhs([Lex(Sort("EOLCommentChars"))])
+          , NoAttrs()
+          )
+        , SdfProduction(
+            Cf(Sort("Comment"))
+          , Rhs([Lex(Sort("Comment"))])
+          , NoAttrs()
+          )
+        , SdfProduction(Cf(Layout()), Rhs([Lex(Layout())]), NoAttrs())
+        , SdfProduction(
+            Cf(Layout())
+          , Rhs([Cf(Layout()), Cf(Layout())])
+          , Attrs([Assoc(Left())])
+          )
+        , SdfProduction(Start(), Rhs([Lex(Sort("Comment"))]), NoAttrs())
+        , SdfProduction(
+            FileStart()
+          , Rhs([Start(), CharClass(Simple(Present(Numeric("\\256"))))])
+          , NoAttrs()
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Restrictions(
+        [ Follow(
+            [Cf(Opt(Layout()))]
+          , List(
+              [ Seq(
+                  Simple(Present(Numeric("\\47")))
+                , List(
+                    [ CharClass(Simple(Present(Numeric("\\42"))))
+                    , CharClass(Simple(Present(Numeric("\\47"))))
+                    ]
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lit("\"/**\"")]
+          , List([CharClass(Simple(Present(Numeric("\\47"))))])
+          )
+        , Follow(
+            [Lit("\"/*\"")]
+          , List([CharClass(Simple(Present(Numeric("\\42"))))])
+          )
+        , Follow(
+            [Lex(Sort("Asterisk"))]
+          , List([CharClass(Simple(Present(Numeric("\\47"))))])
+          )
+        , Follow(
+            [Lex(Sort("EscChar"))]
+          , List(
+              [CharClass(Simple(Present(Conc(Numeric("\\92"), Numeric("\\117")))))]
+            )
+          )
+        , Follow(
+            [Lex(Sort("BlockCommentChars"))]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\41"))
+                      , Conc(
+                          Range(Numeric("\\43"), Numeric("\\91"))
+                        , Range(Numeric("\\93"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        , Follow(
+            [Lex(Sort("EOLCommentChars"))]
+          , List(
+              [ CharClass(
+                  Simple(
+                    Present(
+                      Conc(
+                        Range(Numeric("\\0"), Numeric("\\9"))
+                      , Conc(
+                          Range(Numeric("\\11"), Numeric("\\12"))
+                        , Range(Numeric("\\14"), Numeric("\\255"))
+                        )
+                      )
+                    )
+                  )
+                )
+              ]
+            )
+          )
+        ]
+      )
+    )
+  , SDFSection(
+      Priorities(
+        [ Assoc(
+            SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          , Left()
+          , SimpleGroup(
+              SdfProduction(
+                Cf(Layout())
+              , Rhs([Cf(Layout()), Cf(Layout())])
+              , NoAttrs()
+              )
+            )
+          )
+        ]
+      )
+    )
+  ]
+)

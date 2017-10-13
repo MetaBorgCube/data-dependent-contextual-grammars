@@ -1,0 +1,51 @@
+module OCaml
+
+imports 
+  Lexical
+  Classes
+  Expressions
+  ModuleExpressions
+  ModuleTypes
+  Patterns
+
+syntax start-symbols
+
+  Start
+  
+syntax
+
+//  Start = Interface
+//  Start = Implementation
+//  Start = LAYOUT?-CF TopLevel-CF LAYOUT?-CF  
+//    Start = Pattern
+
+syntax
+
+    
+context-free syntax
+  
+//  Interface.Interface = <<SpecificationAux*>>
+//  
+//  SpecificationAux      = Specification 
+//  SpecificationAux.Spec = Specification ";;" 
+//  
+//  Implementation.Defs = <<DefinitionAux*>>
+//  DefinitionAux = Definition
+//  DefinitionAux.Def = Definition ";;"
+//  
+//  TopLevel.TopLevels     = TopLevelPhrase*
+//  TopLevel.TopLevelsExpr = TopLevelPhrase* Expr
+//  TopLevel.TopLevelsDef  = TopLevelPhrase* Definition+
+//  
+//  TopLevelPhrase.TopLevelDefs = Definition+ ";;"
+//  TopLevelPhrase.Expr         = Expr ";;"
+//  TopLevelPhrase.Expr2        = Expr 
+  
+  TopLevel.TopLevelEmpty =  
+  TopLevel.TopLevel = DoubleSemiColonOpt DefinitionOrExpr DefinitionOrExprList* DoubleSemiColonOpt
+  
+//  DefinitionOrExprList.Def1 = ";;" Definition
+//  DefinitionOrExprList.Def2 = Definition      
+//  DefinitionOrExprList.Expr = ";;" Expr
+  
+//  DefinitionOrExpr.Expr2 = Expr 

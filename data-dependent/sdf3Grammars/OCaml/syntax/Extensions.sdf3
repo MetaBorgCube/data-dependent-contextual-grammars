@@ -1,0 +1,167 @@
+module Extensions
+
+imports Names 
+        TypeExpr
+        Lexical
+        ModuleExpressions
+        Patterns
+        Classes
+        TypesAndExceptions
+
+context-free syntax
+  
+  PackageType.PackageType = ModTypePath
+  PackageType.PackageType = ModTypePath "with" {PackageConstraint "and"}*
+  
+  PackageConstraint.PackageConstraint = "type" TypeConstr "=" TypeExpr
+  
+// 7.15 Overriding in Open Statements
+context-free syntax
+  
+  Definition.Open2         = "open!" ModulePath
+
+
+// 7.18 ATTRIBUTES  
+lexical syntax
+
+  AttributeName = [a-zA-Z\_][A-Za-z0-9\_\']* // can be keywords?
+  AttributeID = {AttributeName "."}+
+
+lexical restrictions
+
+  AttributeName -/- [A-Za-z0-9\_\']
+
+context-free syntax
+  
+  AttributePayload.ModItems      = ModuleItems
+  AttributePayload.NoModItems    = 
+  AttributePayload.TypeExpr      = ":" TypeExpr
+  AttributePayload.Def           = ":" Definition
+  AttributePayload.NoDef         = ":"
+  AttributePayload.Pattern       = "?" Pattern
+  AttributePayload.Pattern       = "?" Pattern "when" Expr
+  
+   Attribute.Attribute = "[@" AttributeID AttributePayload "]"
+  
+  Expr.ExprAttr             = Expr Attribute
+  TypeExpr.TypeExprAttr     = TypeExpr Attribute
+  Pattern.PatternAttr       = Pattern Attribute
+  ModuleExpr.ModuleExprAttr = ModuleExpr Attribute
+  ModuleType.ModuleTypeAttr = ModuleType Attribute
+  ClassExpr.ClassExprAttr   = ClassExpr Attribute
+  
+  ClassType.ClassTypeAttr     = LabelNameOpt TypeExpr "->" ClassType Attribute
+  ClassBodyType.ClassBodyTypeAttr = "object" OptTypeExpr ClassFieldSpec* "end" Attribute
+  ClassBodyType.ClassBodyType       = OptTypeExprList ClassPath Attribute
+  
+  TagSpec.TagSpec1 = "`" TagName Attribute 
+  TagSpec.TagSpec1 = "`" TagName Attribute "of" TypeExpr
+  
+  TagSpecFull.TagSpecFull =  "`" TagName Attribute AndTypeExpr*
+  TagSpecFull.TagSpecFull =  "`" TagName Attribute "of" TypeExpr AndTypeExpr*
+  
+  MethodType.MethodType = MethodName Attribute ":" PolyTypeExpr
+  
+  ConstrDecl.ConstrDecl1 = ConstrName "of" {TypeExpr "*"}+ Attribute+
+  ConstrDecl.ConstrDecl2 = "()" "of" {TypeExpr "*"}+ Attribute+
+  
+  FieldDecl.FieldDecl = Mutable? FieldName ":" PolyTypeExpr Attribute+
+  
+  
+
+  
+context-free syntax
+
+  ItemAttribute.ItemAttribute = "[@@" AttributeID AttributePayload "]"
+  
+  TypeDef.TypeDefItemAttr           = TypeDef ItemAttribute
+  DefinitionOrExpr.ExprItemAttr     = Expr ItemAttribute+
+  DefinitionOrExprList.Expr         = ";;" Expr ItemAttribute+
+  ClassBinding.ClassBindingItemAttr = ClassBinding ItemAttribute
+  ClassSpec.ClassSpecItemAttr       = ClassSpec ItemAttribute
+  ClassTypeDef.ClassTypeDefItemAttr = ClassTypeDef ItemAttribute  
+  Definition.ExceptionDefItemAttr   = ExceptionDefinition ItemAttribute+
+  Definition.ExternalDefItemAttr    = "external" ValueName ":" TypeExpr "=" ExternalDeclaration ItemAttribute+
+  Definition.ModuleDef1ItemAttr     = "module" ModuleName ModuleNameTypeParam* ColonModuleTypeOpt "=" ModuleExpr ItemAttribute+
+  Definition.ModuleDef2ItemAttr     = "module" ModuleName ModuleNameTypeParam* ":" ModuleType ItemAttribute+
+  Definition.ModuleTypeItemAttr     = "module" "type" ModTypeName "=" ModuleType ItemAttribute+
+  Definition.ModuleTypeItemAttr     = "module" "type" ModTypeName ItemAttribute+
+  Definition.ModuleRec1ItemAttr     = "module" "rec" ModuleName ":" ModuleType "=" ModuleExpr ItemAttribute* AndModuleTypeModuleExprAttr* 
+  
+  AndModuleTypeModuleExprAttr.NamedTypedModuleEquals  = "and" ModuleName ":" ModuleType "=" ModuleExpr ItemAttribute*
+  
+  ClassFieldSpec.ClassFieldSpecItemAttr = ClassFieldSpec ItemAttribute
+  ClassField.ClassFieldItemAttr         = ClassField ItemAttribute
+  
+context-free syntax
+  
+  FloatingAttribute.FloatingAttribute =   "[@@@" AttributeID AttributePayload "]"
+  
+  Definition.DefinitionFloattingAttr         = FloatingAttribute
+  ClassFieldSpec.ClassFieldSpecFloattingAttr = FloatingAttribute
+  ClassField.ClassFieldFloattingAttr         = FloatingAttribute
+  
+// 7.19 EXTENSION NODES
+context-free syntax
+  
+  Extension.Extension =   "[%" AttributeID AttributePayload "]"
+  
+  Expr       = Extension
+  TypeExpr   = Extension
+  Pattern    = Extension
+  ModuleExpr = Extension
+  ModuleType = Extension
+  ClassExpr  = Extension
+  ClassType  = Extension
+  
+  ItemExtension.ItemExtension = "[%%" AttributeID AttributePayload "]"
+  
+  Definition     = ItemExtension
+  ClassFieldSpec = ItemExtension
+  ClassField     = ItemExtension
+  
+// 7.20 QUOTED STRINGS
+lexical syntax
+  StringLiteral  = QuotedString
+  QuotedString = [\{] QuotedStringID [\|] QuotedStringChar [\|] QuotedStringID [\}]  
+  QuotedStringID = [a-z\_]*
+  HashInfixSymbol   = "#" OperatorChar* "#" (OperatorChar | "#")*
+  
+  QuotedStringChar     = (~[\{\|] | VerticalBar | OpenCurlyBracketID | QuotedString)*
+  OpenCurlyBracketID   = [\{] [a-z]*
+  VerticalBar          = "|" [a-z\_]*
+  
+lexical restrictions
+  
+  HashInfixSymbol -/- [\#\!\$\%\&\*\+\-\.\/\:\<\>\?\@\^\|\~]
+  VerticalBar  -/- [a-z\_\}]
+  OpenCurlyBracketID -/- [a-z\|]
+  
+// 7.21 EXCEPTION CASES IN PATTERN MATCHING
+context-free syntax
+  
+  Pattern.Exception = "exception" Pattern  
+  
+// 7.22 EXTENSIBLE VARIANT TYPES
+context-free syntax
+  
+  TypeRepresentation.Extensible     = "=" ".."
+  Definition.TypeExtension          = "type" TypeParams? TypeConstr TypeExtensionDef
+  TypeExtensionDef.TypeExtensionDef = "+=" Private? OptBar {ConstrDef "|"}+
+  
+  ConstrDef             = ConstrDecl
+  ConstrDef.ConstrDef   = ConstrName "=" Constr
+
+
+  
+// 7.25  INLINE RECORDS
+context-free syntax
+
+  ConstrDecl.ConstrDeclRecord1 = ConstrName "of" "{" {FieldDecl ";"}+ OptSemiColon "}"
+  ConstrDecl.ConstrDeclRecord2 = "[]" "of" "{" {FieldDecl ";"}+ OptSemiColon "}"
+  ConstrDecl.ConstrDeclRecord3 = "(::)" "of" "{" {FieldDecl ";"}+ OptSemiColon "}"
+  ConstrDecl.ConstrDeclRecord4 = ConstrName ":" "{" {FieldDecl ";"}+ OptSemiColon "}" "->" TypeExpr
+  ConstrDecl.ConstrDeclRecord5 = ConstrName ":" "{" {FieldDecl ";"}+ OptSemiColon "}"
+  ConstrDecl.ConstrDeclRecord6 = "()" "of" "{" {FieldDecl ";"}+ OptSemiColon "}"
+  ExceptionDefinition.ExceptionRecord  = "exception" ConstrName "of" "{" {FieldDecl ";"}+ OptSemiColon "}"
+  

@@ -1,0 +1,64 @@
+module TypesAndExceptions
+
+imports 
+  Lexical
+  Names 
+  Classes
+  TypeExpr
+  Expressions
+  Extensions
+  ModuleExpressions
+  ModuleTypes 
+  
+context-free syntax
+  
+  TypeDefinition.TypeDefinition = "type" {TypeDef "and"}+
+  TypeDefinition.TypeDefinitionNonRec = "type" "nonrec" {TypeDef "and"}+
+  TypeDef.TypeDef = TypeParams? TypeConstrName TypeInformation
+  TypeInformation.TypeInformation = TypeEquation? TypeRepresentation? TypeConstraint*
+  TypeEquation.TypeEquation = "=" TypeExpr
+  TypeRepresentation.ConstrDecls = "=" Private? OptBar {ConstrDecl "|"}+
+  TypeRepresentation.FieldDecls = "=" Private? "{" {FieldDecl ";"}+ OptSemiColon "}"
+  TypeParams.SingleTypeParam = TypeParam
+  TypeParams.TypeParamList = "(" {TypeParam ","}+ ")"
+  
+  TypeParam.TypeParam1 = Variance? "'" Ident
+  TypeParam.TypeParam2 = Variance? "_" 
+  
+  Variance.PosVariance = "+"
+  Variance.NegVariance = "-"
+  
+  ConstrDecl.ConstrDecl1 = ConstrName "of" {TypeExpr "*"}+ 
+  ConstrDecl.ConstrDecl1 = ConstrName
+  
+  ConstrDecl.ConstrDecl2 = "[]" "of" {TypeExpr "*"}+ 
+  ConstrDecl.ConstrDecl2 = "[]"
+  
+  ConstrDecl.ConstrDecl3 = "(::)" "of" {TypeExpr "*"}+ 
+  ConstrDecl.ConstrDecl3 = "(::)"
+  
+  
+  ConstrDecl.ConstrDecl4 = ConstrName ":" {TypeExpr "*"}+ "->" TypeExpr
+  ConstrDecl.ConstrDecl4 = ConstrName ":" {TypeExpr "*"}+ 
+  
+  ConstrDecl.ConstrDecl5 = "()" "of" {TypeExpr "*"}+ 
+  ConstrDecl.ConstrDecl5 = "()"
+  
+  FieldDecl.FieldDecl = Mutable? FieldName ":" PolyTypeExpr
+  
+  TypeConstraint.TypeConstraint = "constraint" "'" Ident "=" TypeExpr
+  
+  ExceptionDefinition.Exception  = "exception" ConstrName "of" {TypeExpr "*"}+
+  ExceptionDefinition.Exception  = "exception" ConstrName 
+  ExceptionDefinition.Exception2 = "exception" ConstrName "=" Constr
+  
+  OptSemiColon = ";"
+  OptSemiColon =  
+  OptBar.NoBar = 
+  OptBar.Bar = "|"
+  
+//  context-free priorities  
+//
+//  {TypeExpr "*"}+ = {TypeExpr "*"}+ "*" TypeExpr <2> .> TypeExpr.Star,
+//  {TypeExpr "*"}+ = TypeExpr <0> .> TypeExpr.Star
+  
