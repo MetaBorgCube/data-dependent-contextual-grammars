@@ -7,7 +7,7 @@
 	<version>2.3.0</version>
 	<packaging>jar</packaging>
 
-	<name>JMH benchmark sample: Java</name>
+	<name>JMH benchmark data dependent contextual grammars</name>
 
 	<dependencies>
 		<dependency>
@@ -26,6 +26,11 @@
 			<artifactId>sdf2table</artifactId>
 			<version>2.3.0</version>
 		</dependency>
+		<dependency>
+      <groupId>org.metaborg</groupId>
+      <artifactId>org.spoofax.jsglr2</artifactId>
+      <version>2.3.0</version>
+    </dependency>
 		<dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>

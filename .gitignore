@@ -2,5 +2,6 @@
 *.pdf
 data-dependent/logs/*
 data-dependent/test/*
+data-dependent/Results/*
 !data-dependent/test/Java/disamb.java
 !data-dependent/test/OCaml/disamb.ml
