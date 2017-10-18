@@ -21,12 +21,13 @@ import com.google.common.collect.Lists;
 
 @State(Scope.Thread)
 public class ParseTableGenerationBenchmark {
+    
+    public enum Language {
+        OCAML, JAVA
+    }
 
-    @Param({ "0", "1" })
-    public static int lang;
-
-    @Param({ "0", "1", "2", "3", "4" })
-    public int tableGenerationConfig;
+    @Param
+    public static Language lang;
 
     @State(Scope.Benchmark)
     public static class BenchmarkLanguages {
@@ -34,24 +35,37 @@ public class ParseTableGenerationBenchmark {
         public final static String[] mainSDF3normModule = { "OCaml", "java-front" };
     }
 
+    @Param({ "true", "false" })
+    public static boolean isDynamic;
+
+    @Param({  "true", "false" })
+    public static boolean isDataDependent;
+
+    @Param({  "true", "true" })
+    public static boolean enableDeepConflictResolution;
+
     @State(Scope.Benchmark)
-    public static class BenchmarkTableGenerationConfig {
-        public final static String[] config =
-            { "regular", "dataDependent", "original", "lazyRegular", "lazyDataDependent" };
+    public static class ParseTableGeneratorState {
 
-        File mainFile;
-
-        ParseTableGenerator ptg;
+        public ParseTableGenerator ptg;
 
         @Setup(Level.Trial)
         public void doSetup() throws IOException {
-            mainFile = new File("normalizedGrammars/" + BenchmarkLanguages.languages[lang] + "/normalized/"
-                + BenchmarkLanguages.mainSDF3normModule[lang] + "-norm.aterm");
+            File mainFile;
+
+            mainFile = new File("normalizedGrammars/" + BenchmarkLanguages.languages[lang.ordinal()] + "/normalized/"
+                + BenchmarkLanguages.mainSDF3normModule[lang.ordinal()] + "-norm.aterm");
 
             ptg = new ParseTableGenerator(mainFile, null, null, null,
-                Lists.newArrayList("normalizedGrammars/" + BenchmarkLanguages.languages[lang]));
+                Lists.newArrayList("normalizedGrammars/" + BenchmarkLanguages.languages[lang.ordinal()]));
+
+            if(!enableDeepConflictResolution && (isDynamic || isDataDependent)) {
+                throw new RuntimeException();
+            }
         }
     }
+
+
 
     public static void main(String[] args) throws RunnerException {
         // @formatter:off
@@ -81,28 +95,9 @@ public class ParseTableGenerationBenchmark {
     // @formatter:on
 
     @Benchmark
-    public ParseTableGenerator parseTableGeneration(BenchmarkTableGenerationConfig btgc) throws Exception {
-
-        switch(BenchmarkTableGenerationConfig.config[tableGenerationConfig]) {
-            case "regular":
-                btgc.ptg.createParseTable(false, false);
-                return btgc.ptg;
-            case "dataDependent":
-                btgc.ptg.createParseTable(false, true);
-                return btgc.ptg;
-            case "original":
-                btgc.ptg.createParseTable(false, false, false);
-                return btgc.ptg;
-            case "lazyRegular":
-                btgc.ptg.createParseTable(true, false);
-                return btgc.ptg;
-            case "lazyDataDependent":
-                btgc.ptg.createParseTable(true, true);
-                return btgc.ptg;
-            default:
-                return null;
-        }
-
+    public ParseTableGenerator parseTableGeneration(ParseTableGeneratorState s) throws Exception {
+        s.ptg.createParseTable(isDynamic, isDataDependent, enableDeepConflictResolution);
+        return s.ptg;
     }
 
 }
