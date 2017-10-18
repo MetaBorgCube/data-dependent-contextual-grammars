@@ -24,10 +24,8 @@ import org.spoofax.jsglr2.JSGLR2;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 
-@State(Scope.Thread)
+@State(Scope.Benchmark)
 public class DataDependentParsingBenchmark {
-
-
 
     @Param({ "test/Java/no-project/disamb.java" })
     public static String filename;
@@ -46,68 +44,39 @@ public class DataDependentParsingBenchmark {
                 input = "";
             }
         }
-
     }
 
-    @Param({ "1" })
-    public static int lang;
+    @Param({ "JAVA" })
+    public static Language a_lang;
 
-     @Param({ "0", "1", "2", "3" })
-    public static int mode;
+    @Param({ "true", "false" })
+    public static boolean b_isLazyGeneration;
+
+    @Param({ "true", "false" })
+    public static boolean c_isDataDependent;
 
     @State(Scope.Benchmark)
     public static class BenchmarkLanguages {
-        @Setup(Level.Trial)
-        public void doSetup() throws Exception {
-            File mainFile = new File(
-                "normalizedGrammars/" + languages[lang] + "/normalized/" + mainSDF3normModule[lang] + "-norm.aterm");
-
-            ParseTableGenerator ptg = new ParseTableGenerator(mainFile, null, null, null,
-                Lists.newArrayList("normalizedGrammars/" + languages[lang]));
-
-            switch(mode) {
-                case 0:
-                    System.out.println("generating parse table for regular contextual grammar");
-                    ptg.createParseTable(false, false);
-                    pt = ptg.getParseTable();
-                    System.out.println("parse table has " + pt.totalStates() + " states.");
-                    parser = JSGLR2.standard(pt);
-                    break;
-                case 1:
-                    System.out.println("generating parse table for data dependent contextual grammar");
-                    ptg.createParseTable(false, true);
-                    pt = ptg.getParseTable();
-                    parser = JSGLR2.dataDependent(pt);
-                    System.out.println("parse table has " + pt.totalStates() + " states.");
-                    break;
-                case 2:
-                    System.out.println("generating parse table for lazy regular contextual grammar");
-                    ptg.createParseTable(true, false);
-                    pt = ptg.getParseTable();
-                    parser = JSGLR2.standard(pt);
-                    System.out.println("parse table has " + pt.totalStates() + " states.");
-                    break;
-                case 3:
-                    System.out.println("generating parse table for lazy data dependent contextual grammar");
-                    ptg.createParseTable(true, true);
-                    pt = ptg.getParseTable();
-                    parser = JSGLR2.dataDependent(pt);
-                    System.out.println("parse table has " + pt.totalStates() + " states.");
-                    break;
-                default:
-                    System.out.println("invalid option");
-                    pt = null;
-                    break;
-            }
-
-
-        }
-
-        public final String[] languages = { "OCaml", "Java" };
-        public final String[] mainSDF3normModule = { "OCaml", "java-front" };
-        public final String[] parsingMode = { "regular", "dataDependent", "lazyGenRegular", "lazyGenDataDependent" };
         public ParseTable pt;
         public JSGLR2<?, ?, IStrategoTerm> parser;
+        
+        @Setup(Level.Trial)
+        public void doSetup() throws Exception {
+            File mainFile = new File("normalizedGrammars/" + a_lang.getLanguageName() + "/normalized/"
+                + a_lang.getMainSDF3Module() + "-norm.aterm");
+
+            ParseTableGenerator ptg = new ParseTableGenerator(mainFile, null, null, null,
+                Lists.newArrayList("normalizedGrammars/" + a_lang.getLanguageName()));
+
+            ptg.createParseTable(b_isLazyGeneration, c_isDataDependent);
+            pt = ptg.getParseTable();
+
+            if(c_isDataDependent) {
+                parser = JSGLR2.dataDependent(pt);
+            } else {
+                parser = JSGLR2.standard(pt);
+            }
+        }
     }
 
     public static void main(String[] args) throws RunnerException {
