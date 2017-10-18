@@ -22,10 +22,6 @@ import com.google.common.collect.Lists;
 @State(Scope.Benchmark)
 public class ParseTableGenerationBenchmark {
     
-    public enum Language {
-        OCAML, JAVA
-    }
-
     @Param({ "JAVA" })
     public static Language a_lang;    
     
@@ -39,12 +35,6 @@ public class ParseTableGenerationBenchmark {
     public static boolean b_isLazyGeneration;
 
     @State(Scope.Benchmark)
-    public static class BenchmarkLanguages {
-        public final static String[] languages = { "OCaml", "Java" };
-        public final static String[] mainSDF3normModule = { "OCaml", "java-front" };
-    }
-
-    @State(Scope.Benchmark)
     public static class BenchmarkTableGenerationConfig {
         public final static String[] config =
             { "regular", "dataDependent", "original", "lazyRegular", "lazyDataDependent" };
@@ -55,19 +45,15 @@ public class ParseTableGenerationBenchmark {
 
         @Setup(Level.Trial)
         public void doSetup() throws IOException {
-            if(a_lang.equals(Language.OCAML) ) {
-                throw new RuntimeException();
-            }            
-            
             if(!d_solvesDeepConflicts && (b_isLazyGeneration || c_isDataDependent)) {
                 throw new RuntimeException();
             }
             
-            mainFile = new File("normalizedGrammars/" + BenchmarkLanguages.languages[a_lang.ordinal()] + "/normalized/"
-                + BenchmarkLanguages.mainSDF3normModule[a_lang.ordinal()] + "-norm.aterm");
+            mainFile = new File("normalizedGrammars/" + a_lang.getLanguageName() + "/normalized/"
+                + a_lang.getMainSDF3Module() + "-norm.aterm");
 
             ptg = new ParseTableGenerator(mainFile, null, null, null,
-                Lists.newArrayList("normalizedGrammars/" + BenchmarkLanguages.languages[a_lang.ordinal()]));
+                Lists.newArrayList("normalizedGrammars/" + a_lang.getLanguageName()));
         }
     }
 
