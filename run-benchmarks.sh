@@ -57,14 +57,14 @@ if [[ -n "$PARSETABLEGENERATION" ]]; then
    echo "JAVA"
    cd data-dependent
    mkdir -p Results/PTGen/Java
-   java -jar target/benchmarks.jar ParseTableGenerationBenchmark -bm avgt -f 1 -i 5 -wi 5 -tu ms -t max -p lang=JAVA -o Results/PTGen/Java/java-result.txt
+   java -jar target/benchmarks.jar ParseTableGenerationBenchmark -bm avgt -f 1 -i 25 -wi 10 -tu ms -t 1 -p a_lang=JAVA -o Results/PTGen/Java/java-result.txt
    cd ..
  fi
  if [[ -n "$OCAML" ]]; then
    echo "OCAML"
    cd data-dependent
    mkdir -p Results/PTGen/OCaml
-   java -jar target/benchmarks.jar ParseTableGenerationBenchmark -bm avgt -f 1 -i 10 -wi 10 -tu ms -t max -p lang=OCAML -o Results/PTGen/OCaml/ocaml-result.txt
+   java -jar target/benchmarks.jar ParseTableGenerationBenchmark -bm avgt -f 1 -i 25 -wi 10 -tu ms -t 1 -p a_lang=OCAML -o Results/PTGen/OCaml/ocaml-result.txt
    cd ..
  fi
 fi
@@ -81,7 +81,7 @@ if [[ -n "$PARSETIME" ]]; then
     filename="${filename%.*}"
     echo "Running benchmark for file ${filename}"
     mkdir -p Results/$DIRECTORY
-    java -jar target/benchmarks.jar DataDependentParsingBenchmark -bm avgt -f 1 -i 10 -wi 10 -tu ms -t 1 -p filename=$i -p lang=1 -o Results/$DIRECTORY/$filename.txt
+    java -jar target/benchmarks.jar DataDependentParsingBenchmark -bm avgt -f 1 -i 10 -wi 10 -tu ms -t 1 -p file=$i -p lang=1 -o Results/$DIRECTORY/$filename.txt
   done
   cd ..
 fi
@@ -94,7 +94,7 @@ if [[ -n "$OCAML" ]]; then
     filename=$(basename "$i")
     filename="${filename%.*}"
     mkdir -p Results/$DIRECTORY
-    java -jar target/benchmarks.jar DataDependentParsingBenchmark -bm avgt -f 1 -i 10 -wi 10 -tu ms -t 1 -p filename=$i -p lang=1 -o Results/$DIRECTORY/$filename.txt
+    java -jar target/benchmarks.jar DataDependentParsingBenchmark -bm avgt -f 1 -i 10 -wi 10 -tu ms -t 1 -p file=$i -p lang=1 -o Results/$DIRECTORY/$filename.txt
   done
   cd ..
 

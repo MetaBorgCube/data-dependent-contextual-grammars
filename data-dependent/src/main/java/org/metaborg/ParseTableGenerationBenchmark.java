@@ -19,15 +19,24 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import com.google.common.collect.Lists;
 
-@State(Scope.Thread)
+@State(Scope.Benchmark)
 public class ParseTableGenerationBenchmark {
     
     public enum Language {
         OCAML, JAVA
     }
 
-    @Param
-    public static Language lang;
+    @Param({ "JAVA" })
+    public static Language a_lang;    
+    
+    @Param({ "true", "false" })
+    public static boolean c_isDataDependent;
+    
+    @Param({ "true", "false" })
+    public static boolean d_solvesDeepConflicts;
+    
+    @Param({ "true", "false" })
+    public static boolean b_isLazyGeneration;
 
     @State(Scope.Benchmark)
     public static class BenchmarkLanguages {
@@ -35,37 +44,32 @@ public class ParseTableGenerationBenchmark {
         public final static String[] mainSDF3normModule = { "OCaml", "java-front" };
     }
 
-    @Param({ "true", "false" })
-    public static boolean isDynamic;
-
-    @Param({  "true", "false" })
-    public static boolean isDataDependent;
-
-    @Param({  "true", "true" })
-    public static boolean enableDeepConflictResolution;
-
     @State(Scope.Benchmark)
-    public static class ParseTableGeneratorState {
+    public static class BenchmarkTableGenerationConfig {
+        public final static String[] config =
+            { "regular", "dataDependent", "original", "lazyRegular", "lazyDataDependent" };
 
-        public ParseTableGenerator ptg;
+        File mainFile;
+
+        ParseTableGenerator ptg;
 
         @Setup(Level.Trial)
         public void doSetup() throws IOException {
-            File mainFile;
-
-            mainFile = new File("normalizedGrammars/" + BenchmarkLanguages.languages[lang.ordinal()] + "/normalized/"
-                + BenchmarkLanguages.mainSDF3normModule[lang.ordinal()] + "-norm.aterm");
-
-            ptg = new ParseTableGenerator(mainFile, null, null, null,
-                Lists.newArrayList("normalizedGrammars/" + BenchmarkLanguages.languages[lang.ordinal()]));
-
-            if(!enableDeepConflictResolution && (isDynamic || isDataDependent)) {
+            if(a_lang.equals(Language.OCAML) ) {
+                throw new RuntimeException();
+            }            
+            
+            if(!d_solvesDeepConflicts && (b_isLazyGeneration || c_isDataDependent)) {
                 throw new RuntimeException();
             }
+            
+            mainFile = new File("normalizedGrammars/" + BenchmarkLanguages.languages[a_lang.ordinal()] + "/normalized/"
+                + BenchmarkLanguages.mainSDF3normModule[a_lang.ordinal()] + "-norm.aterm");
+
+            ptg = new ParseTableGenerator(mainFile, null, null, null,
+                Lists.newArrayList("normalizedGrammars/" + BenchmarkLanguages.languages[a_lang.ordinal()]));
         }
     }
-
-
 
     public static void main(String[] args) throws RunnerException {
         // @formatter:off
@@ -74,7 +78,7 @@ public class ParseTableGenerationBenchmark {
             .measurementIterations(5)
             .mode(Mode.AverageTime)
             .forks(1)
-            .threads(5)
+            .threads(1)
             .include(ParseTableGenerationBenchmark.class.getSimpleName())
             .timeUnit(TimeUnit.MILLISECONDS)
             .build();
@@ -95,9 +99,9 @@ public class ParseTableGenerationBenchmark {
     // @formatter:on
 
     @Benchmark
-    public ParseTableGenerator parseTableGeneration(ParseTableGeneratorState s) throws Exception {
-        s.ptg.createParseTable(isDynamic, isDataDependent, enableDeepConflictResolution);
-        return s.ptg;
+    public ParseTableGenerator parseTableGeneration(BenchmarkTableGenerationConfig btgc) throws Exception {
+        btgc.ptg.createParseTable(b_isLazyGeneration, c_isDataDependent, d_solvesDeepConflicts);
+        return btgc.ptg;
     }
 
 }
