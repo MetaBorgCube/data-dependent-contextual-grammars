@@ -16,8 +16,6 @@ public class CharacterClass extends Symbol implements ISGLRCharacters {
 
     private static final long serialVersionUID = 1619024888383357090L;
 
-    public static CharacterClass emptyCC = new CharacterClass(null);
-
     private final BitSet bs;
 
     public CharacterClass(BitSet bs) {
@@ -104,7 +102,7 @@ public class CharacterClass extends Symbol implements ISGLRCharacters {
             if(bs.get(i)) {
                 int next = bs.nextClearBit(i);
                 if(next != i + 1) {
-                    terms.add(tf.makeAppl(tf.makeConstructor("range", 2), tf.makeInt(i), tf.makeInt(next-1)));
+                    terms.add(tf.makeAppl(tf.makeConstructor("range", 2), tf.makeInt(i), tf.makeInt(next - 1)));
                 } else {
                     terms.add(tf.makeInt(i));
                 }
@@ -125,7 +123,7 @@ public class CharacterClass extends Symbol implements ISGLRCharacters {
             if(bs.get(i)) {
                 int next = bs.nextClearBit(i);
                 if(next != i + 1) {
-                    terms.add(tf.makeAppl(tf.makeConstructor("range", 2), tf.makeInt(i), tf.makeInt(next-1)));
+                    terms.add(tf.makeAppl(tf.makeConstructor("range", 2), tf.makeInt(i), tf.makeInt(next - 1)));
                 } else {
                     terms.add(tf.makeInt(i));
                 }
@@ -170,6 +168,18 @@ public class CharacterClass extends Symbol implements ISGLRCharacters {
         BitSet bs = new BitSet(257);
         bs.set(0, 257);
         return new CharacterClass(bs);
+    }
+
+    public boolean isEmptyCC() {
+        if(bs == null) {
+            return true;
+        }
+        
+        if(bs.isEmpty()) {
+            return true;
+        }
+        
+        return false;
     }
 
 }

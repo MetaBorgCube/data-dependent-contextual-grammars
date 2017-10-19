@@ -1,7 +1,10 @@
 package org.metaborg;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -11,12 +14,15 @@ import org.apache.commons.vfs2.VFS;
 import org.metaborg.sdf2table.io.ParseTableGenerator;
 import org.metaborg.sdf2table.parsetable.ParseTable;
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
@@ -27,36 +33,45 @@ import org.spoofax.jsglr2.JSGLR2;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 
+@BenchmarkMode(Mode.SingleShotTime)
 @State(Scope.Benchmark)
-public class DataDependentParsingBenchmark {
+public class BatchDataDependentParsingBenchmark {
 
-    @Param({ "test/Java/aurora-imui/Android/chatinput/src/androidTest/java/imui/jiguang/cn/imuikit/ExampleInstrumentedTest.java" })
-    public static String filename;
+    @Param({ "files/withoutDeepConflicts/files.csv", "files/withDeepConflicts/files.csv" })
+    public static String b_filename;
 
     @State(Scope.Benchmark)
     public static class FileConfig {
-        public File currentFile;
-        public String input;
+        public File csvFile;
+        public List<String> input;
 
         @Setup(Level.Trial)
         public void doSetup() throws IOException {
-            currentFile = new File(filename);
-            if(currentFile.exists()) {
-                input = FileUtils.readFileToString(currentFile, Charsets.UTF_8);
-            } else {
-                input = "";
+            input = Lists.newArrayList();
+            BufferedReader br = null;
+            String line = "";
+            csvFile = new File("resources/" + a_lang.getLanguageName() + "/" + b_filename);
+            
+            br = new BufferedReader(new FileReader(csvFile));
+            while((line = br.readLine()) != null) {
+                File currentFile = new File(line);
+                if(currentFile.exists()) {
+                    input.add(FileUtils.readFileToString(currentFile, Charsets.UTF_8));
+                }
             }
+            br.close();
+
         }
     }
 
-    @Param({ "JAVA" })
+    @Param({ "JAVA", "OCAML" })
     public static Language a_lang;
 
     @Param({ "true", "false" })
-    public static boolean b_isLazyGeneration;
+    public static boolean c_isLazyGeneration;
 
     @Param({ "true", "false" })
-    public static boolean c_isDataDependent;
+    public static boolean d_isDataDependent;
 
     @State(Scope.Benchmark)
     public static class BenchmarkLanguages {
@@ -68,19 +83,19 @@ public class DataDependentParsingBenchmark {
 
             FileSystemManager fsManager = VFS.getManager();
             String pathToParseTable = "resources/parseTables/" + a_lang.getLanguageName() + "/";
-            if(b_isLazyGeneration) {
+            if(c_isLazyGeneration) {
                 pathToParseTable += "lazy/";
             } else {
                 pathToParseTable += "notLazy/";
             }
-            
-            if(c_isDataDependent) {
+
+            if(d_isDataDependent) {
                 pathToParseTable += "dataDependent/";
             } else {
                 pathToParseTable += "notDataDependent/";
             }
-            
-            File PTpath = new File(pathToParseTable); 
+
+            File PTpath = new File(pathToParseTable);
             if(!(PTpath.exists())) {
                 System.out.println("dirs did not exist, creating them");
                 PTpath.mkdirs();
@@ -100,11 +115,11 @@ public class DataDependentParsingBenchmark {
                 ParseTableGenerator ptg = new ParseTableGenerator(mainFile, null, persistedFile, null,
                     Lists.newArrayList("normalizedGrammars/" + a_lang.getLanguageName()));
 
-                ptg.outputTable(b_isLazyGeneration, c_isDataDependent);
+                ptg.outputTable(c_isLazyGeneration, d_isDataDependent);
                 pt = ptg.getParseTable();
             }
-            
-            if(c_isDataDependent) {
+
+            if(d_isDataDependent) {
                 parser = JSGLR2.dataDependent(pt);
             } else {
                 parser = JSGLR2.standard(pt);
@@ -116,12 +131,12 @@ public class DataDependentParsingBenchmark {
 
         // @formatter:off
         Options options = new OptionsBuilder()
-            .warmupIterations(10) 
-            .measurementIterations(25)
+            .warmupIterations(1) 
+            .measurementIterations(5)
             .mode(Mode.AverageTime)
             .forks(1)
             .threads(1)
-            .include(DataDependentParsingBenchmark.class.getSimpleName())
+            .include(BatchDataDependentParsingBenchmark.class.getSimpleName())
             .timeUnit(TimeUnit.MILLISECONDS)
             .build();
 
@@ -138,10 +153,19 @@ public class DataDependentParsingBenchmark {
      * - measure parse time for data dependent parser + lazy parse table generation using the contextual grammar that does not duplicate productions
      */
     // @formatter:on
-
     @Benchmark
-    public IStrategoTerm parseFile(BenchmarkLanguages bl, FileConfig fc) throws IOException {
-        return bl.parser.parse(fc.input);
+    public void parseFile(Blackhole bh, BenchmarkLanguages bl, FileConfig fc) throws IOException {
+//        int processedSize = 0;
+//        int remainingSize = fc.input.size();
+        
+        for(String program : fc.input) {
+            try {
+//                System.out.println(String.format("%d processed, %d remaining files after %s", ++processedSize, --remainingSize, "not available"));
+                bh.consume(bl.parser.parse(program));
+            } catch(Exception e) {
+                System.out.println("could not parse file " + program);
+            }
+        }
     }
 }
 

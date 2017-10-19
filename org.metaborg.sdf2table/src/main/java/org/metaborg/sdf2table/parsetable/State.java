@@ -133,14 +133,14 @@ public class State implements ISGLRState, Comparable<State>, Serializable {
                 int prod_label = pt.productionLabels().get(item.getProd());
 
                 if(item.getProd().leftHand().followRestriction() == null
-                    || item.getProd().leftHand().followRestriction().equals(CharacterClass.emptyCC)) {
+                    || item.getProd().leftHand().followRestriction().isEmptyCC()) {
                     addReduceAction(item.getProd(), prod_label, CharacterClass.getFullCharacterClass(), null);
                 } else {
                     // Not based on first and follow sets thus, only considering the follow restrictions
                     CharacterClass final_range = CharacterClass.getFullCharacterClass()
                         .difference(item.getProd().leftHand().followRestriction());
                     for(CharacterClass[] s : item.getProd().leftHand().followRestrictionLookahead()) {
-                        final_range.difference(s[0]);
+                        final_range = final_range.difference(s[0]);
 
                         // create reduce Lookahead actions
                         CharacterClass[] lookahead = Arrays.copyOfRange(s, 1, s.length);
@@ -164,11 +164,11 @@ public class State implements ISGLRState, Comparable<State>, Serializable {
         ParseTableProduction prod = pt.productionsMapping().get(p);
 
         for(CharacterClass range : lr_actions.keySet()) {
-            if(final_range.equals(CharacterClass.emptyCC)) {
+            if(final_range.isEmptyCC()) {
                 break;
             }
             CharacterClass intersection = CharacterClass.intersection(final_range, range);
-            if(!intersection.equals(CharacterClass.emptyCC)) {
+            if(!intersection.isEmptyCC()) {
                 if(intersection.equals(range)) {
                     if(lookahead != null) {
                         lr_actions.put(intersection, new ReduceLookahead(prod, label, intersection, lookahead));
@@ -180,7 +180,7 @@ public class State implements ISGLRState, Comparable<State>, Serializable {
             }
         }
 
-        if(!final_range.equals(CharacterClass.emptyCC)) {
+        if(!final_range.isEmptyCC()) {
             if(lookahead != null) {
                 lr_actions.put(final_range, new ReduceLookahead(prod, label, final_range, lookahead));
             } else {

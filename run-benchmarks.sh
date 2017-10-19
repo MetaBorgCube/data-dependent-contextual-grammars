@@ -93,6 +93,7 @@ if [[ -n "$OCAML" ]]; then
     DIRECTORY=$(dirname $i)
     filename=$(basename "$i")
     filename="${filename%.*}"
+    echo "Running benchmark for file ${filename}"
     mkdir -p Results/$DIRECTORY
     java -jar target/benchmarks.jar DataDependentParsingBenchmark -bm avgt -f 1 -i 25 -wi 25 -tu ms -t 1 -p file=$i -p lang=1 -o Results/$DIRECTORY/$filename.txt
   done
