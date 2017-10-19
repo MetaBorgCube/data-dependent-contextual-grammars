@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.vfs2.FileObject;
+import org.apache.commons.vfs2.FileSystemManager;
+import org.apache.commons.vfs2.VFS;
 import org.metaborg.sdf2table.io.ParseTableGenerator;
 import org.metaborg.sdf2table.parsetable.ParseTable;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -27,7 +30,7 @@ import com.google.common.collect.Lists;
 @State(Scope.Benchmark)
 public class DataDependentParsingBenchmark {
 
-    @Param({ "test/Java/no-project/disamb.java" })
+    @Param({ "test/Java/aurora-imui/Android/chatinput/src/androidTest/java/imui/jiguang/cn/imuikit/ExampleInstrumentedTest.java" })
     public static String filename;
 
     @State(Scope.Benchmark)
@@ -59,18 +62,48 @@ public class DataDependentParsingBenchmark {
     public static class BenchmarkLanguages {
         public ParseTable pt;
         public JSGLR2<?, ?, IStrategoTerm> parser;
-        
+
         @Setup(Level.Trial)
         public void doSetup() throws Exception {
-            File mainFile = new File("normalizedGrammars/" + a_lang.getLanguageName() + "/normalized/"
-                + a_lang.getMainSDF3Module() + "-norm.aterm");
 
-            ParseTableGenerator ptg = new ParseTableGenerator(mainFile, null, null, null,
-                Lists.newArrayList("normalizedGrammars/" + a_lang.getLanguageName()));
+            FileSystemManager fsManager = VFS.getManager();
+            String pathToParseTable = "resources/" + a_lang.getLanguageName() + "/";
+            if(b_isLazyGeneration) {
+                pathToParseTable += "lazy/";
+            } else {
+                pathToParseTable += "notLazy/";
+            }
+            
+            if(c_isDataDependent) {
+                pathToParseTable += "dataDependent/";
+            } else {
+                pathToParseTable += "notDataDependent/";
+            }
+            
+            File PTpath = new File(pathToParseTable); 
+            if(!(PTpath.exists())) {
+                System.out.println("dirs did not exist, creating them");
+                PTpath.mkdirs();
+            }
 
-            ptg.createParseTable(b_isLazyGeneration, c_isDataDependent);
-            pt = ptg.getParseTable();
+            File persistedFile = new File(pathToParseTable + "parseTable.bin");
+            if(persistedFile.exists()) {
+                System.out.println("parse table already exists, importing it");
+                FileObject parseTable = fsManager.resolveFile(PTpath, "parseTable.bin");
+                ParseTableGenerator ptg = new ParseTableGenerator(parseTable);
+                pt = ptg.getParseTable();
+            } else {
+                System.out.println("parse table does not exist, creating it");
+                File mainFile = new File("normalizedGrammars/" + a_lang.getLanguageName() + "/normalized/"
+                    + a_lang.getMainSDF3Module() + "-norm.aterm");
 
+                ParseTableGenerator ptg = new ParseTableGenerator(mainFile, null, persistedFile, null,
+                    Lists.newArrayList("normalizedGrammars/" + a_lang.getLanguageName()));
+
+                ptg.outputTable(b_isLazyGeneration, c_isDataDependent);
+                pt = ptg.getParseTable();
+            }
+            
             if(c_isDataDependent) {
                 parser = JSGLR2.dataDependent(pt);
             } else {
@@ -84,7 +117,7 @@ public class DataDependentParsingBenchmark {
         // @formatter:off
         Options options = new OptionsBuilder()
             .warmupIterations(10) 
-            .measurementIterations(10)
+            .measurementIterations(25)
             .mode(Mode.AverageTime)
             .forks(1)
             .threads(1)

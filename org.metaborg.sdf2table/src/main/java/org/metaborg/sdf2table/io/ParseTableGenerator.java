@@ -94,9 +94,11 @@ public class ParseTableGenerator {
             persistObjectToFile(pt, persistedTableFile);
         }
 
-        IStrategoTerm ptAterm = generateATerm(pt);
-        // output aterm corresponding to the parse table
-        outputToFile(ptAterm.toString(), outputFile);
+        if(outputFile != null) {
+            IStrategoTerm ptAterm = generateATerm(pt);
+            // output aterm corresponding to the parse table
+            outputToFile(ptAterm.toString(), outputFile);
+        }
 
     }
 
