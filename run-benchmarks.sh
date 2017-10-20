@@ -93,12 +93,13 @@ if [[ -n "$PARSETIME" ]]; then
       exit 99
     }
     while read i; do
+      echo $i
       DIRECTORY=$(dirname $i)
       filename=$(basename "$i")
       filename="${filename%.*}"
       echo "Running benchmark for file ${filename}"
       mkdir -p Results/$DIRECTORY
-      java -jar target/benchmarks.jar DataDependentParsingBenchmark -bm avgt -f 1 -i 25 -wi 25 -tu ms -t 1 -p file=$i -p lang=JAVA # -o Results/$DIRECTORY/$filename.txt
+      java -jar target/benchmarks.jar DDParsingBenchmark -bm avgt -f 1 -i 25 -wi 25 -tu ms -t 1 -p e_filename=$i -p lang=JAVA -o Results/$DIRECTORY/$filename.txt
 
     done <$INPUT
     IFS=$OLDIFS
@@ -116,7 +117,7 @@ if [[ -n "$PARSETIME" ]]; then
       filename="${filename%.*}"
       echo "Running benchmark for file ${filename}"
       mkdir -p Results/$DIRECTORY
-      java -jar target/benchmarks.jar DataDependentParsingBenchmark -bm avgt -f 1 -i 25 -wi 25 -tu ms -t 1 -p file=$i -p lang=JAVA # -o Results/$DIRECTORY/$filename.txt
+      java -jar target/benchmarks.jar DDParsingBenchmark -bm avgt -f 1 -i 25 -wi 25 -tu ms -t 1 -p e_filename=$i -p lang=JAVA -o Results/$DIRECTORY/$filename.txt
 
     done <$INPUT
     IFS=$OLDIFS
@@ -140,7 +141,7 @@ if [[ -n "$PARSETIME" ]]; then
       filename="${filename%.*}"
       echo "Running benchmark for file ${filename}"
       mkdir -p Results/$DIRECTORY
-      java -jar target/benchmarks.jar DataDependentParsingBenchmark -bm avgt -f 1 -i 25 -wi 25 -tu ms -t 1 -p file=$i -p lang=OCAML -o Results/$DIRECTORY/$filename.txt
+      java -jar target/benchmarks.jar DDParsingBenchmark -bm avgt -f 1 -i 25 -wi 25 -tu ms -t 1 -p e_filename=$i -p lang=OCAML -o Results/$DIRECTORY/$filename.txt
 
     done <$INPUT
     IFS=$OLDIFS
@@ -158,16 +159,19 @@ if [[ -n "$PARSETIME" ]]; then
       filename="${filename%.*}"
       echo "Running benchmark for file ${filename}"
       mkdir -p Results/$DIRECTORY
-      java -jar target/benchmarks.jar DataDependentParsingBenchmark -bm avgt -f 1 -i 25 -wi 25 -tu ms -t 1 -p file=$i -p lang=OCAML -o Results/$DIRECTORY/$filename.txt
+      java -jar target/benchmarks.jar DDParsingBenchmark -bm avgt -f 1 -i 25 -wi 25 -tu ms -t 1 -p e_filename=$i -p lang=OCAML -o Results/$DIRECTORY/$filename.txt
 
     done <$INPUT
     IFS=$OLDIFS
     cd ..
 
   fi
+fi
 
-  if [[ -n "$BATCH" ]]; then
-    mkdir -p Results/BatchParseTime
-    java -jar target/benchmarks.jar BatchDataDependentParsingBenchmark -bm avgt -f 1 -i 5 -wi 1 -tu ms -t 1 -o Results/BatchParseTime/result.txt
-  fi
+if [[ -n "$BATCH" ]]; then
+  echo  "Running batch benchmarks"
+  cd data-dependent
+  mkdir -p Results/BatchParseTime
+  java -jar target/benchmarks.jar BatchDataDependentParsingBenchmark -bm avgt -f 1 -i 5 -wi 1 -tu ms -t 1 -o Results/BatchParseTime/result.txt
+  cd ..
 fi

@@ -73,10 +73,10 @@ public class ParseTableGenerator {
         tableCreated = true;
     }
 
-    public void outputTable(boolean dynamic, boolean dataDependent) throws Exception {
+    public void outputTable(boolean dynamic, boolean dataDependent, boolean solveDeepConflicts) throws Exception {
         if(tableCreated == false) {
             try {
-                createParseTable(dynamic, dataDependent);
+                createParseTable(dynamic, dataDependent, solveDeepConflicts);
             } catch(Exception e) {
                 logger.error(e.getMessage());
                 throw e;

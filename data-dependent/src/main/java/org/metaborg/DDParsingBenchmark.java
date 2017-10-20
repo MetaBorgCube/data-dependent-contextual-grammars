@@ -29,10 +29,10 @@ import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 
 @State(Scope.Benchmark)
-public class DataDependentParsingBenchmark {
+public class DDParsingBenchmark {
 
-    @Param({ "test/Java/aurora-imui/Android/chatinput/src/androidTest/java/imui/jiguang/cn/imuikit/ExampleInstrumentedTest.java" })
-    public static String filename;
+    @Param({ "test/Java/no-project/disamb.java" })
+    public static String e_filename;
 
     @State(Scope.Benchmark)
     public static class FileConfig {
@@ -41,7 +41,7 @@ public class DataDependentParsingBenchmark {
 
         @Setup(Level.Trial)
         public void doSetup() throws IOException {
-            currentFile = new File(filename);
+            currentFile = new File(e_filename);
             if(currentFile.exists()) {
                 input = FileUtils.readFileToString(currentFile, Charsets.UTF_8);
             } else {
@@ -101,7 +101,7 @@ public class DataDependentParsingBenchmark {
                 ParseTableGenerator ptg = new ParseTableGenerator(mainFile, null, persistedFile, null,
                     Lists.newArrayList("normalizedGrammars/" + a_lang.getLanguageName()));
 
-                ptg.outputTable(b_isLazyGeneration, c_isDataDependent);
+                ptg.outputTable(b_isLazyGeneration, c_isDataDependent, true);
                 pt = ptg.getParseTable();
             }
             
@@ -122,7 +122,7 @@ public class DataDependentParsingBenchmark {
             .mode(Mode.AverageTime)
             .forks(1)
             .threads(1)
-            .include(DataDependentParsingBenchmark.class.getSimpleName())
+            .include(DDParsingBenchmark.class.getSimpleName())
             .timeUnit(TimeUnit.MILLISECONDS)
             .build();
 

@@ -48,7 +48,7 @@ public class BatchDataDependentParsingBenchmark {
             BufferedReader br = null;
             String line = "";
             csvFile = new File("resources/" + a_lang.getLanguageName() + "/" + b_filename);
-            
+
             br = new BufferedReader(new FileReader(csvFile));
             while((line = br.readLine()) != null) {
                 File currentFile = new File(line);
@@ -70,6 +70,9 @@ public class BatchDataDependentParsingBenchmark {
     @Param({ "true", "false" })
     public static boolean d_isDataDependent;
 
+    @Param({ "true", "false" })
+    public static boolean e_solvesDeepConflicts;
+
     @State(Scope.Benchmark)
     public static class BenchmarkLanguages {
         public ParseTable pt;
@@ -77,6 +80,14 @@ public class BatchDataDependentParsingBenchmark {
 
         @Setup(Level.Trial)
         public void doSetup() throws Exception {
+
+            if(!e_solvesDeepConflicts && (c_isLazyGeneration || d_isDataDependent)) {
+                throw new RuntimeException();
+            }
+
+            if(!e_solvesDeepConflicts && b_filename.equals("files/withDeepConflicts/files.csv")) {
+                throw new RuntimeException();
+            }
 
             FileSystemManager fsManager = VFS.getManager();
             String pathToParseTable = "resources/parseTables/" + a_lang.getLanguageName() + "/";
@@ -90,6 +101,10 @@ public class BatchDataDependentParsingBenchmark {
                 pathToParseTable += "dataDependent/";
             } else {
                 pathToParseTable += "notDataDependent/";
+            }
+
+            if(!e_solvesDeepConflicts) {
+                pathToParseTable += "notSolveDeepConflicts/";
             }
 
             File PTpath = new File(pathToParseTable);
@@ -112,7 +127,7 @@ public class BatchDataDependentParsingBenchmark {
                 ParseTableGenerator ptg = new ParseTableGenerator(mainFile, null, persistedFile, null,
                     Lists.newArrayList("normalizedGrammars/" + a_lang.getLanguageName()));
 
-                ptg.outputTable(c_isLazyGeneration, d_isDataDependent);
+                ptg.outputTable(c_isLazyGeneration, d_isDataDependent, e_solvesDeepConflicts);
                 pt = ptg.getParseTable();
             }
 
@@ -152,12 +167,13 @@ public class BatchDataDependentParsingBenchmark {
     // @formatter:on
     @Benchmark
     public void parseFile(Blackhole bh, BenchmarkLanguages bl, FileConfig fc) throws IOException {
-//        int processedSize = 0;
-//        int remainingSize = fc.input.size();
-        
+        // int processedSize = 0;
+        // int remainingSize = fc.input.size();
+
         for(String program : fc.input) {
             try {
-//                System.out.println(String.format("%d processed, %d remaining files after %s", ++processedSize, --remainingSize, "not available"));
+                // System.out.println(String.format("%d processed, %d remaining files after %s", ++processedSize,
+                // --remainingSize, "not available"));
                 bh.consume(bl.parser.parse(program));
             } catch(Exception e) {
                 System.out.println("could not parse file " + program);
