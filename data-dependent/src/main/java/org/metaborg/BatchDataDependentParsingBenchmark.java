@@ -14,14 +14,12 @@ import org.apache.commons.vfs2.VFS;
 import org.metaborg.sdf2table.io.ParseTableGenerator;
 import org.metaborg.sdf2table.parsetable.ParseTable;
 import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -33,11 +31,10 @@ import org.spoofax.jsglr2.JSGLR2;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 
-@BenchmarkMode(Mode.SingleShotTime)
 @State(Scope.Benchmark)
 public class BatchDataDependentParsingBenchmark {
 
-    @Param({ "files/withoutDeepConflicts/files.csv", "files/withDeepConflicts/files.csv" })
+    @Param({ "files/withDeepConflicts/files.csv", "files/withoutDeepConflicts/files.csv" })
     public static String b_filename;
 
     @State(Scope.Benchmark)
