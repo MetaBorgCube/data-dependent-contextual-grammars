@@ -2,5 +2,6 @@ The following files fail to implode for OCaml, and needed to be changed:
 
 hashtbl_make.ml
 ordered_hash_set_make.ml
+int_hashtbl.ml
 
 The original files are in this folder.

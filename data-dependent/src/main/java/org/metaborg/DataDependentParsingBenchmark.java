@@ -17,6 +17,7 @@ import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
@@ -140,8 +141,8 @@ public class DataDependentParsingBenchmark {
     // @formatter:on
 
     @Benchmark
-    public IStrategoTerm parseFile(BenchmarkLanguages bl, FileConfig fc) throws IOException {
-        return bl.parser.parse(fc.input);
+    public void parseFile(Blackhole bh, BenchmarkLanguages bl, FileConfig fc) throws IOException {
+        bh.consume(bl.parser.parse(fc.input));
     }
 }
 
