@@ -387,11 +387,14 @@ public class DeepConflictsAnalyzer {
                             new_rhs.add(iterList);
                             Production newProd = new Production(p.leftHand(), new_rhs, p.leftRecursivePosition(),
                                 p.rightRecursivePosition());
+                            // adding new production
                             UniqueProduction uniqueProd = new UniqueProduction(p.leftHand(), new_rhs);
                             pt.normalizedGrammar().getUniqueProductionMapping().put(uniqueProd, newProd);
                             pt.normalizedGrammar().getProductionAttributesMapping().putAll(newProd,
                                 pt.normalizedGrammar().getProductionAttributesMapping().get(p));
                             pt.normalizedGrammar().getSymbolProductionsMapping().put(p.leftHand(), newProd);
+                            pt.productionLabels().put(newProd, pt.getProdLabelFactory().getNextLabel());
+                            
                             int labelNewProd = pt.productionLabels().get(newProd);
                             Context new_context =
                                 new Context(labelNewProd, ContextType.DEEP, ContextPosition.RIGHTMOST);

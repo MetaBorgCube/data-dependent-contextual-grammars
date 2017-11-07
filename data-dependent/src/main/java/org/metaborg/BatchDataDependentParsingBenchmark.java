@@ -61,7 +61,7 @@ public class BatchDataDependentParsingBenchmark {
         }
     }
 
-    @Param({ "JAVA", "OCAML" })
+    @Param({ "OCAML" })
     public static Language a_lang;
 
     @Param({ "true", "false" })
