@@ -64,13 +64,13 @@ public class BatchDataDependentParsingBenchmark {
     @Param({ "OCAML" })
     public static Language a_lang;
 
-    @Param({ "true", "false" })
+    @Param({ "false" })
     public static boolean c_isLazyGeneration;
 
-    @Param({ "true", "false" })
+    @Param({ "false" })
     public static boolean d_isDataDependent;
 
-    @Param({ "true", "false" })
+    @Param({ "false" })
     public static boolean e_solvesDeepConflicts;
 
     @State(Scope.Benchmark)
