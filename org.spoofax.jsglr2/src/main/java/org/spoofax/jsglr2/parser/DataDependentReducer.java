@@ -1,12 +1,10 @@
 package org.spoofax.jsglr2.parser;
 
 import java.util.ArrayDeque;
+import java.util.BitSet;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
-import org.metaborg.sdf2table.deepconflicts.Context;
-import org.metaborg.sdf2table.deepconflicts.ContextPosition;
-import org.metaborg.sdf2table.deepconflicts.ContextType;
 import org.metaborg.sdf2table.deepconflicts.ContextualProduction;
 import org.metaborg.sdf2table.deepconflicts.ContextualSymbol;
 import org.metaborg.sdf2table.jsglrinterfaces.ISGLRGoto;
@@ -46,10 +44,9 @@ public class DataDependentReducer<StackNode extends AbstractStackNode<ParseFores
                 ContextualProduction p = (ContextualProduction) ((ParseTableProduction) prod).getProduction();
                 for(int i = 0; i < p.rightHand().size(); i++) {
                     if(p.rightHand().get(i) instanceof ContextualSymbol) {
-                        if(checkRightMostContext(parseNodes.get(i),
-                            ((ContextualSymbol) p.rightHand().get(i)).getContexts())
-                            || checkLeftMostContexts(parseNodes.get(i),
-                                ((ContextualSymbol) p.rightHand().get(i)).getContexts())) {
+                        if(checkContexts(parseNodes.get(i),
+                            ((ContextualSymbol) p.rightHand().get(i)).getLefmostDeepContexts(),
+                            ((ContextualSymbol) p.rightHand().get(i)).getRightmostDeepContexts())) {
                             return;
                         }
                     }
@@ -149,34 +146,28 @@ public class DataDependentReducer<StackNode extends AbstractStackNode<ParseFores
         }
     }
 
-    private boolean checkLeftMostContexts(ParseForest pf, Set<Context> contexts) {
-        if(pf instanceof DataDependentSymbolNode) {
-            for(DataDependentRuleNode rn : ((DataDependentSymbolNode) pf).getDerivations()) {
-                for(Integer lmContext : rn.leftContexts) {
-                    if(contexts.contains(new Context(lmContext, ContextType.DEEP, ContextPosition.LEFTMOST))) {
-                        return true;
-                    }
+    private boolean checkContexts(ParseForest pf, BitSet leftMostContexts, BitSet rightMostContexts) {
+        assert pf instanceof DataDependentSymbolNode;
+        List<DataDependentRuleNode> derivations = ((DataDependentSymbolNode) pf).getDerivations();
+
+        if(derivations.size() == 1) {
+            DataDependentRuleNode rn = derivations.get(0);
+            return rn.leftContexts.intersects(leftMostContexts) || rn.rightContexts.intersects(rightMostContexts);
+        } else {
+            for(Iterator<DataDependentRuleNode> iterator = derivations.iterator(); iterator.hasNext();) {
+                DataDependentRuleNode rn = iterator.next();
+                if(rn.leftContexts.intersects(leftMostContexts) || rn.rightContexts.intersects(rightMostContexts)) {
+                    iterator.remove();
                 }
             }
+            return derivations.isEmpty();
+
+            // long remainingDerivations = derivations.stream()
+            // .filter(rn -> !rn.leftContexts.intersects(contexts))
+            // .count();
+            //
+            // return remainingDerivations == 0;
         }
-        return false;
-    }
-
-    private boolean checkRightMostContext(ParseForest pf, Set<Context> contexts) {
-
-        if(pf instanceof DataDependentSymbolNode) {
-            for(DataDependentRuleNode rn : ((DataDependentSymbolNode) pf).getDerivations()) {
-                for(Integer rmContext : rn.rightContexts) {
-                    if(contexts.contains(new Context(rmContext, ContextType.DEEP, ContextPosition.RIGHTMOST))) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-
-
     }
 
 

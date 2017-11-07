@@ -101,7 +101,9 @@ public class DeepConflictsAnalyzer {
         Set<Context> contexts = Sets.newHashSet();
         int labelLower = pt.productionLabels().get(prio.lower());
         Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.RIGHTMOST);
-        pt.getContexts().add(new_context);
+        if(!pt.getRightmostContextsMapping().containsKey(labelLower)) {
+            pt.getRightmostContextsMapping().put(labelLower, pt.getRightmostContextsMapping().size());
+        }
         contexts.add(new_context);
 
         Set<Integer> conflicting_args = Sets.newHashSet();
@@ -109,7 +111,8 @@ public class DeepConflictsAnalyzer {
 
         // create production E = E<lower> in E
         ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args,
-            pt.productionLabels().get(prio.higher()));
+            pt.productionLabels().get(prio.higher()), pt.getLeftmostContextsMapping(),
+            pt.getRightmostContextsMapping());
 
         // if contextual production does not exist add it
         if(!pt.normalizedGrammar().getProdContextualProdMapping().containsKey(prio.higher())) {
@@ -118,8 +121,8 @@ public class DeepConflictsAnalyzer {
             // add new context to correct arguments of existing contextual production
             ContextualProduction existing_prod =
                 pt.normalizedGrammar().getProdContextualProdMapping().get(prio.higher());
-            pt.normalizedGrammar().getProdContextualProdMapping().replace(prio.higher(),
-                existing_prod.addContext(new_context, conflicting_args));
+            pt.normalizedGrammar().getProdContextualProdMapping().replace(prio.higher(), existing_prod.addContext(
+                new_context, conflicting_args, pt.getLeftmostContextsMapping(), pt.getRightmostContextsMapping()));
         }
     }
 
@@ -138,7 +141,9 @@ public class DeepConflictsAnalyzer {
         Set<Context> contexts = Sets.newHashSet();
         int labelLower = pt.productionLabels().get(prio.lower());
         Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.LEFTMOST);
-        pt.getContexts().add(new_context);
+        if(!pt.getLeftmostContextsMapping().containsKey(labelLower)) {
+            pt.getLeftmostContextsMapping().put(labelLower, pt.getLeftmostContextsMapping().size());
+        }
         contexts.add(new_context);
 
         Set<Integer> conflicting_args = Sets.newHashSet();
@@ -146,7 +151,8 @@ public class DeepConflictsAnalyzer {
 
         // create production E = E in E<lower>
         ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args,
-            pt.productionLabels().get(prio.higher()));
+            pt.productionLabels().get(prio.higher()), pt.getLeftmostContextsMapping(),
+            pt.getRightmostContextsMapping());
 
         // if contextual production does not exist add it
         if(!pt.normalizedGrammar().getProdContextualProdMapping().containsKey(prio.higher())) {
@@ -155,8 +161,8 @@ public class DeepConflictsAnalyzer {
             // add new context to correct arguments of existing contextual production
             ContextualProduction existing_prod =
                 pt.normalizedGrammar().getProdContextualProdMapping().get(prio.higher());
-            pt.normalizedGrammar().getProdContextualProdMapping().replace(prio.higher(),
-                existing_prod.addContext(new_context, conflicting_args));
+            pt.normalizedGrammar().getProdContextualProdMapping().replace(prio.higher(), existing_prod.addContext(
+                new_context, conflicting_args, pt.getLeftmostContextsMapping(), pt.getRightmostContextsMapping()));
         }
     }
 
@@ -179,7 +185,9 @@ public class DeepConflictsAnalyzer {
                 Set<Context> contexts = Sets.newHashSet();
                 int labelLower = pt.productionLabels().get(prio.lower());
                 Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.RIGHTMOST);
-                pt.getContexts().add(new_context);
+                if(!pt.getRightmostContextsMapping().containsKey(labelLower)) {
+                    pt.getRightmostContextsMapping().put(labelLower, pt.getRightmostContextsMapping().size());
+                }
                 contexts.add(new_context);
 
                 Set<Integer> conflicting_args = Sets.newHashSet();
@@ -187,7 +195,8 @@ public class DeepConflictsAnalyzer {
 
                 // create production E = pre E<lower> in E
                 ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args,
-                    pt.productionLabels().get(prio.higher()));
+                    pt.productionLabels().get(prio.higher()), pt.getLeftmostContextsMapping(),
+                    pt.getRightmostContextsMapping());
 
                 // if contextual production does not exist add it
                 if(!pt.normalizedGrammar().getProdContextualProdMapping().containsKey(prio.higher())) {
@@ -197,7 +206,8 @@ public class DeepConflictsAnalyzer {
                     ContextualProduction existing_prod =
                         pt.normalizedGrammar().getProdContextualProdMapping().get(prio.higher());
                     pt.normalizedGrammar().getProdContextualProdMapping().replace(prio.higher(),
-                        existing_prod.addContext(new_context, conflicting_args));
+                        existing_prod.addContext(new_context, conflicting_args, pt.getLeftmostContextsMapping(),
+                            pt.getRightmostContextsMapping()));
                     // existing_prod.addContext(new_context, conflicting_args);
                 }
             }
@@ -225,7 +235,9 @@ public class DeepConflictsAnalyzer {
                 Set<Context> contexts = Sets.newHashSet();
                 int labelLower = pt.productionLabels().get(prio.lower());
                 Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.LEFTMOST);
-                pt.getContexts().add(new_context);
+                if(!pt.getLeftmostContextsMapping().containsKey(labelLower)) {
+                    pt.getLeftmostContextsMapping().put(labelLower, pt.getLeftmostContextsMapping().size());
+                }
                 contexts.add(new_context);
 
                 Set<Integer> conflicting_args = Sets.newHashSet();
@@ -233,7 +245,8 @@ public class DeepConflictsAnalyzer {
 
                 // create production E = E in E<lower> pos
                 ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args,
-                    pt.productionLabels().get(prio.higher()));
+                    pt.productionLabels().get(prio.higher()), pt.getLeftmostContextsMapping(),
+                    pt.getRightmostContextsMapping());
 
                 // if contextual production does not exist add it
                 if(!pt.normalizedGrammar().getProdContextualProdMapping().containsKey(prio.higher())) {
@@ -243,7 +256,8 @@ public class DeepConflictsAnalyzer {
                     ContextualProduction existing_prod =
                         pt.normalizedGrammar().getProdContextualProdMapping().get(prio.higher());
                     pt.normalizedGrammar().getProdContextualProdMapping().replace(prio.higher(),
-                        existing_prod.addContext(new_context, conflicting_args));
+                        existing_prod.addContext(new_context, conflicting_args, pt.getLeftmostContextsMapping(),
+                            pt.getRightmostContextsMapping()));
                 }
             }
         }
@@ -272,7 +286,8 @@ public class DeepConflictsAnalyzer {
 
                 // create production E = A<lower> beta
                 ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args,
-                    pt.productionLabels().get(prio.higher()));
+                    pt.productionLabels().get(prio.higher()), pt.getLeftmostContextsMapping(),
+                    pt.getRightmostContextsMapping());
 
                 // if contextual production does not exist add it
                 if(!pt.normalizedGrammar().getProdContextualProdMapping().containsKey(prio.higher())) {
@@ -282,7 +297,8 @@ public class DeepConflictsAnalyzer {
                     ContextualProduction existing_prod =
                         pt.normalizedGrammar().getProdContextualProdMapping().get(prio.higher());
                     pt.normalizedGrammar().getProdContextualProdMapping().replace(prio.higher(),
-                        existing_prod.addContext(new_context, conflicting_args));
+                        existing_prod.addContext(new_context, conflicting_args, pt.getLeftmostContextsMapping(),
+                            pt.getRightmostContextsMapping()));
                 }
             }
             // the priority refers to a right recursive conflict
@@ -303,7 +319,8 @@ public class DeepConflictsAnalyzer {
 
                 // create production E = alpha B<lower>
                 ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args,
-                    pt.productionLabels().get(prio.higher()));
+                    pt.productionLabels().get(prio.higher()), pt.getLeftmostContextsMapping(),
+                    pt.getRightmostContextsMapping());
 
                 // if contextual production does not exist add it
                 if(!pt.normalizedGrammar().getProdContextualProdMapping().containsKey(prio.higher())) {
@@ -313,7 +330,8 @@ public class DeepConflictsAnalyzer {
                     ContextualProduction existing_prod =
                         pt.normalizedGrammar().getProdContextualProdMapping().get(prio.higher());
                     pt.normalizedGrammar().getProdContextualProdMapping().replace(prio.higher(),
-                        existing_prod.addContext(new_context, conflicting_args));
+                        existing_prod.addContext(new_context, conflicting_args, pt.getLeftmostContextsMapping(),
+                            pt.getRightmostContextsMapping()));
                 }
             }
         }
@@ -324,7 +342,9 @@ public class DeepConflictsAnalyzer {
         for(IProduction p : pt.normalizedGrammar().getLongestMatchProds().get(s)) {
             int labelP = pt.productionLabels().get(p);
             Context new_context = new Context(labelP, ContextType.DEEP, ContextPosition.RIGHTMOST);
-            pt.getContexts().add(new_context);
+            if(!pt.getRightmostContextsMapping().containsKey(labelP)) {
+                pt.getRightmostContextsMapping().put(labelP, pt.getRightmostContextsMapping().size());
+            }
             contexts.add(new_context);
         }
 
@@ -365,18 +385,19 @@ public class DeepConflictsAnalyzer {
                                 ContextualProduction ctx_p = new ContextualProduction(p,
                                     Sets.newHashSet(new Context(labelNonNullableListProd, ContextType.SHALLOW,
                                         ContextPosition.RIGHTMOST)),
-                                    Sets.newHashSet(p.rightHand().size() - 1), pt.productionLabels().get(p));
+                                    Sets.newHashSet(p.rightHand().size() - 1), pt.productionLabels().get(p),
+                                    pt.getLeftmostContextsMapping(), pt.getRightmostContextsMapping());
                                 pt.normalizedGrammar().getProdContextualProdMapping().put(p, ctx_p);
                             } else {
                                 // add new context to correct arguments of existing contextual production
                                 ContextualProduction existing_prod =
                                     pt.normalizedGrammar().getProdContextualProdMapping().get(p);
-                                pt.normalizedGrammar().getProdContextualProdMapping()
-                                    .replace(p,
-                                        existing_prod.addContexts(
-                                            Sets.newHashSet(new Context(labelNonNullableListProd, ContextType.SHALLOW,
-                                                ContextPosition.RIGHTMOST)),
-                                            Sets.newHashSet(p.rightHand().size() - 1)));
+                                pt.normalizedGrammar().getProdContextualProdMapping().replace(p,
+                                    existing_prod.addContexts(
+                                        Sets.newHashSet(new Context(labelNonNullableListProd, ContextType.SHALLOW,
+                                            ContextPosition.RIGHTMOST)),
+                                        Sets.newHashSet(p.rightHand().size() - 1), pt.getLeftmostContextsMapping(),
+                                        pt.getRightmostContextsMapping()));
                             }
 
                             // add A.C = α A{C} S+
@@ -394,23 +415,28 @@ public class DeepConflictsAnalyzer {
                                 pt.normalizedGrammar().getProductionAttributesMapping().get(p));
                             pt.normalizedGrammar().getSymbolProductionsMapping().put(p.leftHand(), newProd);
                             pt.productionLabels().put(newProd, pt.getProdLabelFactory().getNextLabel());
-                            
+
                             int labelNewProd = pt.productionLabels().get(newProd);
                             Context new_context =
                                 new Context(labelNewProd, ContextType.DEEP, ContextPosition.RIGHTMOST);
                             contexts.add(new_context);
-                            pt.getContexts().add(new_context);
+                            if(!pt.getRightmostContextsMapping().containsKey(labelNewProd)) {
+                                pt.getRightmostContextsMapping().put(labelNewProd,
+                                    pt.getRightmostContextsMapping().size());
+                            }
 
                             if(!pt.normalizedGrammar().getProdContextualProdMapping().containsKey(newProd)) {
                                 ContextualProduction ctx_p2 = new ContextualProduction(newProd, contexts,
-                                    Sets.newHashSet(pos), pt.productionLabels().get(newProd));
+                                    Sets.newHashSet(pos), pt.productionLabels().get(newProd),
+                                    pt.getLeftmostContextsMapping(), pt.getRightmostContextsMapping());
                                 pt.normalizedGrammar().getProdContextualProdMapping().put(newProd, ctx_p2);
                             } else {
                                 // add new context to correct arguments of existing contextual production
                                 ContextualProduction existing_prod =
                                     pt.normalizedGrammar().getProdContextualProdMapping().get(p);
                                 pt.normalizedGrammar().getProdContextualProdMapping().replace(newProd,
-                                    existing_prod.addContexts(contexts, Sets.newHashSet(pos)));
+                                    existing_prod.addContexts(contexts, Sets.newHashSet(pos),
+                                        pt.getLeftmostContextsMapping(), pt.getRightmostContextsMapping()));
                             }
                         }
                     }
@@ -435,16 +461,16 @@ public class DeepConflictsAnalyzer {
         // change production A+ -> A+ A to A+ -> A+<ctx> A
         for(IProduction p : pt.normalizedGrammar().getSymbolProductionsMapping().get(iterList)) {
             if(p.rightHand().size() > 1) {
-                ContextualProduction ctx_p =
-                    new ContextualProduction(p, contexts, Sets.newHashSet(0), pt.productionLabels().get(p));
+                ContextualProduction ctx_p = new ContextualProduction(p, contexts, Sets.newHashSet(0),
+                    pt.productionLabels().get(p), pt.getLeftmostContextsMapping(), pt.getRightmostContextsMapping());
                 // if contextual production does not exist add it
                 if(!pt.normalizedGrammar().getProdContextualProdMapping().containsKey(p)) {
                     pt.normalizedGrammar().getProdContextualProdMapping().put(p, ctx_p);
                 } else {
                     // add new context to correct arguments of existing contextual production
                     ContextualProduction existing_prod = pt.normalizedGrammar().getProdContextualProdMapping().get(p);
-                    pt.normalizedGrammar().getProdContextualProdMapping().replace(p,
-                        existing_prod.addContexts(contexts, Sets.newHashSet(0)));
+                    pt.normalizedGrammar().getProdContextualProdMapping().replace(p, existing_prod.addContexts(contexts,
+                        Sets.newHashSet(0), pt.getLeftmostContextsMapping(), pt.getRightmostContextsMapping()));
                 }
             }
         }

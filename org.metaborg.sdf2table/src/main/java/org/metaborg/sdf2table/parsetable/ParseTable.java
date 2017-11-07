@@ -39,7 +39,7 @@ public class ParseTable implements ISGLRParseTable, Serializable {
     public static final int INITIAL_STATE_NUMBER = 0;
     public static final int VERSION_NUMBER = 6;
 
-    // private static final ILogger logger = LoggerUtils.logger(ParseTable.class);
+//    private static final ILogger logger = LoggerUtils.logger(ParseTable.class);
     private NormGrammar grammar;
 
     private final int initialStateNumber = 0;
@@ -69,7 +69,8 @@ public class ParseTable implements ISGLRParseTable, Serializable {
     // maps a set of contexts to a unique integer
     private Map<Set<Context>, Integer> ctxUniqueInt = Maps.newHashMap();
 
-    private Set<Context> contexts = Sets.newHashSet();
+    private final Map<Integer, Integer> leftmostContextsMapping = Maps.newHashMap();
+    private final Map<Integer, Integer> rightmostContextsMapping = Maps.newHashMap();
 
     private int totalStates = 0;
 
@@ -98,8 +99,10 @@ public class ParseTable implements ISGLRParseTable, Serializable {
             DeepConflictsAnalyzer.deepConflictAnalysis(this);
             updateLabelsContextualProductions();
         }
-
-        generateJSGLRParseTableProductions();
+        
+        if(dataDependent) {
+            createJSGLRParseTableProductions(productionLabels);
+        }
 
         // create states if the table should not be generated dynamically
         initialProduction = grammar.getInitialProduction();
@@ -440,57 +443,57 @@ public class ParseTable implements ISGLRParseTable, Serializable {
         productionLabels = labels;
     }
 
-    // private BiMap<IProduction, Integer> createLabels(Map<UniqueProduction, IProduction> prods,
-    // Map<IProduction, ContextualProduction> contextual_prods) {
-    // BiMap<IProduction, Integer> labels = HashBiMap.create();
-    //
-    // if(!dataDependent) {
-    // deriveContextualProductions();
-    // } else {
-    // // the productions for the contextual symbol are the same as the ones for the original symbol
-    // for(ContextualProduction p : grammar.getProdContextualProdMapping().values()) {
-    // for(Symbol s : p.rightHand()) {
-    // if(s instanceof ContextualSymbol) {
-    // grammar.getContextualSymbols().add((ContextualSymbol) s);
-    // Set<IProduction> productions =
-    // grammar.getSymbolProductionsMapping().get(((ContextualSymbol) s).getOrigSymbol());
-    // grammar.getSymbolProductionsMapping().putAll(s, productions);
-    // }
-    // }
-    // }
-    // }
-    //
-    // for(IProduction p : prods.values()) {
-    // if(contextual_prods.containsKey(p)) {
-    // labels.put(contextual_prods.get(p), prodLabelFactory.getNextLabel());
-    // } else {
-    // labels.put(p, prodLabelFactory.getNextLabel());
-    // }
-    // }
-    //
-    // for(ContextualProduction p : grammar.getDerivedContextualProds()) {
-    // labels.put(p, prodLabelFactory.getNextLabel());
-    // }
-    //
-    // for(int i = 0; i < labels.size(); i++) {
-    // IProduction p = labels.inverse().get(i + FIRST_PRODUCTION_LABEL);
-    // IProduction orig_p = p;
-    // if(p instanceof ContextualProduction) {
-    // orig_p = ((ContextualProduction) p).getOrigProduction();
-    // }
-    // ParseTableProduction prod = new ParseTableProduction(i + FIRST_PRODUCTION_LABEL, p,
-    // grammar.getProductionAttributesMapping().get(orig_p));
-    // productions.add(prod);
-    // productionsMapping.put(p, prod);
-    // }
-    //
-    // return labels;
-    // }
+//    private BiMap<IProduction, Integer> createLabels(Map<UniqueProduction, IProduction> prods,
+//        Map<IProduction, ContextualProduction> contextual_prods) {
+//        BiMap<IProduction, Integer> labels = HashBiMap.create();
+//
+//        if(!dataDependent) {
+//            deriveContextualProductions();
+//        } else {
+//            // the productions for the contextual symbol are the same as the ones for the original symbol
+//            for(ContextualProduction p : grammar.getProdContextualProdMapping().values()) {
+//                for(Symbol s : p.rightHand()) {
+//                    if(s instanceof ContextualSymbol) {
+//                        grammar.getContextualSymbols().add((ContextualSymbol) s);
+//                        Set<IProduction> productions =
+//                            grammar.getSymbolProductionsMapping().get(((ContextualSymbol) s).getOrigSymbol());
+//                        grammar.getSymbolProductionsMapping().putAll(s, productions);
+//                    }
+//                }
+//            }
+//        }
+//
+//        for(IProduction p : prods.values()) {
+//            if(contextual_prods.containsKey(p)) {
+//                labels.put(contextual_prods.get(p), prodLabelFactory.getNextLabel());
+//            } else {
+//                labels.put(p, prodLabelFactory.getNextLabel());
+//            }
+//        }
+//
+//        for(ContextualProduction p : grammar.getDerivedContextualProds()) {
+//            labels.put(p, prodLabelFactory.getNextLabel());
+//        }
+//
+//        for(int i = 0; i < labels.size(); i++) {
+//            IProduction p = labels.inverse().get(i + FIRST_PRODUCTION_LABEL);
+//            IProduction orig_p = p;
+//            if(p instanceof ContextualProduction) {
+//                orig_p = ((ContextualProduction) p).getOrigProduction();
+//            }
+//            ParseTableProduction prod = new ParseTableProduction(i + FIRST_PRODUCTION_LABEL, p,
+//                grammar.getProductionAttributesMapping().get(orig_p));
+//            productions.add(prod);
+//            productionsMapping.put(p, prod);
+//        }
+//
+//        return labels;
+//    }
 
 
     private void updateLabelsContextualProductions() {
         BiMap<IProduction, Integer> labels = productionLabels;
-
+        
         if(!dataDependent) {
             deriveContextualProductions();
         } else {
@@ -506,17 +509,33 @@ public class ParseTable implements ISGLRParseTable, Serializable {
                 }
             }
         }
-
+        
         for(IProduction p : grammar.getUniqueProductionMapping().values()) {
             if(grammar.getProdContextualProdMapping().containsKey(p)) {
                 labels.inverse().put(labels.get(p), grammar.getProdContextualProdMapping().get(p));
-            }
+            } 
         }
-
+        
         for(ContextualProduction p : grammar.getDerivedContextualProds()) {
             labels.put(p, prodLabelFactory.getNextLabel());
-        }
+        }      
 
+        
+    }
+
+    private void createJSGLRParseTableProductions(BiMap<IProduction, Integer> labels) {
+        for(int i = 0; i < labels.size(); i++) {
+            IProduction p = labels.inverse().get(i + FIRST_PRODUCTION_LABEL);
+            IProduction orig_p = p;
+            if(p instanceof ContextualProduction) {
+                orig_p = ((ContextualProduction) p).getOrigProduction();
+            }     
+            
+            ParseTableProduction prod = new ParseTableProduction(i + FIRST_PRODUCTION_LABEL, p,
+                grammar.getProductionAttributesMapping().get(orig_p), leftmostContextsMapping, rightmostContextsMapping);
+            productions.add(prod);
+            productionsMapping.put(p, prod);
+        }
     }
 
     private void deriveContextualProductions() {
@@ -542,7 +561,7 @@ public class ParseTable implements ISGLRParseTable, Serializable {
 
             for(IProduction p : grammar.getSymbolProductionsMapping().get(ctx_s.getOrigSymbol())) {
                 int labelP = productionLabels.get(p);
-
+                
                 // generate new productions for shallow contexts
                 Context shallowRight_ctx = new Context(labelP, ContextType.SHALLOW, ContextPosition.RIGHTMOST);
                 Context shallowLeft_ctx = new Context(labelP, ContextType.SHALLOW, ContextPosition.LEFTMOST);
@@ -575,21 +594,6 @@ public class ParseTable implements ISGLRParseTable, Serializable {
                     grammar.getSymbolProductionsMapping().put(ctx_s, new_prod);
                 }
             }
-        }
-    }
-
-    private void generateJSGLRParseTableProductions() {
-        for(int i = 0; i < productionLabels.size(); i++) {
-            IProduction p = productionLabels.inverse().get(i + FIRST_PRODUCTION_LABEL);
-            IProduction orig_p = p;
-            if(p instanceof ContextualProduction) {
-                orig_p = ((ContextualProduction) p).getOrigProduction();
-            }
-
-            ParseTableProduction prod = new ParseTableProduction(i + FIRST_PRODUCTION_LABEL, p,
-                grammar.getProductionAttributesMapping().get(orig_p));
-            productions.add(prod);
-            productionsMapping.put(p, prod);
         }
     }
 
@@ -741,11 +745,13 @@ public class ParseTable implements ISGLRParseTable, Serializable {
         return productionsMapping;
     }
 
-    public Set<Context> getContexts() {
-        return contexts;
+    public Map<Integer, Integer> getLeftmostContextsMapping() {
+        return leftmostContextsMapping;
     }
 
-    public void setContexts(Set<Context> contexts) {
-        this.contexts = contexts;
+    public Map<Integer, Integer> getRightmostContextsMapping() {
+        return rightmostContextsMapping;
     }
+
+    
 }

@@ -3,6 +3,7 @@ package org.metaborg.sdf2table.parsetable;
 import java.io.Serializable;
 import java.util.BitSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.metaborg.sdf2table.deepconflicts.ContextualProduction;
@@ -46,10 +47,16 @@ public class ParseTableProduction implements ISGLRProduction, Serializable {
     private final boolean isCompletionOrRecovery;
     private final ConstructorAttribute constructor;
     private final ProductionType type;
+    private final Map<Integer, Integer> leftmostContextsMapping;
+    private final Map<Integer, Integer> rightmostContextsMapping;
 
 
-    public ParseTableProduction(int productionNumber, IProduction p, Set<IAttribute> attrs) {
+    public ParseTableProduction(int productionNumber, IProduction p, Set<IAttribute> attrs,
+        Map<Integer, Integer> leftmostContextsMapping, Map<Integer, Integer> rightmostContextsMapping) {
         this.p = p;
+        this.leftmostContextsMapping = leftmostContextsMapping;
+        this.rightmostContextsMapping = rightmostContextsMapping;
+        
         if(p instanceof ContextualProduction) {
             p = ((ContextualProduction) p).getOrigProduction();
         }
@@ -319,6 +326,14 @@ public class ParseTableProduction implements ISGLRProduction, Serializable {
 
     public ProductionType getProductionType() {
         return type;
+    }
+
+    public Map<Integer, Integer> getLeftmostContextsMapping() {
+        return leftmostContextsMapping;
+    }
+
+    public Map<Integer, Integer> getRightmostContextsMapping() {
+        return rightmostContextsMapping;
     }
 
 

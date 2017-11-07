@@ -1,6 +1,6 @@
 package org.spoofax.jsglr2.parseforest.datadependent;
 
-import java.util.Set;
+import java.util.BitSet;
 
 import org.metaborg.sdf2table.jsglrinterfaces.ISGLRProduction;
 import org.metaborg.sdf2table.parsetable.ParseTableProduction;
@@ -9,15 +9,13 @@ import org.spoofax.jsglr2.parseforest.IDerivation;
 import org.spoofax.jsglr2.parser.Parse;
 import org.spoofax.jsglr2.parser.Position;
 
-import com.google.common.collect.Sets;
-
 public class DataDependentRuleNode extends DataDependentParseForest implements IDerivation<DataDependentParseForest> {
 
     public final ISGLRProduction production;
     public final ProductionType productionType;
     public final DataDependentParseForest[] parseForests;
-    public final Set<Integer> leftContexts;
-    public final Set<Integer> rightContexts;
+    public final BitSet leftContexts;
+    public final BitSet rightContexts;
 
     public DataDependentRuleNode(int nodeNumber, Parse parse, Position startPosition, Position endPosition,
         ISGLRProduction production, ProductionType productionType, DataDependentParseForest[] parseForests) {
@@ -25,21 +23,21 @@ public class DataDependentRuleNode extends DataDependentParseForest implements I
         this.production = production;
         this.productionType = productionType;
         this.parseForests = parseForests;
-        rightContexts = Sets.newHashSet();
-        leftContexts = Sets.newHashSet();
+        rightContexts = new BitSet();
+        leftContexts = new BitSet();
 
         if(parseForests.length > 0) {
             DataDependentParseForest leftmost = parseForests[0];
             if(leftmost instanceof DataDependentSymbolNode) {
                 if(((DataDependentSymbolNode) leftmost).production instanceof ParseTableProduction) {
                     ParseTableProduction p = (ParseTableProduction) ((DataDependentSymbolNode) leftmost).production;
-                    if(p.constructor() != null) {
-                        leftContexts.add(p.productionNumber());
+                    if(p.getLeftmostContextsMapping().containsKey(p.productionNumber())) {
+                        leftContexts.set(p.getLeftmostContextsMapping().get(p.productionNumber()));
                     }
                 }
-
+                
                 for(DataDependentRuleNode rn : ((DataDependentSymbolNode) leftmost).getDerivations()) {
-                    leftContexts.addAll(rn.leftContexts);
+                    leftContexts.or(rn.leftContexts);
                 }
             }
 
@@ -47,12 +45,12 @@ public class DataDependentRuleNode extends DataDependentParseForest implements I
             if(rightmost instanceof DataDependentSymbolNode) {
                 if(((DataDependentSymbolNode) rightmost).production instanceof ParseTableProduction) {
                     ParseTableProduction p = (ParseTableProduction) ((DataDependentSymbolNode) rightmost).production;
-                    if(p.constructor() != null) {
-                        rightContexts.add(p.productionNumber());
+                    if(p.getRightmostContextsMapping().containsKey(p.productionNumber())) {
+                        rightContexts.set(p.getRightmostContextsMapping().get(p.productionNumber()));
                     }
                 }
                 for(DataDependentRuleNode rn : ((DataDependentSymbolNode) rightmost).getDerivations()) {
-                    rightContexts.addAll(rn.rightContexts);
+                    rightContexts.or(rn.rightContexts);
                 }
             }
 
