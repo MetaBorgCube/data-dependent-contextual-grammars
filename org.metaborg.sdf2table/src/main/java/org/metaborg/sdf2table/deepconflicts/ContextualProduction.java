@@ -11,6 +11,7 @@ import org.metaborg.sdf2table.grammar.IAttribute;
 import org.metaborg.sdf2table.grammar.IProduction;
 import org.metaborg.sdf2table.grammar.NormGrammar;
 import org.metaborg.sdf2table.grammar.Symbol;
+import org.metaborg.sdf2table.parsetable.ParseTable;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.interpreter.terms.ITermFactory;
 
@@ -25,17 +26,20 @@ public class ContextualProduction implements IProduction, Serializable {
     private final IProduction orig_prod;
     private final Symbol lhs;
     private final List<Symbol> rhs;
+    private final int originalProductionLabel;
     
-    public ContextualProduction(IProduction orig_prod, Symbol lhs, List<Symbol> rhs) {
+    public ContextualProduction(IProduction orig_prod, Symbol lhs, List<Symbol> rhs, int originalProductionLabel) {
         this.orig_prod = orig_prod;
+        this.originalProductionLabel = originalProductionLabel;
         this.lhs = lhs;
         this.rhs = rhs;
     }
 
-    public ContextualProduction(IProduction orig_prod, Set<Context> contexts, Set<Integer> args) {
+    public ContextualProduction(IProduction orig_prod, Set<Context> contexts, Set<Integer> args, int originalProductionLabel) {
         // initial production with conflicting argument
         lhs = orig_prod.leftHand();
         this.orig_prod = orig_prod;
+        this.originalProductionLabel = originalProductionLabel;
         rhs = Lists.newArrayList();
 
         for(int i = 0; i < orig_prod.rightHand().size(); i++) {
@@ -49,8 +53,9 @@ public class ContextualProduction implements IProduction, Serializable {
 
     public ContextualProduction(IProduction orig_prod, Set<Context> contexts,
         Queue<ContextualSymbol> contextual_symbols, Set<ContextualSymbol> processed_symbols,
-        SetMultimap<IProduction, IAttribute> prod_attrs) {
+        SetMultimap<IProduction, IAttribute> prod_attrs, int originalProductionLabel, ParseTable pt) {
         this.orig_prod = orig_prod;
+        this.originalProductionLabel = originalProductionLabel;
         rhs = Lists.newArrayList(orig_prod.rightHand());
         lhs = new ContextualSymbol(orig_prod.leftHand(), contexts);
 
@@ -74,7 +79,7 @@ public class ContextualProduction implements IProduction, Serializable {
                     }
                 }
             } else if(c.getType().equals(ContextType.SHALLOW)) {
-                if(c.getContext().leftHand().equals(orig_prod.leftHand())) { // stop passing the shallow context
+                if(pt.productionLabels().inverse().get(c.getContext()).leftHand().equals(orig_prod.leftHand())) { // stop passing the shallow context
                     continue;
                 }
                 // if production has a constructor, do not pass the shallow context
@@ -117,10 +122,6 @@ public class ContextualProduction implements IProduction, Serializable {
         }
 
 
-    }
-
-    public IProduction getOrigProduction() {
-        return orig_prod;
     }
 
     @Override public Symbol leftHand() {
@@ -168,7 +169,7 @@ public class ContextualProduction implements IProduction, Serializable {
             }
         }
 
-        return new ContextualProduction(getOrigProduction(), new_lhs, new_rhs);
+        return new ContextualProduction(getOrigProduction(), new_lhs, new_rhs, getOriginalProductionLabel());
 
     }
 
@@ -207,12 +208,12 @@ public class ContextualProduction implements IProduction, Serializable {
             }
         }
 
-        return new ContextualProduction(getOrigProduction(), new_lhs, new_rhs);
+        return new ContextualProduction(getOrigProduction(), new_lhs, new_rhs, getOriginalProductionLabel());
 
     }
 
     public ContextualProduction mergeContext(Set<Context> context, Queue<ContextualSymbol> contextual_symbols,
-        Set<ContextualSymbol> processed_symbols, SetMultimap<IProduction, IAttribute> prod_attrs) {
+        Set<ContextualSymbol> processed_symbols, SetMultimap<IProduction, IAttribute> prod_attrs, ParseTable pt) {
 
         List<Symbol> new_rhs = Lists.newArrayList(rhs);
         Set<Context> contexts = Sets.newHashSet();
@@ -241,7 +242,7 @@ public class ContextualProduction implements IProduction, Serializable {
                     }
                 }
             } else if(c.getType().equals(ContextType.SHALLOW)) {
-                if(c.getContext().leftHand().equals(getOrigProduction().leftHand())) { // stop passing the shallow
+                if(pt.productionLabels().inverse().get(c.getContext()).equals(getOrigProduction().leftHand())) { // stop passing the shallow
                                                                                        // context
                     continue;
                 }
@@ -286,7 +287,15 @@ public class ContextualProduction implements IProduction, Serializable {
         }
 
 
-        return new ContextualProduction(getOrigProduction(), new_lhs, new_rhs);
+        return new ContextualProduction(getOrigProduction(), new_lhs, new_rhs, getOriginalProductionLabel());
+    }
+
+    public IProduction getOrigProduction() {
+        return orig_prod;
+    }
+
+    public int getOriginalProductionLabel() {
+        return originalProductionLabel;
     }
 
     @Override public String toString() {

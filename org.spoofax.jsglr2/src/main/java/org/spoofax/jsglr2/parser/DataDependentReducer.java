@@ -9,7 +9,6 @@ import org.metaborg.sdf2table.deepconflicts.ContextPosition;
 import org.metaborg.sdf2table.deepconflicts.ContextType;
 import org.metaborg.sdf2table.deepconflicts.ContextualProduction;
 import org.metaborg.sdf2table.deepconflicts.ContextualSymbol;
-import org.metaborg.sdf2table.grammar.IProduction;
 import org.metaborg.sdf2table.jsglrinterfaces.ISGLRGoto;
 import org.metaborg.sdf2table.jsglrinterfaces.ISGLRParseTable;
 import org.metaborg.sdf2table.jsglrinterfaces.ISGLRProduction;
@@ -153,7 +152,7 @@ public class DataDependentReducer<StackNode extends AbstractStackNode<ParseFores
     private boolean checkLeftMostContexts(ParseForest pf, Set<Context> contexts) {
         if(pf instanceof DataDependentSymbolNode) {
             for(DataDependentRuleNode rn : ((DataDependentSymbolNode) pf).getDerivations()) {
-                for(IProduction lmContext : rn.leftContexts) {
+                for(Integer lmContext : rn.leftContexts) {
                     if(contexts.contains(new Context(lmContext, ContextType.DEEP, ContextPosition.LEFTMOST))) {
                         return true;
                     }
@@ -167,7 +166,7 @@ public class DataDependentReducer<StackNode extends AbstractStackNode<ParseFores
 
         if(pf instanceof DataDependentSymbolNode) {
             for(DataDependentRuleNode rn : ((DataDependentSymbolNode) pf).getDerivations()) {
-                for(IProduction rmContext : rn.rightContexts) {
+                for(Integer rmContext : rn.rightContexts) {
                     if(contexts.contains(new Context(rmContext, ContextType.DEEP, ContextPosition.RIGHTMOST))) {
                         return true;
                     }
