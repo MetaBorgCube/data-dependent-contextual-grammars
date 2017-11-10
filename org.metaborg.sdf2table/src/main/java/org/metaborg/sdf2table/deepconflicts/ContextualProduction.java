@@ -46,8 +46,8 @@ public class ContextualProduction implements IProduction, Serializable {
 
         for(int i = 0; i < orig_prod.rightHand().size(); i++) {
             if(args.contains(i)) {
-                rhs.add(new ContextualSymbol(orig_prod.rightHand().get(i), contexts, leftContextsBitSetMapping,
-                    rightContextsBitSetMapping));
+                rhs.add(new ContextualSymbol(orig_prod.rightHand().get(i), contexts
+                ));
             } else {
                 rhs.add(orig_prod.rightHand().get(i));
             }
@@ -60,8 +60,8 @@ public class ContextualProduction implements IProduction, Serializable {
         this.orig_prod = orig_prod;
         this.originalProductionLabel = originalProductionLabel;
         rhs = Lists.newArrayList(orig_prod.rightHand());
-        lhs = new ContextualSymbol(orig_prod.leftHand(), contexts, pt.getLeftmostContextsMapping(),
-            pt.getRightmostContextsMapping());
+        lhs = new ContextualSymbol(orig_prod.leftHand(), contexts
+        );
 
         // FIXME pass context considering nullable symbols
         for(Context c : contexts) {
@@ -73,11 +73,11 @@ public class ContextualProduction implements IProduction, Serializable {
                             && (c.getPosition().equals(ContextPosition.RIGHTMOST)))) {
                         ContextualSymbol new_symbol;
                         if(rhs.get(i) instanceof ContextualSymbol) {
-                            new_symbol = ((ContextualSymbol) rhs.get(i)).addContext(c, pt.getLeftmostContextsMapping(),
-                                pt.getRightmostContextsMapping());
+                            new_symbol = ((ContextualSymbol) rhs.get(i)).addContext(c
+                            );
                         } else {
-                            new_symbol = new ContextualSymbol(rhs.get(i), c, pt.getLeftmostContextsMapping(),
-                                pt.getRightmostContextsMapping());
+                            new_symbol = new ContextualSymbol(rhs.get(i), c
+                            );
                         }
                         rhs.set(i, new_symbol);
                     }
@@ -108,11 +108,11 @@ public class ContextualProduction implements IProduction, Serializable {
                             && c.getPosition().equals(ContextPosition.RIGHTMOST))) {
                         ContextualSymbol new_symbol;
                         if(rhs.get(i) instanceof ContextualSymbol) {
-                            new_symbol = ((ContextualSymbol) rhs.get(i)).addContext(c, pt.getLeftmostContextsMapping(),
-                                pt.getRightmostContextsMapping());
+                            new_symbol = ((ContextualSymbol) rhs.get(i)).addContext(c
+                            );
                         } else {
-                            new_symbol = new ContextualSymbol(rhs.get(i), c, pt.getLeftmostContextsMapping(),
-                                pt.getRightmostContextsMapping());
+                            new_symbol = new ContextualSymbol(rhs.get(i), c
+                            );
                         }
                         rhs.set(i, new_symbol);
                     }
@@ -153,15 +153,15 @@ public class ContextualProduction implements IProduction, Serializable {
         // add context to all possible conflicting symbols
         if(conflicting_args.contains(-1)) {
             if(lhs instanceof ContextualSymbol) {
-                new_lhs = ((ContextualSymbol) lhs).addContext(context, leftContextsBitSetMapping, rightContextsBitSetMapping);
+                new_lhs = ((ContextualSymbol) lhs).addContext(context);
             } else {
-                new_lhs = new ContextualSymbol(getOrigProduction().leftHand(), contexts, leftContextsBitSetMapping, rightContextsBitSetMapping);
+                new_lhs = new ContextualSymbol(getOrigProduction().leftHand(), contexts);
             }
 
             for(int i = 0; i < getOrigProduction().rightHand().size(); i++) {
                 if((i == 0 && i == getOrigProduction().leftRecursivePosition())
                     || (i == getOrigProduction().rightHand().size() - 1 && i == orig_prod.rightRecursivePosition())) {
-                    new_rhs.add(((ContextualSymbol) rhs.get(i)).addContext(context, leftContextsBitSetMapping, rightContextsBitSetMapping));
+                    new_rhs.add(((ContextualSymbol) rhs.get(i)).addContext(context));
                 } else {
                     new_rhs.add(getOrigProduction().rightHand().get(i));
                 }
@@ -170,9 +170,9 @@ public class ContextualProduction implements IProduction, Serializable {
             for(int i = 0; i < rhs.size(); i++) {
                 if(conflicting_args.contains(i)) {
                     if(rhs.get(i) instanceof ContextualSymbol) {
-                        new_rhs.add(((ContextualSymbol) rhs.get(i)).addContext(context, leftContextsBitSetMapping, rightContextsBitSetMapping));
+                        new_rhs.add(((ContextualSymbol) rhs.get(i)).addContext(context));
                     } else {
-                        new_rhs.add(new ContextualSymbol(rhs.get(i), contexts, leftContextsBitSetMapping, rightContextsBitSetMapping));
+                        new_rhs.add(new ContextualSymbol(rhs.get(i), contexts));
                     }
                 } else {
                     new_rhs.add(rhs.get(i));
@@ -193,15 +193,15 @@ public class ContextualProduction implements IProduction, Serializable {
         // add context to all possible conflicting symbols
         if(conflicting_args.contains(-1)) {
             if(lhs instanceof ContextualSymbol) {
-                new_lhs = ((ContextualSymbol) lhs).addContexts(contexts, leftContextsBitSetMapping, rightContextsBitSetMapping);
+                new_lhs = ((ContextualSymbol) lhs).addContexts(contexts);
             } else {
-                new_lhs = new ContextualSymbol(getOrigProduction().leftHand(), contexts, leftContextsBitSetMapping, rightContextsBitSetMapping);
+                new_lhs = new ContextualSymbol(getOrigProduction().leftHand(), contexts);
             }
 
             for(int i = 0; i < getOrigProduction().rightHand().size(); i++) {
                 if((i == 0 && i == getOrigProduction().leftRecursivePosition())
                     || (i == getOrigProduction().rightHand().size() - 1 && i == orig_prod.rightRecursivePosition())) {
-                    new_rhs.add(((ContextualSymbol) rhs.get(i)).addContexts(contexts, leftContextsBitSetMapping, rightContextsBitSetMapping));
+                    new_rhs.add(((ContextualSymbol) rhs.get(i)).addContexts(contexts));
                 } else {
                     new_rhs.add(getOrigProduction().rightHand().get(i));
                 }
@@ -210,9 +210,9 @@ public class ContextualProduction implements IProduction, Serializable {
             for(int i = 0; i < rhs.size(); i++) {
                 if(conflicting_args.contains(i)) {
                     if(rhs.get(i) instanceof ContextualSymbol) {
-                        new_rhs.add(((ContextualSymbol) rhs.get(i)).addContexts(contexts, leftContextsBitSetMapping, rightContextsBitSetMapping));
+                        new_rhs.add(((ContextualSymbol) rhs.get(i)).addContexts(contexts));
                     } else {
-                        new_rhs.add(new ContextualSymbol(rhs.get(i), contexts, leftContextsBitSetMapping, rightContextsBitSetMapping));
+                        new_rhs.add(new ContextualSymbol(rhs.get(i), contexts));
                     }
                 } else {
                     new_rhs.add(rhs.get(i));
@@ -232,7 +232,7 @@ public class ContextualProduction implements IProduction, Serializable {
         contexts.addAll(context);
 
         // FIXME pass context considering nullable symbols
-        Symbol new_lhs = new ContextualSymbol(getOrigProduction().leftHand(), contexts, pt.getLeftmostContextsMapping(), pt.getRightmostContextsMapping());
+        Symbol new_lhs = new ContextualSymbol(getOrigProduction().leftHand(), contexts);
 
         for(Context c : contexts) {
             if(c.getType().equals(ContextType.DEEP)) {
@@ -244,9 +244,9 @@ public class ContextualProduction implements IProduction, Serializable {
                             && (c.getPosition().equals(ContextPosition.RIGHTMOST)))) {
                         ContextualSymbol new_symbol;
                         if(new_rhs.get(i) instanceof ContextualSymbol) {
-                            new_symbol = ((ContextualSymbol) new_rhs.get(i)).addContext(c, pt.getLeftmostContextsMapping(), pt.getRightmostContextsMapping());
+                            new_symbol = ((ContextualSymbol) new_rhs.get(i)).addContext(c);
                         } else {
-                            new_symbol = new ContextualSymbol(new_rhs.get(i), c, pt.getLeftmostContextsMapping(), pt.getRightmostContextsMapping());
+                            new_symbol = new ContextualSymbol(new_rhs.get(i), c);
                         }
                         new_rhs.set(i, new_symbol);
                     }
@@ -278,9 +278,9 @@ public class ContextualProduction implements IProduction, Serializable {
                             && c.getPosition().equals(ContextPosition.RIGHTMOST))) {
                         ContextualSymbol new_symbol;
                         if(new_rhs.get(i) instanceof ContextualSymbol) {
-                            new_symbol = ((ContextualSymbol) new_rhs.get(i)).addContext(c, pt.getLeftmostContextsMapping(), pt.getRightmostContextsMapping());
+                            new_symbol = ((ContextualSymbol) new_rhs.get(i)).addContext(c);
                         } else {
-                            new_symbol = new ContextualSymbol(new_rhs.get(i), c, pt.getLeftmostContextsMapping(), pt.getRightmostContextsMapping());
+                            new_symbol = new ContextualSymbol(new_rhs.get(i), c);
                         }
                         new_rhs.set(i, new_symbol);
                     }

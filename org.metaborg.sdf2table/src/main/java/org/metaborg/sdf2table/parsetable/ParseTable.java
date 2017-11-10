@@ -1,35 +1,17 @@
 package org.metaborg.sdf2table.parsetable;
 
+import com.google.common.collect.*;
+import org.metaborg.sdf2table.deepconflicts.*;
+import org.metaborg.sdf2table.grammar.*;
+import org.metaborg.sdf2table.jsglrinterfaces.ISGLRParseTable;
+import org.metaborg.sdf2table.jsglrinterfaces.ISGLRProduction;
+import org.metaborg.sdf2table.jsglrinterfaces.ISGLRState;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-
-import org.metaborg.sdf2table.deepconflicts.Context;
-import org.metaborg.sdf2table.deepconflicts.ContextPosition;
-import org.metaborg.sdf2table.deepconflicts.ContextType;
-import org.metaborg.sdf2table.deepconflicts.ContextualProduction;
-import org.metaborg.sdf2table.deepconflicts.ContextualSymbol;
-import org.metaborg.sdf2table.deepconflicts.DeepConflictsAnalyzer;
-import org.metaborg.sdf2table.grammar.GeneralAttribute;
-import org.metaborg.sdf2table.grammar.IPriority;
-import org.metaborg.sdf2table.grammar.IProduction;
-import org.metaborg.sdf2table.grammar.NormGrammar;
-import org.metaborg.sdf2table.grammar.Priority;
-import org.metaborg.sdf2table.grammar.Symbol;
-import org.metaborg.sdf2table.jsglrinterfaces.ISGLRParseTable;
-import org.metaborg.sdf2table.jsglrinterfaces.ISGLRProduction;
-import org.metaborg.sdf2table.jsglrinterfaces.ISGLRState;
-
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Queues;
-import com.google.common.collect.SetMultimap;
-import com.google.common.collect.Sets;
 
 public class ParseTable implements ISGLRParseTable, Serializable {
 
@@ -95,14 +77,14 @@ public class ParseTable implements ISGLRParseTable, Serializable {
 
         // calculate deep priority conflicts based on current priorities
         // and generate contextual productions
-        if(solveDeepConflicts) {
-            DeepConflictsAnalyzer.deepConflictAnalysis(this);
+        if (solveDeepConflicts) {
+            final DeepConflictsAnalyzer analysis = DeepConflictsAnalyzer.fromParseTable(this);
+            analysis.patchParseTable();
+
             updateLabelsContextualProductions();
         }
 
-
         createJSGLRParseTableProductions(productionLabels);
-
 
         // create states if the table should not be generated dynamically
         initialProduction = grammar.getInitialProduction();
@@ -496,6 +478,16 @@ public class ParseTable implements ISGLRParseTable, Serializable {
 
         if(!dataDependent) {
             deriveContextualProductions();
+
+            for(IProduction p : grammar.getUniqueProductionMapping().values()) {
+                if (grammar.getProdContextualProdMapping().containsKey(p)) {
+                    labels.inverse().put(labels.get(p), grammar.getProdContextualProdMapping().get(p));
+                }
+            }
+
+            for(ContextualProduction p : grammar.getDerivedContextualProds()) {
+                labels.put(p, prodLabelFactory.getNextLabel());
+            }
         } else {
             // the productions for the contextual symbol are the same as the ones for the original symbol
             for(ContextualProduction p : grammar.getProdContextualProdMapping().values()) {
@@ -508,19 +500,13 @@ public class ParseTable implements ISGLRParseTable, Serializable {
                     }
                 }
             }
-        }
 
-        for(IProduction p : grammar.getUniqueProductionMapping().values()) {
-            if(grammar.getProdContextualProdMapping().containsKey(p)) {
-                labels.inverse().put(labels.get(p), grammar.getProdContextualProdMapping().get(p));
+            for(IProduction p : grammar.getUniqueProductionMapping().values()) {
+                if (grammar.getProdContextualProdMapping().containsKey(p)) {
+                    labels.inverse().put(labels.get(p), grammar.getProdContextualProdMapping().get(p));
+                }
             }
         }
-
-        for(ContextualProduction p : grammar.getDerivedContextualProds()) {
-            labels.put(p, prodLabelFactory.getNextLabel());
-        }
-
-
     }
 
     private void createJSGLRParseTableProductions(BiMap<IProduction, Integer> labels) {
@@ -564,15 +550,15 @@ public class ParseTable implements ISGLRParseTable, Serializable {
                 int labelP = productionLabels.get(p);
 
                 // generate new productions for shallow contexts
-                Context shallowRight_ctx = new Context(labelP, ContextType.SHALLOW, ContextPosition.RIGHTMOST);
-                Context shallowLeft_ctx = new Context(labelP, ContextType.SHALLOW, ContextPosition.LEFTMOST);
+                Context shallowRight_ctx = new Context(labelP, ContextType.SHALLOW, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
+                Context shallowLeft_ctx = new Context(labelP, ContextType.SHALLOW, ContextPosition.LEFTMOST, leftmostContextsMapping, rightmostContextsMapping);
                 if(ctx_s.getContexts().contains(shallowRight_ctx) || ctx_s.getContexts().contains(shallowLeft_ctx)) {
                     continue;
                 }
 
                 // generate new productions for deep contexts
-                Context deepLeft_ctx = new Context(labelP, ContextType.DEEP, ContextPosition.LEFTMOST);
-                Context deepRight_ctx = new Context(labelP, ContextType.DEEP, ContextPosition.RIGHTMOST);
+                Context deepLeft_ctx = new Context(labelP, ContextType.DEEP, ContextPosition.LEFTMOST, leftmostContextsMapping, rightmostContextsMapping);
+                Context deepRight_ctx = new Context(labelP, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
                 if(ctx_s.getContexts().contains(deepLeft_ctx) || ctx_s.getContexts().contains(deepRight_ctx)) {
                     continue;
                 }

@@ -1,6 +1,7 @@
 package org.metaborg.sdf2table.deepconflicts;
 
 import java.io.Serializable;
+import java.util.Map;
 
 public class Context implements Serializable {
 
@@ -12,10 +13,21 @@ public class Context implements Serializable {
     // propagate shallow context only to leftmost or rightmost symbols
     private final ContextPosition position;
 
-    public Context(int context, ContextType type, ContextPosition position) {
+    private final long contextBitmap;
+
+    public Context(int context, ContextType type, ContextPosition position, final Map<Integer, Integer> leftmostContextsMapping, final Map<Integer, Integer> rightmostContextsMapping) {
         this.context = context;
         this.type = type;
         this.position = position;
+
+        if (position == ContextPosition.LEFTMOST && leftmostContextsMapping.containsKey(context)) {
+            contextBitmap = 1L << leftmostContextsMapping.get(context);
+        } else if (position == ContextPosition.RIGHTMOST && rightmostContextsMapping.containsKey(context)) {
+            int offset = leftmostContextsMapping.keySet().size();
+            contextBitmap = 1L << (rightmostContextsMapping.get(context) + offset);
+        } else {
+            contextBitmap = 0L;
+        }
     }
 
     @Override
@@ -67,4 +79,9 @@ public class Context implements Serializable {
     public int getContext() {
         return context;
     }
+
+    public long getContextBitmap() {
+        return contextBitmap;
+    }
+
 }

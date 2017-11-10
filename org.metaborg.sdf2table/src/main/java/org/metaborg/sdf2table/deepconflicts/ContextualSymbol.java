@@ -1,16 +1,14 @@
 package org.metaborg.sdf2table.deepconflicts;
 
-import java.util.BitSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.google.common.collect.Sets;
 import org.metaborg.sdf2table.grammar.CharacterClass;
 import org.metaborg.sdf2table.grammar.Symbol;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.interpreter.terms.ITermFactory;
 
-import com.google.common.collect.Sets;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ContextualSymbol extends Symbol {
 
@@ -18,58 +16,38 @@ public class ContextualSymbol extends Symbol {
 
     private final Symbol s;
     private final Set<Context> contexts;
-    private final BitSet lefmostDeepContexts;
-    private final BitSet rightmostDeepContexts;
 
-    public ContextualSymbol(Symbol s, Set<Context> context, BitSet leftMostDeepContexts, BitSet rightMostDeepContexts) {
-        this.s = s;
-        this.contexts = context;
-        this.lefmostDeepContexts = leftMostDeepContexts;
-        this.rightmostDeepContexts = rightMostDeepContexts;
-    }
+    private long deepContextBitmap = 0L;
 
-    public ContextualSymbol(Symbol s, Context context, BitSet leftMostDeepContexts, BitSet rightMostDeepContexts) {
+    public ContextualSymbol(Symbol s, Set<Context> contexts, long deepContextBitmap) {
         this.s = s;
-        Set<Context> contexts = Sets.newHashSet(context);
         this.contexts = contexts;
-        this.lefmostDeepContexts = leftMostDeepContexts;
-        this.rightmostDeepContexts = rightMostDeepContexts;
+        this.deepContextBitmap = deepContextBitmap;
     }
 
-    public ContextualSymbol(Symbol s, Set<Context> context, Map<Integer, Integer> leftContextsBitSetMapping,
-        Map<Integer, Integer> rightContextsBitSetMapping) {
+    public ContextualSymbol(Symbol s, Context context, long deepContextBitmap) {
         this.s = s;
-        this.contexts = context;
-        lefmostDeepContexts = new BitSet();
-        rightmostDeepContexts = new BitSet();
+        this.contexts = Sets.newHashSet(context);
+        this.deepContextBitmap = deepContextBitmap;
+    }
 
-        for(Context c : contexts) {
-            if(c.getType().equals(ContextType.DEEP)) {
-                if(c.getPosition().equals(ContextPosition.LEFTMOST)) {
-                    lefmostDeepContexts.set(leftContextsBitSetMapping.get(c.getContext()));
-                } else if(c.getPosition().equals(ContextPosition.RIGHTMOST)) {
-                    rightmostDeepContexts.set(rightContextsBitSetMapping.get(c.getContext()));
-                }
+    public ContextualSymbol(Symbol s, Set<Context> contexts) {
+        this.s = s;
+        this.contexts = contexts;
+
+        for (Context context : contexts) {
+            if (context.getType() == ContextType.DEEP) {
+                deepContextBitmap |= context.getContextBitmap();
             }
         }
     }
 
-    public ContextualSymbol(Symbol s, Context context, Map<Integer, Integer> leftContextsBitSetMapping,
-        Map<Integer, Integer> rightContextsBitSetMapping) {
+    public ContextualSymbol(Symbol s, Context context) {
         this.s = s;
-        Set<Context> contexts = Sets.newHashSet(context);
-        this.contexts = contexts;
-        lefmostDeepContexts = new BitSet();
-        rightmostDeepContexts = new BitSet();
+        this.contexts = Sets.newHashSet(context);
 
-        for(Context c : contexts) {
-            if(c.getType().equals(ContextType.DEEP)) {
-                if(c.getPosition().equals(ContextPosition.LEFTMOST)) {
-                    lefmostDeepContexts.set(leftContextsBitSetMapping.get(c.getContext()));
-                } else if(c.getPosition().equals(ContextPosition.RIGHTMOST)) {
-                    rightmostDeepContexts.set(rightContextsBitSetMapping.get(c.getContext()));
-                }
-            }
+        if (context.getType() == ContextType.DEEP) {
+            deepContextBitmap |= context.getContextBitmap();
         }
     }
 
@@ -135,56 +113,40 @@ public class ContextualSymbol extends Symbol {
         return contexts;
     }
 
-    public BitSet getLefmostDeepContexts() {
-        return lefmostDeepContexts;
-    }
-
-    public BitSet getRightmostDeepContexts() {
-        return rightmostDeepContexts;
+    public long deepContexts() {
+        return deepContextBitmap;
     }
 
     public Symbol getOrigSymbol() {
         return s;
     }
 
-    public ContextualSymbol addContext(Context new_context, Map<Integer, Integer> leftContextsBitSetMapping,
-        Map<Integer, Integer> rightContextsBitSetMapping) {
+    public ContextualSymbol addContext(Context context) {
         Set<Context> new_contexts = Sets.newHashSet();
-        new_contexts.addAll(getContexts());
-        new_contexts.add(new_context);
-        BitSet newLeftMostDeepContexts = (BitSet) lefmostDeepContexts.clone();
-        BitSet newRightMostDeepContexts = (BitSet) rightmostDeepContexts.clone();
+        new_contexts.addAll(this.getContexts());
+        new_contexts.add(context);
 
-        if(new_context.getType().equals(ContextType.DEEP)) {
-            if(new_context.getPosition().equals(ContextPosition.LEFTMOST)) {
-                newLeftMostDeepContexts.set(leftContextsBitSetMapping.get(new_context.getContext()));
-            } else if(new_context.getPosition().equals(ContextPosition.RIGHTMOST)) {
-                newRightMostDeepContexts.set(rightContextsBitSetMapping.get(new_context.getContext()));
-            }
+        if (context.getType() == ContextType.DEEP) {
+            return new ContextualSymbol(getOrigSymbol(), new_contexts, deepContextBitmap | context.getContextBitmap());
         }
 
-        return new ContextualSymbol(getOrigSymbol(), new_contexts, newLeftMostDeepContexts, newRightMostDeepContexts);
+        return new ContextualSymbol(getOrigSymbol(), new_contexts, deepContextBitmap);
     }
 
-    public ContextualSymbol addContexts(Set<Context> contexts, Map<Integer, Integer> leftContextsBitSetMapping,
-        Map<Integer, Integer> rightContextsBitSetMapping) {
+    public ContextualSymbol addContexts(Set<Context> contexts) {
         Set<Context> new_contexts = Sets.newHashSet();
-        new_contexts.addAll(contexts);
         new_contexts.addAll(this.getContexts());
-        BitSet newLeftMostDeepContexts = (BitSet) lefmostDeepContexts.clone();
-        BitSet newRightMostDeepContexts = (BitSet) rightmostDeepContexts.clone();
+        new_contexts.addAll(contexts);
 
-        for(Context c : contexts) {
-            if(c.getType().equals(ContextType.DEEP)) {
-                if(c.getPosition().equals(ContextPosition.LEFTMOST)) {
-                    newLeftMostDeepContexts.set(leftContextsBitSetMapping.get(c.getContext()));
-                } else if(c.getPosition().equals(ContextPosition.RIGHTMOST)) {
-                    newRightMostDeepContexts.set(rightContextsBitSetMapping.get(c.getContext()));
-                }
+        long updatedDeepContextBitmap = deepContextBitmap;
+
+        for (Context context : contexts) {
+            if (context.getType() == ContextType.DEEP) {
+                updatedDeepContextBitmap |= context.getContextBitmap();
             }
         }
 
-        return new ContextualSymbol(getOrigSymbol(), new_contexts, newLeftMostDeepContexts, newRightMostDeepContexts);
+        return new ContextualSymbol(getOrigSymbol(), new_contexts, updatedDeepContextBitmap);
     }
 
     @Override public IStrategoTerm toAterm(ITermFactory tf) {

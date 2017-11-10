@@ -1,25 +1,14 @@
 package org.metaborg;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
+import com.google.common.base.Charsets;
+import com.google.common.collect.Lists;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.vfs2.FileObject;
 import org.apache.commons.vfs2.FileSystemManager;
 import org.apache.commons.vfs2.VFS;
 import org.metaborg.sdf2table.io.ParseTableGenerator;
 import org.metaborg.sdf2table.parsetable.ParseTable;
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.Level;
-import org.openjdk.jmh.annotations.Mode;
-import org.openjdk.jmh.annotations.Param;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.Setup;
-import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -28,8 +17,12 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.jsglr2.JSGLR2;
 
-import com.google.common.base.Charsets;
-import com.google.common.collect.Lists;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
 public class BatchDataDependentParsingBenchmark {
@@ -61,16 +54,16 @@ public class BatchDataDependentParsingBenchmark {
         }
     }
 
-    @Param({ "OCAML" })
+    @Param({ "JAVA" }) // "OCAML", "JAVA"
     public static Language a_lang;
 
-    @Param({ "false" })
+    @Param({ "true", "false" })
     public static boolean c_isLazyGeneration;
 
-    @Param({ "false" })
+    @Param({ "true", "false" })
     public static boolean d_isDataDependent;
 
-    @Param({ "false" })
+    @Param({ "true", "false" })
     public static boolean e_solvesDeepConflicts;
 
     @State(Scope.Benchmark)
@@ -143,11 +136,12 @@ public class BatchDataDependentParsingBenchmark {
 
         // @formatter:off
         Options options = new OptionsBuilder()
-            .warmupIterations(1) 
+            .warmupIterations(1)
             .measurementIterations(5)
             .mode(Mode.AverageTime)
             .forks(1)
             .threads(1)
+            .shouldDoGC(true)
             .include(BatchDataDependentParsingBenchmark.class.getSimpleName())
             .timeUnit(TimeUnit.MILLISECONDS)
             .build();
@@ -170,15 +164,17 @@ public class BatchDataDependentParsingBenchmark {
         // int processedSize = 0;
         // int remainingSize = fc.input.size();
 
-        for(String program : fc.input) {
+        fc.input.stream()
+//                .limit(500)
+                .forEach(program -> {
             try {
                 // System.out.println(String.format("%d processed, %d remaining files after %s", ++processedSize,
                 // --remainingSize, "not available"));
                 bh.consume(bl.parser.parse(program));
-            } catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println("could not parse file " + program);
             }
-        }
+        });
     }
 }
 

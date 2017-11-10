@@ -1,31 +1,14 @@
 package org.metaborg.sdf2table.parsetable;
 
+import org.metaborg.sdf2table.deepconflicts.ContextualProduction;
+import org.metaborg.sdf2table.grammar.*;
+import org.metaborg.sdf2table.jsglrinterfaces.ISGLRProduction;
+
 import java.io.Serializable;
 import java.util.BitSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.metaborg.sdf2table.deepconflicts.ContextualProduction;
-import org.metaborg.sdf2table.grammar.AltSymbol;
-import org.metaborg.sdf2table.grammar.CharacterClass;
-import org.metaborg.sdf2table.grammar.ConstructorAttribute;
-import org.metaborg.sdf2table.grammar.ContextFreeSymbol;
-import org.metaborg.sdf2table.grammar.GeneralAttribute;
-import org.metaborg.sdf2table.grammar.IAttribute;
-import org.metaborg.sdf2table.grammar.IProduction;
-import org.metaborg.sdf2table.grammar.IterSepSymbol;
-import org.metaborg.sdf2table.grammar.IterStarSepSymbol;
-import org.metaborg.sdf2table.grammar.IterStarSymbol;
-import org.metaborg.sdf2table.grammar.IterSymbol;
-import org.metaborg.sdf2table.grammar.Layout;
-import org.metaborg.sdf2table.grammar.LexicalSymbol;
-import org.metaborg.sdf2table.grammar.OptionalSymbol;
-import org.metaborg.sdf2table.grammar.SequenceSymbol;
-import org.metaborg.sdf2table.grammar.Sort;
-import org.metaborg.sdf2table.grammar.Symbol;
-import org.metaborg.sdf2table.grammar.TermAttribute;
-import org.metaborg.sdf2table.jsglrinterfaces.ISGLRProduction;
 
 public class ParseTableProduction implements ISGLRProduction, Serializable {
 
@@ -47,16 +30,27 @@ public class ParseTableProduction implements ISGLRProduction, Serializable {
     private final boolean isCompletionOrRecovery;
     private final ConstructorAttribute constructor;
     private final ProductionType type;
-    private final Map<Integer, Integer> leftmostContextsMapping;
-    private final Map<Integer, Integer> rightmostContextsMapping;
 
+    private final long cachedContextBitmapL;
+    private final long cachedContextBitmapR;
 
     public ParseTableProduction(int productionNumber, IProduction p, Set<IAttribute> attrs,
         Map<Integer, Integer> leftmostContextsMapping, Map<Integer, Integer> rightmostContextsMapping) {
         this.p = p;
-        this.leftmostContextsMapping = leftmostContextsMapping;
-        this.rightmostContextsMapping = rightmostContextsMapping;
-        
+
+        if (leftmostContextsMapping.containsKey(productionNumber)) {
+            cachedContextBitmapL = 1L << leftmostContextsMapping.get(productionNumber);
+        } else {
+            cachedContextBitmapL = 0L;
+        }
+
+        if (rightmostContextsMapping.containsKey(productionNumber)) {
+            int offset = leftmostContextsMapping.keySet().size();
+            cachedContextBitmapR = 1L << (rightmostContextsMapping.get(productionNumber) + offset);
+        } else {
+            cachedContextBitmapR = 0L;
+        }
+
         if(p instanceof ContextualProduction) {
             p = ((ContextualProduction) p).getOrigProduction();
         }
@@ -328,13 +322,12 @@ public class ParseTableProduction implements ISGLRProduction, Serializable {
         return type;
     }
 
-    public Map<Integer, Integer> getLeftmostContextsMapping() {
-        return leftmostContextsMapping;
+    public final long contextL() {
+        return cachedContextBitmapL;
     }
 
-    public Map<Integer, Integer> getRightmostContextsMapping() {
-        return rightmostContextsMapping;
+    public final long contextR() {
+        return cachedContextBitmapR;
     }
-
 
 }

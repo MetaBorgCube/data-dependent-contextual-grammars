@@ -1,15 +1,11 @@
 package org.spoofax.jsglr2.parser;
 
-import java.util.ArrayDeque;
-import java.util.BitSet;
-import java.util.Iterator;
-import java.util.List;
-
 import org.metaborg.sdf2table.deepconflicts.ContextualProduction;
 import org.metaborg.sdf2table.deepconflicts.ContextualSymbol;
+import org.metaborg.sdf2table.grammar.IProduction;
+import org.metaborg.sdf2table.grammar.Symbol;
 import org.metaborg.sdf2table.jsglrinterfaces.ISGLRGoto;
 import org.metaborg.sdf2table.jsglrinterfaces.ISGLRParseTable;
-import org.metaborg.sdf2table.jsglrinterfaces.ISGLRProduction;
 import org.metaborg.sdf2table.jsglrinterfaces.ISGLRReduce;
 import org.metaborg.sdf2table.jsglrinterfaces.ISGLRState;
 import org.metaborg.sdf2table.parsetable.ParseTableProduction;
@@ -22,6 +18,10 @@ import org.spoofax.jsglr2.stack.StackLink;
 import org.spoofax.jsglr2.stack.StackManager;
 import org.spoofax.jsglr2.stack.StackPath;
 import org.spoofax.jsglr2.stack.standard.StandardStackNode;
+
+import java.util.ArrayDeque;
+import java.util.Iterator;
+import java.util.List;
 
 public class DataDependentReducer<StackNode extends AbstractStackNode<ParseForest>, ParseForest extends AbstractParseForest, ParseNode extends ParseForest, Derivation>
     extends Reducer<StandardStackNode<ParseForest>, ParseForest, ParseNode, Derivation> {
@@ -36,20 +36,18 @@ public class DataDependentReducer<StackNode extends AbstractStackNode<ParseFores
         StackPath<StandardStackNode<ParseForest>, ParseForest> path, ISGLRReduce reduce) {
         StandardStackNode<ParseForest> pathEnd = path.lastStackNode();
 
-        List<ParseForest> parseNodes = path.getParseForests();
+        final IProduction production = ((ParseTableProduction) reduce.production()).getProduction();
 
-        ISGLRProduction prod = reduce.production();
-        if(prod instanceof ParseTableProduction) {
-            if(((ParseTableProduction) prod).getProduction() instanceof ContextualProduction) {
-                ContextualProduction p = (ContextualProduction) ((ParseTableProduction) prod).getProduction();
-                for(int i = 0; i < p.rightHand().size(); i++) {
-                    if(p.rightHand().get(i) instanceof ContextualSymbol) {
-                        if(checkContexts(parseNodes.get(i),
-                            ((ContextualSymbol) p.rightHand().get(i)).getLefmostDeepContexts(),
-                            ((ContextualSymbol) p.rightHand().get(i)).getRightmostDeepContexts())) {
-                            return;
-                        }
-                    }
+        if (production instanceof ContextualProduction) {
+            final List<ParseForest> parseForest = path.getParseForests();
+            final List<Symbol> rightHandSymbols = production.rightHand();
+
+            for (int i = 0; i < rightHandSymbols.size(); i++) {
+                final ParseForest nextParseForest = parseForest.get(i);
+                final Symbol nextSymbol = rightHandSymbols.get(i);
+
+                if (nextSymbol instanceof ContextualSymbol && checkContexts(nextParseForest, nextSymbol)) {
+                    return; // prohibit reduction
                 }
             }
         }
@@ -57,7 +55,7 @@ public class DataDependentReducer<StackNode extends AbstractStackNode<ParseFores
         ISGLRGoto gotoAction = pathEnd.state.getGoto(reduce.production().productionNumber());
         ISGLRState gotoState = parseTable.getState(gotoAction.gotoState());
 
-        reducer(parse, pathEnd, gotoState, reduce, parseNodes);
+        reducer(parse, pathEnd, gotoState, reduce, path.getParseForests());
     }
 
     @Override public void doReductions(Parse<StandardStackNode<ParseForest>, ParseForest> parse,
@@ -146,30 +144,32 @@ public class DataDependentReducer<StackNode extends AbstractStackNode<ParseFores
         }
     }
 
-    private boolean checkContexts(ParseForest pf, BitSet leftMostContexts, BitSet rightMostContexts) {
-        assert pf instanceof DataDependentSymbolNode;
-        List<DataDependentRuleNode> derivations = ((DataDependentSymbolNode) pf).getDerivations();
+    private static final <ParseForest extends AbstractParseForest> boolean checkContexts(ParseForest pf, Symbol symbol) {
+        long contextBitmap = ((ContextualSymbol) symbol).deepContexts();
 
-        if(derivations.size() == 1) {
-            DataDependentRuleNode rn = derivations.get(0);
-            return rn.leftContexts.intersects(leftMostContexts) || rn.rightContexts.intersects(rightMostContexts);
+        if (contextBitmap == 0) {
+            return false;
+        }
+
+        assert pf instanceof DataDependentSymbolNode;
+        final List<DataDependentRuleNode> derivations = ((DataDependentSymbolNode) pf).getDerivations();
+
+        if (derivations.size() == 1) {
+            final DataDependentRuleNode ruleNode = derivations.get(0);
+
+            // check if bitmaps intersect
+            return (ruleNode.getContextBitmap() & contextBitmap) != 0;
         } else {
-            for(Iterator<DataDependentRuleNode> iterator = derivations.iterator(); iterator.hasNext();) {
-                DataDependentRuleNode rn = iterator.next();
-                if(rn.leftContexts.intersects(leftMostContexts) || rn.rightContexts.intersects(rightMostContexts)) {
+            for (Iterator<DataDependentRuleNode> iterator = derivations.iterator(); iterator.hasNext(); ) {
+                final DataDependentRuleNode ruleNode = iterator.next();
+
+                // discard rule nodes where bitmaps intersect
+                if ((ruleNode.getContextBitmap() & contextBitmap) != 0) {
                     iterator.remove();
                 }
             }
             return derivations.isEmpty();
-
-            // long remainingDerivations = derivations.stream()
-            // .filter(rn -> !rn.leftContexts.intersects(contexts))
-            // .count();
-            //
-            // return remainingDerivations == 0;
         }
     }
-
-
 
 }
