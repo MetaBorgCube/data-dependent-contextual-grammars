@@ -192,10 +192,10 @@ public class DeepConflictsAnalyzer {
 
         Set<Context> contexts = Sets.newHashSet();
         int labelLower = productionLabels.get(prio.lower());
-        Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
         if(!rightmostContextsMapping.containsKey(labelLower)) {
             rightmostContextsMapping.put(labelLower, rightmostContextsMapping.size());
         }
+        Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
         contexts.add(new_context);
 
         Set<Integer> conflicting_args = Sets.newHashSet();
@@ -232,10 +232,10 @@ public class DeepConflictsAnalyzer {
 
         Set<Context> contexts = Sets.newHashSet();
         int labelLower = productionLabels.get(prio.lower());
-        Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.LEFTMOST, leftmostContextsMapping, rightmostContextsMapping);
         if(!leftmostContextsMapping.containsKey(labelLower)) {
             leftmostContextsMapping.put(labelLower, leftmostContextsMapping.size());
         }
+        Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.LEFTMOST, leftmostContextsMapping, rightmostContextsMapping);
         contexts.add(new_context);
 
         Set<Integer> conflicting_args = Sets.newHashSet();
@@ -276,10 +276,10 @@ public class DeepConflictsAnalyzer {
             if(matchPrefix && !higher.equals(lower)) {
                 Set<Context> contexts = Sets.newHashSet();
                 int labelLower = productionLabels.get(prio.lower());
-                Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
                 if(!rightmostContextsMapping.containsKey(labelLower)) {
                     rightmostContextsMapping.put(labelLower, rightmostContextsMapping.size());
                 }
+                Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
                 contexts.add(new_context);
 
                 Set<Integer> conflicting_args = Sets.newHashSet();
@@ -326,10 +326,10 @@ public class DeepConflictsAnalyzer {
             if(matchSuffix && !higher.equals(lower)) {
                 Set<Context> contexts = Sets.newHashSet();
                 int labelLower = productionLabels.get(prio.lower());
-                Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.LEFTMOST, leftmostContextsMapping, rightmostContextsMapping);
                 if(!leftmostContextsMapping.containsKey(labelLower)) {
                     leftmostContextsMapping.put(labelLower, leftmostContextsMapping.size());
                 }
+                Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.LEFTMOST, leftmostContextsMapping, rightmostContextsMapping);
                 contexts.add(new_context);
 
                 Set<Integer> conflicting_args = Sets.newHashSet();
@@ -433,10 +433,10 @@ public class DeepConflictsAnalyzer {
         Set<Context> contexts = Sets.newHashSet();
         for(IProduction p : pt.normalizedGrammar().getLongestMatchProds().get(s)) {
             int labelP = productionLabels.get(p);
-            Context new_context = new Context(labelP, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
             if(!rightmostContextsMapping.containsKey(labelP)) {
                 rightmostContextsMapping.put(labelP, rightmostContextsMapping.size());
             }
+            Context new_context = new Context(labelP, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);            
             contexts.add(new_context);
         }
 
@@ -508,13 +508,14 @@ public class DeepConflictsAnalyzer {
                             productionLabels.put(newProd, pt.getProdLabelFactory().getNextLabel());
 
                             int labelNewProd = productionLabels.get(newProd);
-                            Context new_context =
-                                new Context(labelNewProd, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
-                            contexts.add(new_context);
                             if(!rightmostContextsMapping.containsKey(labelNewProd)) {
                                 rightmostContextsMapping.put(labelNewProd,
                                     rightmostContextsMapping.size());
                             }
+                            Context new_context =
+                                new Context(labelNewProd, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
+                            contexts.add(new_context);
+                            
 
                             if(!prodContextualProdMapping.containsKey(newProd)) {
                                 ContextualProduction ctx_p2 = new ContextualProduction(newProd, contexts,
