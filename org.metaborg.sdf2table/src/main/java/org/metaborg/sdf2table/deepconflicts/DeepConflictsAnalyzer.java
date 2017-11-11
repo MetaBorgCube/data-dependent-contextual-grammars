@@ -213,8 +213,7 @@ public class DeepConflictsAnalyzer {
             // add new context to correct arguments of existing contextual production
             ContextualProduction existing_prod =
                 prodContextualProdMapping.get(prio.higher());
-            prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(
-                new_context, conflicting_args, leftmostContextsMapping, rightmostContextsMapping));
+            prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(new_context, conflicting_args));
         }
     }
 
@@ -253,8 +252,7 @@ public class DeepConflictsAnalyzer {
             // add new context to correct arguments of existing contextual production
             ContextualProduction existing_prod =
                 prodContextualProdMapping.get(prio.higher());
-            prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(
-                new_context, conflicting_args, leftmostContextsMapping, rightmostContextsMapping));
+            prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(new_context, conflicting_args));
         }
     }
 
@@ -297,9 +295,7 @@ public class DeepConflictsAnalyzer {
                     // add new context to correct arguments of existing contextual production
                     ContextualProduction existing_prod =
                         prodContextualProdMapping.get(prio.higher());
-                    prodContextualProdMapping.replace(prio.higher(),
-                        existing_prod.addContext(new_context, conflicting_args, leftmostContextsMapping,
-                            rightmostContextsMapping));
+                    prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(new_context, conflicting_args));
                     // existing_prod.addContext(new_context, conflicting_args);
                 }
             }
@@ -347,9 +343,7 @@ public class DeepConflictsAnalyzer {
                     // add new context to correct arguments of existing contextual production
                     ContextualProduction existing_prod =
                         prodContextualProdMapping.get(prio.higher());
-                    prodContextualProdMapping.replace(prio.higher(),
-                        existing_prod.addContext(new_context, conflicting_args, leftmostContextsMapping,
-                            rightmostContextsMapping));
+                    prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(new_context, conflicting_args));
                 }
             }
         }
@@ -388,9 +382,7 @@ public class DeepConflictsAnalyzer {
                     // add new context to correct arguments of existing contextual production
                     ContextualProduction existing_prod =
                         prodContextualProdMapping.get(prio.higher());
-                    prodContextualProdMapping.replace(prio.higher(),
-                        existing_prod.addContext(new_context, conflicting_args, leftmostContextsMapping,
-                            rightmostContextsMapping));
+                    prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(new_context, conflicting_args));
                 }
             }
             // the priority refers to a right recursive conflict
@@ -421,9 +413,7 @@ public class DeepConflictsAnalyzer {
                     // add new context to correct arguments of existing contextual production
                     ContextualProduction existing_prod =
                         prodContextualProdMapping.get(prio.higher());
-                    prodContextualProdMapping.replace(prio.higher(),
-                        existing_prod.addContext(new_context, conflicting_args, leftmostContextsMapping,
-                            rightmostContextsMapping));
+                    prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(new_context, conflicting_args));
                 }
             }
         }
@@ -488,8 +478,7 @@ public class DeepConflictsAnalyzer {
                                     existing_prod.addContexts(
                                         Sets.newHashSet(new Context(labelNonNullableListProd, ContextType.SHALLOW,
                                             ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping)),
-                                        Sets.newHashSet(p.rightHand().size() - 1), leftmostContextsMapping,
-                                        rightmostContextsMapping));
+                                        Sets.newHashSet(p.rightHand().size() - 1)));
                             }
 
                             // add A.C = α A{C} S+
@@ -525,9 +514,7 @@ public class DeepConflictsAnalyzer {
                                 // add new context to correct arguments of existing contextual production
                                 ContextualProduction existing_prod =
                                     prodContextualProdMapping.get(p);
-                                prodContextualProdMapping.replace(newProd,
-                                    existing_prod.addContexts(contexts, Sets.newHashSet(pos),
-                                        leftmostContextsMapping, rightmostContextsMapping));
+                                prodContextualProdMapping.replace(newProd, existing_prod.addContexts(contexts, Sets.newHashSet(pos)));
                             }
                         }
                     }
@@ -560,8 +547,7 @@ public class DeepConflictsAnalyzer {
                 } else {
                     // add new context to correct arguments of existing contextual production
                     ContextualProduction existing_prod = prodContextualProdMapping.get(p);
-                    prodContextualProdMapping.replace(p, existing_prod.addContexts(contexts,
-                        Sets.newHashSet(0), leftmostContextsMapping, rightmostContextsMapping));
+                    prodContextualProdMapping.replace(p, existing_prod.addContexts(contexts, Sets.newHashSet(0)));
                 }
             }
         }

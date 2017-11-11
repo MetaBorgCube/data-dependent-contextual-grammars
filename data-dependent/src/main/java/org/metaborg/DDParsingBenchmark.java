@@ -108,7 +108,7 @@ public class DDParsingBenchmark {
             if(c_isDataDependent) {
                 parser = JSGLR2.dataDependent(pt);
             } else {
-                parser = JSGLR2.standard(pt);
+                parser = JSGLR2.naive(pt);
             }
         }
     }

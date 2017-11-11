@@ -29,6 +29,10 @@ public class JSGLR2<StackNode extends AbstractStackNode<ParseForest>, ParseFores
         return (JSGLR2<ElkhoundStackNode<HParseForest>, HParseForest, IStrategoTerm>) JSGLR2Variants.getJSGLR2(parseTable, ParseForestRepresentation.Hybrid, true, true);
     }
     
+    public static JSGLR2<StandardStackNode<SRParseForest>, SRParseForest, IStrategoTerm> naive(ISGLRParseTable parseTable) throws ParseTableReadException {
+        return (JSGLR2<StandardStackNode<SRParseForest>, SRParseForest, IStrategoTerm>) JSGLR2Variants.getJSGLR2(parseTable, ParseForestRepresentation.SymbolRule, false, false);
+    }
+    
     public static JSGLR2<StandardStackNode<DataDependentParseForest>, DataDependentParseForest, IStrategoTerm> dataDependent(ISGLRParseTable parseTable) throws ParseTableReadException {
         return (JSGLR2<StandardStackNode<DataDependentParseForest>, DataDependentParseForest, IStrategoTerm>) JSGLR2Variants.getJSGLR2(parseTable, ParseForestRepresentation.DataDependent, false, false);
     }

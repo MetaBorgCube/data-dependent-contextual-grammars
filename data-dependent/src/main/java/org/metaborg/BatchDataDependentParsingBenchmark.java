@@ -57,7 +57,7 @@ public class BatchDataDependentParsingBenchmark {
     @Param({ "JAVA" }) // "OCAML", "JAVA"
     public static Language a_lang;
 
-    @Param({ "true", "false" })
+    @Param({ "false" })
     public static boolean c_isLazyGeneration;
 
     @Param({ "true", "false" })
@@ -127,7 +127,7 @@ public class BatchDataDependentParsingBenchmark {
             if(d_isDataDependent) {
                 parser = JSGLR2.dataDependent(pt);
             } else {
-                parser = JSGLR2.standard(pt);
+                parser = JSGLR2.naive(pt);
             }
         }
     }
@@ -164,8 +164,10 @@ public class BatchDataDependentParsingBenchmark {
         // int processedSize = 0;
         // int remainingSize = fc.input.size();
 
+        final int fileLimit = fc.input.size();
+
         fc.input.stream()
-//                .limit(500)
+                .limit(fileLimit)
                 .forEach(program -> {
             try {
                 // System.out.println(String.format("%d processed, %d remaining files after %s", ++processedSize,
@@ -175,6 +177,13 @@ public class BatchDataDependentParsingBenchmark {
                 System.out.println("could not parse file " + program);
             }
         });
+
+//        long characterCount = fc.input.stream()
+//                .limit(fileLimit)
+//                .mapToInt(String::length)
+//                .sum();
+//
+//        System.out.println(characterCount);
     }
 }
 
