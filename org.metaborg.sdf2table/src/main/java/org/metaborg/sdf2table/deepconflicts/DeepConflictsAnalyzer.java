@@ -202,17 +202,14 @@ public class DeepConflictsAnalyzer {
         conflicting_args.add(conflict_pos);
 
         // create production E = E<lower> in E
-        ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args,
-            productionLabels.get(prio.higher()), leftmostContextsMapping,
-            rightmostContextsMapping);
+        ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args, productionLabels.get(prio.higher()));
 
         // if contextual production does not exist add it
         if(!prodContextualProdMapping.containsKey(prio.higher())) {
             prodContextualProdMapping.put(prio.higher(), p);
         } else {
             // add new context to correct arguments of existing contextual production
-            ContextualProduction existing_prod =
-                prodContextualProdMapping.get(prio.higher());
+            ContextualProduction existing_prod = prodContextualProdMapping.get(prio.higher());
             prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(new_context, conflicting_args));
         }
     }
@@ -241,17 +238,14 @@ public class DeepConflictsAnalyzer {
         conflicting_args.add(conflict_pos);
 
         // create production E = E in E<lower>
-        ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args,
-            productionLabels.get(prio.higher()), leftmostContextsMapping,
-            rightmostContextsMapping);
+        ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args, productionLabels.get(prio.higher()));
 
         // if contextual production does not exist add it
         if(!prodContextualProdMapping.containsKey(prio.higher())) {
             prodContextualProdMapping.put(prio.higher(), p);
         } else {
             // add new context to correct arguments of existing contextual production
-            ContextualProduction existing_prod =
-                prodContextualProdMapping.get(prio.higher());
+            ContextualProduction existing_prod = prodContextualProdMapping.get(prio.higher());
             prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(new_context, conflicting_args));
         }
     }
@@ -284,17 +278,14 @@ public class DeepConflictsAnalyzer {
                 conflicting_args.add(conflict);
 
                 // create production E = pre E<lower> in E
-                ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args,
-                    productionLabels.get(prio.higher()), leftmostContextsMapping,
-                    rightmostContextsMapping);
+                ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args, productionLabels.get(prio.higher()));
 
                 // if contextual production does not exist add it
                 if(!prodContextualProdMapping.containsKey(prio.higher())) {
                     prodContextualProdMapping.put(prio.higher(), p);
                 } else {
                     // add new context to correct arguments of existing contextual production
-                    ContextualProduction existing_prod =
-                        prodContextualProdMapping.get(prio.higher());
+                    ContextualProduction existing_prod = prodContextualProdMapping.get(prio.higher());
                     prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(new_context, conflicting_args));
                     // existing_prod.addContext(new_context, conflicting_args);
                 }
@@ -332,17 +323,14 @@ public class DeepConflictsAnalyzer {
                 conflicting_args.add(conflict);
 
                 // create production E = E in E<lower> pos
-                ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args,
-                    productionLabels.get(prio.higher()), leftmostContextsMapping,
-                    rightmostContextsMapping);
+                ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args, productionLabels.get(prio.higher()));
 
                 // if contextual production does not exist add it
                 if(!prodContextualProdMapping.containsKey(prio.higher())) {
                     prodContextualProdMapping.put(prio.higher(), p);
                 } else {
                     // add new context to correct arguments of existing contextual production
-                    ContextualProduction existing_prod =
-                        prodContextualProdMapping.get(prio.higher());
+                    ContextualProduction existing_prod = prodContextualProdMapping.get(prio.higher());
                     prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(new_context, conflicting_args));
                 }
             }
@@ -371,17 +359,14 @@ public class DeepConflictsAnalyzer {
                 contexts.add(new_context);
 
                 // create production E = A<lower> beta
-                ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args,
-                    productionLabels.get(prio.higher()), leftmostContextsMapping,
-                    rightmostContextsMapping);
+                ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args, productionLabels.get(prio.higher()));
 
                 // if contextual production does not exist add it
                 if(!prodContextualProdMapping.containsKey(prio.higher())) {
                     prodContextualProdMapping.put(prio.higher(), p);
                 } else {
                     // add new context to correct arguments of existing contextual production
-                    ContextualProduction existing_prod =
-                        prodContextualProdMapping.get(prio.higher());
+                    ContextualProduction existing_prod = prodContextualProdMapping.get(prio.higher());
                     prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(new_context, conflicting_args));
                 }
             }
@@ -402,17 +387,14 @@ public class DeepConflictsAnalyzer {
                 contexts.add(new_context);
 
                 // create production E = alpha B<lower>
-                ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args,
-                    productionLabels.get(prio.higher()), leftmostContextsMapping,
-                    rightmostContextsMapping);
+                ContextualProduction p = new ContextualProduction(prio.higher(), contexts, conflicting_args, productionLabels.get(prio.higher()));
 
                 // if contextual production does not exist add it
                 if(!prodContextualProdMapping.containsKey(prio.higher())) {
                     prodContextualProdMapping.put(prio.higher(), p);
                 } else {
                     // add new context to correct arguments of existing contextual production
-                    ContextualProduction existing_prod =
-                        prodContextualProdMapping.get(prio.higher());
+                    ContextualProduction existing_prod = prodContextualProdMapping.get(prio.higher());
                     prodContextualProdMapping.replace(prio.higher(), existing_prod.addContext(new_context, conflicting_args));
                 }
             }
@@ -467,13 +449,12 @@ public class DeepConflictsAnalyzer {
                                 ContextualProduction ctx_p = new ContextualProduction(p,
                                     Sets.newHashSet(new Context(labelNonNullableListProd, ContextType.SHALLOW,
                                         ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping)),
-                                    Sets.newHashSet(p.rightHand().size() - 1), productionLabels.get(p),
-                                    leftmostContextsMapping, rightmostContextsMapping);
+                                    Sets.newHashSet(p.rightHand().size() - 1), productionLabels.get(p)
+                                );
                                 prodContextualProdMapping.put(p, ctx_p);
                             } else {
                                 // add new context to correct arguments of existing contextual production
-                                ContextualProduction existing_prod =
-                                    prodContextualProdMapping.get(p);
+                                ContextualProduction existing_prod = prodContextualProdMapping.get(p);
                                 prodContextualProdMapping.replace(p,
                                     existing_prod.addContexts(
                                         Sets.newHashSet(new Context(labelNonNullableListProd, ContextType.SHALLOW,
@@ -508,13 +489,12 @@ public class DeepConflictsAnalyzer {
 
                             if(!prodContextualProdMapping.containsKey(newProd)) {
                                 ContextualProduction ctx_p2 = new ContextualProduction(newProd, contexts,
-                                    Sets.newHashSet(pos), productionLabels.get(newProd),
-                                    leftmostContextsMapping, rightmostContextsMapping);
+                                    Sets.newHashSet(pos), productionLabels.get(newProd)
+                                );
                                 prodContextualProdMapping.put(newProd, ctx_p2);
                             } else {
                                 // add new context to correct arguments of existing contextual production
-                                ContextualProduction existing_prod =
-                                    prodContextualProdMapping.get(p);
+                                ContextualProduction existing_prod = prodContextualProdMapping.get(p);
                                 prodContextualProdMapping.replace(newProd, existing_prod.addContexts(contexts, Sets.newHashSet(pos)));
                             }
                         }
@@ -541,7 +521,7 @@ public class DeepConflictsAnalyzer {
         for(IProduction p : symbolProductionsMapping.get(iterList)) {
             if(p.rightHand().size() > 1) {
                 ContextualProduction ctx_p = new ContextualProduction(p, contexts, Sets.newHashSet(0),
-                    productionLabels.get(p), leftmostContextsMapping, rightmostContextsMapping);
+                    productionLabels.get(p));
                 // if contextual production does not exist add it
                 if(!prodContextualProdMapping.containsKey(p)) {
                     prodContextualProdMapping.put(p, ctx_p);

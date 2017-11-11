@@ -30,9 +30,7 @@ public class ContextualProduction implements IProduction, Serializable {
         this.rhs = rhs;
     }
 
-    public ContextualProduction(IProduction orig_prod, Set<Context> contexts, Set<Integer> args,
-        int originalProductionLabel, Map<Integer, Integer> leftContextsBitSetMapping,
-        Map<Integer, Integer> rightContextsBitSetMapping) {
+    public ContextualProduction(IProduction orig_prod, Set<Context> contexts, Set<Integer> args, int originalProductionLabel) {
         // initial production with conflicting argument
         lhs = orig_prod.leftHand();
         this.orig_prod = orig_prod;
