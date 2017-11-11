@@ -127,7 +127,7 @@ public class BatchDataDependentParsingBenchmark {
             if(d_isDataDependent) {
                 parser = JSGLR2.dataDependent(pt);
             } else {
-                parser = JSGLR2.standard(pt);
+                parser = JSGLR2.naive(pt);
             }
         }
     }
