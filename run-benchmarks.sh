@@ -172,6 +172,6 @@ if [[ -n "$BATCH" ]]; then
   echo  "Running batch benchmarks"
   cd data-dependent
   mkdir -p Results/BatchParseTime
-  java -jar target/benchmarks.jar BatchDataDependentParsingBenchmark -bm avgt -f 1 -i 5 -wi 1 -tu ms -t 1 -o Results/BatchParseTime/result.txt
+  java -jar target/benchmarks.jar BatchDataDependentParsingBenchmark -bm thrpt -f 1 -i 10 -wi 5 -tu ms -t 1 -p a_lang=JAVA -p a_lang=OCAML -gc true -o Results/BatchParseTime/result.txt
   cd ..
 fi
