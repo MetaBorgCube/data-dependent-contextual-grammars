@@ -4,10 +4,7 @@ import com.google.common.collect.*;
 import org.metaborg.sdf2table.grammar.*;
 import org.metaborg.sdf2table.parsetable.ParseTable;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DeepConflictsAnalyzer {
@@ -25,21 +22,16 @@ public class DeepConflictsAnalyzer {
 
         diffLabels.forEach(pt.getProdLabelFactory()::releaseLabel);
 
-        final DeepConflictsAnalyzer phase2 = new DeepConflictsAnalyzer(pt, phase1.leftmostContextsMapping.size(), phase1.rightmostContextsMapping.size());
+        final DeepConflictsAnalyzer phase2 = new DeepConflictsAnalyzer(pt, phase1.leftmostContextsMapping, phase1.rightmostContextsMapping);
         phase2.deepConflictAnalysis();
 
         return phase2;
     }
 
     private DeepConflictsAnalyzer(ParseTable pt) {
-        this(pt, -1, -1);
-    }
-
-    private DeepConflictsAnalyzer(ParseTable pt, int leftmostContextCount, int rightmostContextCount) {
         this.pt = pt;
-        this.leftmostContextCount = leftmostContextCount;
-        this.rightmostContextCount = rightmostContextCount;
 
+        this.isContextMappingStable = false;
         this.leftmostContextsMapping = Maps.newHashMap();
         this.rightmostContextsMapping = Maps.newHashMap();
 
@@ -50,23 +42,22 @@ public class DeepConflictsAnalyzer {
         this.productionAttributesMapping = HashMultimap.create(pt.normalizedGrammar().getProductionAttributesMapping());
     }
 
-//    private DeepConflictsAnalyzer(ParseTable pt, Map<Integer, Integer> leftmostContextsMapping, Map<Integer, Integer> rightmostContextsMapping) {
-//        this.pt = pt;
-//
-//        this.leftmostContextsMapping = ImmutableMap.copyOf(leftmostContextsMapping);
-//        this.rightmostContextsMapping = ImmutableMap.copyOf(rightmostContextsMapping);
-//
-//        this.uniqueProductionMapping = Maps.newHashMap(pt.normalizedGrammar().getUniqueProductionMapping());
-//        this.prodContextualProdMapping = HashBiMap.create(pt.normalizedGrammar().getProdContextualProdMapping());
-//        this.productionLabels = HashBiMap.create(pt.productionLabels());
-//        this.symbolProductionsMapping = HashMultimap.create(pt.normalizedGrammar().getSymbolProductionsMapping());
-//        this.productionAttributesMapping = HashMultimap.create(pt.normalizedGrammar().getProductionAttributesMapping());
-//    }
+    private DeepConflictsAnalyzer(ParseTable pt, Map<Integer, Integer> leftmostContextsMapping, Map<Integer, Integer> rightmostContextsMapping) {
+        this.pt = pt;
+
+        this.isContextMappingStable = true;
+        this.leftmostContextsMapping = ImmutableMap.copyOf(leftmostContextsMapping);
+        this.rightmostContextsMapping = ImmutableMap.copyOf(rightmostContextsMapping);
+
+        this.uniqueProductionMapping = Maps.newHashMap(pt.normalizedGrammar().getUniqueProductionMapping());
+        this.prodContextualProdMapping = HashBiMap.create(pt.normalizedGrammar().getProdContextualProdMapping());
+        this.productionLabels = HashBiMap.create(pt.productionLabels());
+        this.symbolProductionsMapping = HashMultimap.create(pt.normalizedGrammar().getSymbolProductionsMapping());
+        this.productionAttributesMapping = HashMultimap.create(pt.normalizedGrammar().getProductionAttributesMapping());
+    }
 
     private final ParseTable pt;
-
-    private final int leftmostContextCount;
-    private final int rightmostContextCount;
+    private final boolean isContextMappingStable;
 
     // phase 1
     /* rw */ private final Map<Integer, Integer> leftmostContextsMapping;
@@ -178,6 +169,15 @@ public class DeepConflictsAnalyzer {
                 .contains(p.lower().leftHand());
     }
 
+    private Context contextFrom(int productionId, ContextType type, ContextPosition position) {
+        if (isContextMappingStable) {
+            return new Context(productionId, type, position, leftmostContextsMapping, rightmostContextsMapping);
+        } else {
+            // use dummy values
+            return new Context(productionId, type, position, Collections.emptyMap(), Collections.emptyMap());
+        }
+    }
+
     private void handleInfixPrefixConflict(ParseTable pt, IPriority prio, IProduction higher,
         IProduction lower) {
         // check whether the priorities that remove the conflict exist
@@ -192,10 +192,10 @@ public class DeepConflictsAnalyzer {
 
         Set<Context> contexts = Sets.newHashSet();
         int labelLower = productionLabels.get(prio.lower());
-        if(!rightmostContextsMapping.containsKey(labelLower)) {
+        if(!isContextMappingStable && !rightmostContextsMapping.containsKey(labelLower)) {
             rightmostContextsMapping.put(labelLower, rightmostContextsMapping.size());
         }
-        Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
+        Context new_context = contextFrom(labelLower, ContextType.DEEP, ContextPosition.RIGHTMOST);
         contexts.add(new_context);
 
         Set<Integer> conflicting_args = Sets.newHashSet();
@@ -228,10 +228,10 @@ public class DeepConflictsAnalyzer {
 
         Set<Context> contexts = Sets.newHashSet();
         int labelLower = productionLabels.get(prio.lower());
-        if(!leftmostContextsMapping.containsKey(labelLower)) {
+        if(!isContextMappingStable && !leftmostContextsMapping.containsKey(labelLower)) {
             leftmostContextsMapping.put(labelLower, leftmostContextsMapping.size());
         }
-        Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.LEFTMOST, leftmostContextsMapping, rightmostContextsMapping);
+        Context new_context = contextFrom(labelLower, ContextType.DEEP, ContextPosition.LEFTMOST);
         contexts.add(new_context);
 
         Set<Integer> conflicting_args = Sets.newHashSet();
@@ -268,10 +268,10 @@ public class DeepConflictsAnalyzer {
             if(matchPrefix && !higher.equals(lower)) {
                 Set<Context> contexts = Sets.newHashSet();
                 int labelLower = productionLabels.get(prio.lower());
-                if(!rightmostContextsMapping.containsKey(labelLower)) {
+                if(!isContextMappingStable && !rightmostContextsMapping.containsKey(labelLower)) {
                     rightmostContextsMapping.put(labelLower, rightmostContextsMapping.size());
                 }
-                Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
+                Context new_context = contextFrom(labelLower, ContextType.DEEP, ContextPosition.RIGHTMOST);
                 contexts.add(new_context);
 
                 Set<Integer> conflicting_args = Sets.newHashSet();
@@ -313,10 +313,10 @@ public class DeepConflictsAnalyzer {
             if(matchSuffix && !higher.equals(lower)) {
                 Set<Context> contexts = Sets.newHashSet();
                 int labelLower = productionLabels.get(prio.lower());
-                if(!leftmostContextsMapping.containsKey(labelLower)) {
+                if(!isContextMappingStable && !leftmostContextsMapping.containsKey(labelLower)) {
                     leftmostContextsMapping.put(labelLower, leftmostContextsMapping.size());
                 }
-                Context new_context = new Context(labelLower, ContextType.DEEP, ContextPosition.LEFTMOST, leftmostContextsMapping, rightmostContextsMapping);
+                Context new_context = contextFrom(labelLower, ContextType.DEEP, ContextPosition.LEFTMOST);
                 contexts.add(new_context);
 
                 Set<Integer> conflicting_args = Sets.newHashSet();
@@ -355,7 +355,7 @@ public class DeepConflictsAnalyzer {
 
                 Set<Context> contexts = Sets.newHashSet();
                 int labelLower = productionLabels.get(prio.lower());
-                Context new_context = new Context(labelLower, ContextType.SHALLOW, ContextPosition.LEFTMOST, leftmostContextsMapping, rightmostContextsMapping);
+                Context new_context = contextFrom(labelLower, ContextType.SHALLOW, ContextPosition.LEFTMOST);
                 contexts.add(new_context);
 
                 // create production E = A<lower> beta
@@ -383,7 +383,7 @@ public class DeepConflictsAnalyzer {
 
                 Set<Context> contexts = Sets.newHashSet();
                 int labelLower = productionLabels.get(prio.lower());
-                Context new_context = new Context(labelLower, ContextType.SHALLOW, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
+                Context new_context = contextFrom(labelLower, ContextType.SHALLOW, ContextPosition.RIGHTMOST);
                 contexts.add(new_context);
 
                 // create production E = alpha B<lower>
@@ -405,10 +405,10 @@ public class DeepConflictsAnalyzer {
         Set<Context> contexts = Sets.newHashSet();
         for(IProduction p : pt.normalizedGrammar().getLongestMatchProds().get(s)) {
             int labelP = productionLabels.get(p);
-            if(!rightmostContextsMapping.containsKey(labelP)) {
+            if(!isContextMappingStable && !rightmostContextsMapping.containsKey(labelP)) {
                 rightmostContextsMapping.put(labelP, rightmostContextsMapping.size());
             }
-            Context new_context = new Context(labelP, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);            
+            Context new_context = contextFrom(labelP, ContextType.DEEP, ContextPosition.RIGHTMOST);
             contexts.add(new_context);
         }
 
@@ -447,8 +447,8 @@ public class DeepConflictsAnalyzer {
                             if(!prodContextualProdMapping.containsKey(p)) {
                                 // FIXME Might need to recalculate recursive pos
                                 ContextualProduction ctx_p = new ContextualProduction(p,
-                                    Sets.newHashSet(new Context(labelNonNullableListProd, ContextType.SHALLOW,
-                                        ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping)),
+                                    Sets.newHashSet(contextFrom(labelNonNullableListProd, ContextType.SHALLOW,
+                                        ContextPosition.RIGHTMOST)),
                                     Sets.newHashSet(p.rightHand().size() - 1), productionLabels.get(p)
                                 );
                                 prodContextualProdMapping.put(p, ctx_p);
@@ -457,8 +457,8 @@ public class DeepConflictsAnalyzer {
                                 ContextualProduction existing_prod = prodContextualProdMapping.get(p);
                                 prodContextualProdMapping.replace(p,
                                     existing_prod.addContexts(
-                                        Sets.newHashSet(new Context(labelNonNullableListProd, ContextType.SHALLOW,
-                                            ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping)),
+                                        Sets.newHashSet(contextFrom(labelNonNullableListProd, ContextType.SHALLOW,
+                                            ContextPosition.RIGHTMOST)),
                                         Sets.newHashSet(p.rightHand().size() - 1)));
                             }
 
@@ -478,12 +478,12 @@ public class DeepConflictsAnalyzer {
                             productionLabels.put(newProd, pt.getProdLabelFactory().getNextLabel());
 
                             int labelNewProd = productionLabels.get(newProd);
-                            if(!rightmostContextsMapping.containsKey(labelNewProd)) {
+                            if(!isContextMappingStable && !rightmostContextsMapping.containsKey(labelNewProd)) {
                                 rightmostContextsMapping.put(labelNewProd,
                                     rightmostContextsMapping.size());
                             }
                             Context new_context =
-                                new Context(labelNewProd, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
+                                contextFrom(labelNewProd, ContextType.DEEP, ContextPosition.RIGHTMOST);
                             contexts.add(new_context);
                             
 
