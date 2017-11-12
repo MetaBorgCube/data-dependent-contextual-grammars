@@ -21,6 +21,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -52,6 +54,22 @@ public class BatchDataDependentParsingBenchmark {
             }
             br.close();
 
+            final String totalCharacterCountString = String.valueOf(characterCount());
+            Files.write(
+                    Paths.get("resources/" + a_lang.getLanguageName() + "/" + b_filename + ".size.txt"),
+                    totalCharacterCountString.getBytes());
+        }
+
+        public long characterCount() {
+            if (input == null) {
+                return 0L;
+            } else {
+                long characterCount = input.stream()
+                        .mapToInt(String::length)
+                        .sum();
+
+                return characterCount;
+            }
         }
     }
 
@@ -142,9 +160,9 @@ public class BatchDataDependentParsingBenchmark {
             .mode(Mode.Throughput)
                 .param("a_lang", "JAVA")
                 .param("a_lang", "OCAML")
-//                .param("b_filename", "files/withDeepConflicts/files.csv")
+                .param("b_filename", "files/withDeepConflicts/files.csv")
                 .param("b_filename", "files/withoutDeepConflicts/files.csv")
-//                .param("c_isLazyGeneration", "true")
+                .param("c_isLazyGeneration", "true")
                 .param("c_isLazyGeneration", "false")
                 .param("d_isDataDependent", "true")
                 .param("d_isDataDependent", "false")
@@ -227,6 +245,12 @@ public class BatchDataDependentParsingBenchmark {
 
             characterCount += program.length();
         }
+
+        if (characterCount < characterLimit) {
+            throw new RuntimeException(String.format("Processed less than %d characters.", characterCount));
+        }
+
+        // System.out.println(characterCount);
     }
 
 }
