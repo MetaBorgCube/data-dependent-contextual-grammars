@@ -139,9 +139,9 @@ public class BatchDataDependentParsingBenchmark {
         Options options = new OptionsBuilder()
             .warmupIterations(10)
             .measurementIterations(15)
-            .mode(Mode.AverageTime)
+            .mode(Mode.Throughput)
                 .param("a_lang", "JAVA")
-//                .param("a_lang", "OCAML")
+                .param("a_lang", "OCAML")
 //                .param("b_filename", "files/withDeepConflicts/files.csv")
                 .param("b_filename", "files/withoutDeepConflicts/files.csv")
 //                .param("c_isLazyGeneration", "true")
@@ -154,7 +154,7 @@ public class BatchDataDependentParsingBenchmark {
             .threads(1)
             .shouldDoGC(true)
             .include(BatchDataDependentParsingBenchmark.class.getSimpleName() + ".parseFilesWithCharacterLimit")
-            .timeUnit(TimeUnit.MILLISECONDS)
+            .timeUnit(TimeUnit.SECONDS)
             .build();
 
      // @formatter:on
@@ -212,7 +212,7 @@ public class BatchDataDependentParsingBenchmark {
     @Benchmark
     public void parseFilesWithCharacterLimit(Blackhole bh, BenchmarkLanguages bl, FileConfig fc) throws IOException {
         long characterCount = 0;
-        long characterLimit = 30_000;
+        long characterLimit = 1_000;
 
         final Iterator<String> inputIterator = fc.input.iterator();
 
