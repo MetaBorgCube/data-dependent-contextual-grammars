@@ -1,5 +1,10 @@
 package org.spoofax.jsglr2.parser;
 
+import java.util.ArrayDeque;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import org.metaborg.sdf2table.deepconflicts.ContextualProduction;
 import org.metaborg.sdf2table.deepconflicts.ContextualSymbol;
 import org.metaborg.sdf2table.grammar.IProduction;
@@ -19,10 +24,6 @@ import org.spoofax.jsglr2.stack.StackManager;
 import org.spoofax.jsglr2.stack.StackPath;
 import org.spoofax.jsglr2.stack.standard.StandardStackNode;
 
-import java.util.ArrayDeque;
-import java.util.Iterator;
-import java.util.List;
-
 public class DataDependentReducer<StackNode extends AbstractStackNode<ParseForest>, ParseForest extends AbstractParseForest, ParseNode extends ParseForest, Derivation>
     extends Reducer<StandardStackNode<ParseForest>, ParseForest, ParseNode, Derivation> {
 
@@ -38,15 +39,15 @@ public class DataDependentReducer<StackNode extends AbstractStackNode<ParseFores
 
         final IProduction production = ((ParseTableProduction) reduce.production()).getProduction();
 
-        if (production instanceof ContextualProduction) {
+        if(production instanceof ContextualProduction) {
             final List<ParseForest> parseForest = path.getParseForests();
             final List<Symbol> rightHandSymbols = production.rightHand();
 
-            for (int i = 0; i < rightHandSymbols.size(); i++) {
+            for(int i = 0; i < rightHandSymbols.size(); i++) {
                 final ParseForest nextParseForest = parseForest.get(i);
                 final Symbol nextSymbol = rightHandSymbols.get(i);
 
-                if (nextSymbol instanceof ContextualSymbol && checkContexts(nextParseForest, nextSymbol)) {
+                if(nextSymbol instanceof ContextualSymbol && checkContexts(nextParseForest, nextSymbol)) {
                     return; // prohibit reduction
                 }
             }
@@ -144,27 +145,32 @@ public class DataDependentReducer<StackNode extends AbstractStackNode<ParseFores
         }
     }
 
-    private static final <ParseForest extends AbstractParseForest> boolean checkContexts(ParseForest pf, Symbol symbol) {
+    private static final <ParseForest extends AbstractParseForest> boolean checkContexts(ParseForest pf,
+        Symbol symbol) {
+        Set<Integer> shallowContexts = ((ContextualSymbol) symbol).getShallowContexts();
+
         long contextBitmap = ((ContextualSymbol) symbol).deepContexts();
 
-        if (contextBitmap == 0) {
+        if(contextBitmap == 0 && shallowContexts.isEmpty()) {
             return false;
         }
 
         assert pf instanceof DataDependentSymbolNode;
         final List<DataDependentRuleNode> derivations = ((DataDependentSymbolNode) pf).getDerivations();
 
-        if (derivations.size() == 1) {
+        if(derivations.size() == 1) {
             final DataDependentRuleNode ruleNode = derivations.get(0);
 
             // check if bitmaps intersect
-            return (ruleNode.getContextBitmap() & contextBitmap) != 0;
+            return (ruleNode.getContextBitmap() & contextBitmap) != 0
+                || shallowContexts.contains(ruleNode.production.productionNumber());
         } else {
-            for (Iterator<DataDependentRuleNode> iterator = derivations.iterator(); iterator.hasNext(); ) {
+            for(Iterator<DataDependentRuleNode> iterator = derivations.iterator(); iterator.hasNext();) {
                 final DataDependentRuleNode ruleNode = iterator.next();
 
                 // discard rule nodes where bitmaps intersect
-                if ((ruleNode.getContextBitmap() & contextBitmap) != 0) {
+                if((ruleNode.getContextBitmap() & contextBitmap) != 0
+                    || shallowContexts.contains(ruleNode.production.productionNumber())) {
                     iterator.remove();
                 }
             }

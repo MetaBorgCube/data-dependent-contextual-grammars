@@ -18,26 +18,44 @@ public class ContextualSymbol extends Symbol {
     private final Set<Context> contexts;
 
     private long deepContextBitmap = 0L;
+    private final Set<Integer> shallowContexts;
 
     public ContextualSymbol(Symbol s, Set<Context> contexts, long deepContextBitmap) {
         this.s = s;
         this.contexts = contexts;
         this.deepContextBitmap = deepContextBitmap;
+        this.shallowContexts = Sets.newHashSet();
+        for (Context context : contexts) {
+            if (context.getType() == ContextType.SHALLOW) {
+                deepContextBitmap |= context.getContextBitmap();
+            }
+        }
     }
 
     public ContextualSymbol(Symbol s, Context context, long deepContextBitmap) {
         this.s = s;
         this.contexts = Sets.newHashSet(context);
         this.deepContextBitmap = deepContextBitmap;
+        this.shallowContexts = Sets.newHashSet();
+        if(context.getType() == ContextType.SHALLOW) {
+            shallowContexts.add(context.getContext());
+        }
     }
 
     public ContextualSymbol(Symbol s, Set<Context> contexts) {
         this.s = s;
         this.contexts = contexts;
+        this.shallowContexts = Sets.newHashSet();
 
         for (Context context : contexts) {
             if (context.getType() == ContextType.DEEP) {
                 deepContextBitmap |= context.getContextBitmap();
+            }
+        }
+        
+        for (Context context : contexts) {
+            if (context.getType() == ContextType.SHALLOW) {
+                shallowContexts.add(context.getContext());
             }
         }
     }
@@ -45,9 +63,14 @@ public class ContextualSymbol extends Symbol {
     public ContextualSymbol(Symbol s, Context context) {
         this.s = s;
         this.contexts = Sets.newHashSet(context);
+        this.shallowContexts = Sets.newHashSet();
 
         if (context.getType() == ContextType.DEEP) {
             deepContextBitmap |= context.getContextBitmap();
+        }
+        
+        if(context.getType() == ContextType.SHALLOW) {
+            shallowContexts.add(context.getContext());
         }
     }
 
@@ -111,6 +134,10 @@ public class ContextualSymbol extends Symbol {
 
     public Set<Context> getContexts() {
         return contexts;
+    }
+
+    public Set<Integer> getShallowContexts() {
+        return shallowContexts;
     }
 
     public long deepContexts() {
