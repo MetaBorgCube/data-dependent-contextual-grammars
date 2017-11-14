@@ -27,7 +27,7 @@ public class ContextualSymbol extends Symbol {
         this.shallowContexts = Sets.newHashSet();
         for (Context context : contexts) {
             if (context.getType() == ContextType.SHALLOW) {
-                deepContextBitmap |= context.getContextBitmap();
+                shallowContexts.add(context.getContext());
             }
         }
     }
