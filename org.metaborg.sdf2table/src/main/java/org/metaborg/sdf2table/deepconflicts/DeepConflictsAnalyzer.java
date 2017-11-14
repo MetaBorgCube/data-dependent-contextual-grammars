@@ -40,6 +40,7 @@ public class DeepConflictsAnalyzer {
         this.productionLabels = HashBiMap.create(pt.productionLabels());
         this.symbolProductionsMapping = HashMultimap.create(pt.normalizedGrammar().getSymbolProductionsMapping());
         this.productionAttributesMapping = HashMultimap.create(pt.normalizedGrammar().getProductionAttributesMapping());
+        this.priorities = HashMultimap.create(pt.normalizedGrammar().priorities());
     }
 
     private DeepConflictsAnalyzer(ParseTable pt, Map<Integer, Integer> leftmostContextsMapping, Map<Integer, Integer> rightmostContextsMapping) {
@@ -54,6 +55,7 @@ public class DeepConflictsAnalyzer {
         this.productionLabels = HashBiMap.create(pt.productionLabels());
         this.symbolProductionsMapping = HashMultimap.create(pt.normalizedGrammar().getSymbolProductionsMapping());
         this.productionAttributesMapping = HashMultimap.create(pt.normalizedGrammar().getProductionAttributesMapping());
+        this.priorities = HashMultimap.create(pt.normalizedGrammar().priorities());
     }
 
     private final ParseTable pt;
@@ -69,6 +71,7 @@ public class DeepConflictsAnalyzer {
     /* rw */ private final BiMap<IProduction, Integer> productionLabels;
     /* rw */ private final SetMultimap<Symbol, IProduction> symbolProductionsMapping;
     /* rw */ private final SetMultimap<IProduction, IAttribute> productionAttributesMapping;
+    /* rw */ private final SetMultimap<IPriority, Integer> priorities;
 
     public void patchParseTable() {
         /*
@@ -85,6 +88,7 @@ public class DeepConflictsAnalyzer {
         pt.productionLabels().putAll(productionLabels);
         pt.normalizedGrammar().getProductionAttributesMapping().putAll(productionAttributesMapping);
         pt.normalizedGrammar().getProdContextualProdMapping().putAll(prodContextualProdMapping);
+        pt.normalizedGrammar().priorities().putAll(priorities);
 
         pt.getLeftmostContextsMapping().putAll(leftmostContextsMapping);
         pt.getRightmostContextsMapping().putAll(rightmostContextsMapping);
@@ -446,23 +450,8 @@ public class DeepConflictsAnalyzer {
                             }
                         }
                         if (nullableListProd != null && nonNullableListProd != null) {
-                            int labelNonNullableListProd = productionLabels.get(nonNullableListProd);
-                            // add A.C = α A S*{S* = S+}
-                            if (!prodContextualProdMapping.containsKey(p)) {
-                                // FIXME Might need to recalculate recursive pos
-                                ContextualProduction ctx_p = new ContextualProduction(p,
-                                        Sets.newHashSet(shallowContextFrom(labelNonNullableListProd, ContextPosition.RIGHTMOST)),
-                                        Sets.newHashSet(p.rightHand().size() - 1), productionLabels.get(p)
-                                );
-                                prodContextualProdMapping.put(p, ctx_p);
-                            } else {
-                                // add new context to correct arguments of existing contextual production
-                                ContextualProduction existing_prod = prodContextualProdMapping.get(p);
-                                prodContextualProdMapping.replace(p,
-                                        existing_prod.addContexts(
-                                                Sets.newHashSet(shallowContextFrom(labelNonNullableListProd, ContextPosition.RIGHTMOST)),
-                                                Sets.newHashSet(p.rightHand().size() - 1)));
-                            }
+                            // add priority A.C = α A S* <rhs(A.C)> > S* = S+
+                            priorities.put(new Priority(p, nonNullableListProd, false), p.rightHand().size()-1);                            
 
                             // add A.C = α A{C} S+
                             List<Symbol> new_rhs = Lists.newArrayList();
