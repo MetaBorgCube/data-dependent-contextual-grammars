@@ -1,10 +1,5 @@
 package org.spoofax.jsglr2.parser;
 
-import java.util.ArrayDeque;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import org.metaborg.sdf2table.deepconflicts.ContextualProduction;
 import org.metaborg.sdf2table.deepconflicts.ContextualSymbol;
 import org.metaborg.sdf2table.grammar.IProduction;
@@ -23,6 +18,11 @@ import org.spoofax.jsglr2.stack.StackLink;
 import org.spoofax.jsglr2.stack.StackManager;
 import org.spoofax.jsglr2.stack.StackPath;
 import org.spoofax.jsglr2.stack.standard.StandardStackNode;
+
+import java.util.ArrayDeque;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class DataDependentReducer<StackNode extends AbstractStackNode<ParseForest>, ParseForest extends AbstractParseForest, ParseNode extends ParseForest, Derivation>
     extends Reducer<StandardStackNode<ParseForest>, ParseForest, ParseNode, Derivation> {
@@ -145,11 +145,11 @@ public class DataDependentReducer<StackNode extends AbstractStackNode<ParseFores
         }
     }
 
-    private static final <ParseForest extends AbstractParseForest> boolean checkContexts(ParseForest pf,
-        Symbol symbol) {
-        Set<Integer> shallowContexts = ((ContextualSymbol) symbol).getShallowContexts();
+    private static final <ParseForest extends AbstractParseForest> boolean checkContexts(ParseForest pf, Symbol symbol) {
+        final ContextualSymbol contextualSymbol = (ContextualSymbol) symbol;
 
-        long contextBitmap = ((ContextualSymbol) symbol).deepContexts();
+        final long contextBitmap = contextualSymbol.deepContexts();
+        final Set<Integer> shallowContexts = contextualSymbol.getShallowContexts();
 
         if(contextBitmap == 0 && shallowContexts.isEmpty()) {
             return false;
@@ -161,16 +161,20 @@ public class DataDependentReducer<StackNode extends AbstractStackNode<ParseFores
         if(derivations.size() == 1) {
             final DataDependentRuleNode ruleNode = derivations.get(0);
 
+            final boolean hasDeepConflict = (ruleNode.getContextBitmap() & contextBitmap) != 0;
+            final boolean hasShallowConflict = shallowContexts.contains(ruleNode.production.productionNumber());
+
             // check if bitmaps intersect
-            return (ruleNode.getContextBitmap() & contextBitmap) != 0
-                || shallowContexts.contains(ruleNode.production.productionNumber());
+            return hasDeepConflict || hasShallowConflict;
         } else {
             for(Iterator<DataDependentRuleNode> iterator = derivations.iterator(); iterator.hasNext();) {
                 final DataDependentRuleNode ruleNode = iterator.next();
 
+                final boolean hasDeepConflict = (ruleNode.getContextBitmap() & contextBitmap) != 0;
+                final boolean hasShallowConflict = shallowContexts.contains(ruleNode.production.productionNumber());
+
                 // discard rule nodes where bitmaps intersect
-                if((ruleNode.getContextBitmap() & contextBitmap) != 0
-                    || shallowContexts.contains(ruleNode.production.productionNumber())) {
+                if (hasDeepConflict || hasShallowConflict) {
                     iterator.remove();
                 }
             }
