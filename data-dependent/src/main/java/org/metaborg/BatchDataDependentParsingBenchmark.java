@@ -22,16 +22,19 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @State(Scope.Benchmark)
 public class BatchDataDependentParsingBenchmark {
 
-    @Param({ "files/withDeepConflicts/files.csv", "files/withoutDeepConflicts/files.csv" })
-    public static String b_filename;
+    @Param({ "files/withDeepConflicts", "files/withoutDeepConflicts" })
+    public static String b_filepath;
 
     @State(Scope.Benchmark)
     public static class FileConfig {
@@ -40,15 +43,21 @@ public class BatchDataDependentParsingBenchmark {
 
         @Setup(Level.Trial)
         public void doSetup() throws IOException {
+            final Path filesThatDoNotParsePath =
+                    Paths.get("resources/" + a_lang.getLanguageName() + "/" + b_filepath + "/" + "files-do-not-parse.csv");
+
+            final Set<String> filesThatDoNotParse =
+                    Files.readAllLines(filesThatDoNotParsePath).stream().collect(Collectors.toSet());
+
             input = Lists.newArrayList();
             BufferedReader br = null;
             String line = "";
-            csvFile = new File("resources/" + a_lang.getLanguageName() + "/" + b_filename);
+            csvFile = new File("resources/" + a_lang.getLanguageName() + "/" + "/" + "files.csv");
 
             br = new BufferedReader(new FileReader(csvFile));
             while((line = br.readLine()) != null) {
                 File currentFile = new File(line);
-                if(currentFile.exists()) {
+                if(currentFile.exists() && !filesThatDoNotParse.contains(line)) {
                     input.add(FileUtils.readFileToString(currentFile, Charsets.UTF_8));
                 }
             }
@@ -56,7 +65,7 @@ public class BatchDataDependentParsingBenchmark {
 
             final String totalCharacterCountString = String.valueOf(characterCount());
             Files.write(
-                    Paths.get("resources/" + a_lang.getLanguageName() + "/" + b_filename + ".size.txt"),
+                    Paths.get("resources/" + a_lang.getLanguageName() + "/" + b_filepath + "/" + "files.csv.size.txt"),
                     totalCharacterCountString.getBytes());
         }
 
@@ -97,7 +106,7 @@ public class BatchDataDependentParsingBenchmark {
                 throw new RuntimeException();
             }
 
-            if(!e_solvesDeepConflicts && b_filename.equals("files/withDeepConflicts/files.csv")) {
+            if(!e_solvesDeepConflicts && b_filepath.equals("files/withDeepConflicts")) {
                 throw new RuntimeException();
             }
 
@@ -160,8 +169,8 @@ public class BatchDataDependentParsingBenchmark {
             .mode(Mode.Throughput)
                 .param("a_lang", "JAVA")
                 .param("a_lang", "OCAML")
-                .param("b_filename", "files/withDeepConflicts/files.csv")
-                .param("b_filename", "files/withoutDeepConflicts/files.csv")
+                .param("b_filename", "files/withDeepConflicts")
+                .param("b_filename", "files/withoutDeepConflicts")
                 .param("c_isLazyGeneration", "true")
                 .param("c_isLazyGeneration", "false")
                 .param("d_isDataDependent", "true")
@@ -190,32 +199,27 @@ public class BatchDataDependentParsingBenchmark {
     // @formatter:on
     @Benchmark
     public void parseFile(Blackhole bh, BenchmarkLanguages bl, FileConfig fc) throws IOException {
-        // int processedSize = 0;
-        // int remainingSize = fc.input.size();
-
         fc.input.stream().forEach(program -> {
             try {
-                // System.out.println(String.format("%d processed, %d remaining files after %s", ++processedSize,
-                // --remainingSize, "not available"));
-                bh.consume(bl.parser.parse(program));
+                bh.consume(bl.parser.parseUnsafe(program));
             } catch (Exception e) {
-                System.out.println("could not parse file " + program);
+                throw new RuntimeException(e);
             }
         });
     }
 
     @Benchmark
     public void parseFilesWithFileLimit(Blackhole bh, BenchmarkLanguages bl, FileConfig fc) throws IOException {
-        final int fileLimit = 100;
+        final int fileLimit = 1_000;
 
         fc.input.stream()
                 .limit(fileLimit)
                 .forEach(program -> {
-            try {
-                bh.consume(bl.parser.parse(program));
-            } catch (Exception e) {
-                System.out.println("could not parse file " + program);
-            }
+                    try {
+                        bh.consume(bl.parser.parseUnsafe(program));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
         });
 
 //        long characterCount = fc.input.stream()
@@ -238,9 +242,9 @@ public class BatchDataDependentParsingBenchmark {
             final String program = inputIterator.next();
 
             try {
-                bh.consume(bl.parser.parse(program));
+                bh.consume(bl.parser.parseUnsafe(program));
             } catch (Exception e) {
-                System.out.println("could not parse file " + program);
+                throw new RuntimeException(e);
             }
 
             characterCount += program.length();

@@ -85,7 +85,7 @@ if [[ -n "$PARSETIME" ]]; then
     echo "JAVA"
     cd data-dependent
     mkdir -p Results/
-    INPUT="resources/Java/files/withDeepConflicts/files.csv"
+    INPUT="resources/Java/files/withDeepConflicts"
     OLDIFS=$IFS
     IFS=,
     [ ! -f $INPUT ] && {
@@ -104,7 +104,7 @@ if [[ -n "$PARSETIME" ]]; then
     done <$INPUT
     IFS=$OLDIFS
 
-    INPUT="resources/Java/files/withoutDeepConflicts/files.csv"
+    INPUT="resources/Java/files/withoutDeepConflicts"
     OLDIFS=$IFS
     IFS=,
     [ ! -f $INPUT ] && {
@@ -128,7 +128,7 @@ if [[ -n "$PARSETIME" ]]; then
     echo "OCAML"
     cd data-dependent
     mkdir -p Results/
-    INPUT="resources/OCaml/files/withDeepConflicts/files.csv"
+    INPUT="resources/OCaml/files/withDeepConflicts"
     OLDIFS=$IFS
     IFS=,
     [ ! -f $INPUT ] && {
@@ -146,7 +146,7 @@ if [[ -n "$PARSETIME" ]]; then
     done <$INPUT
     IFS=$OLDIFS
 
-    INPUT="resources/OCaml/files/withoutDeepConflicts/files.csv"
+    INPUT="resources/OCaml/files/withoutDeepConflicts"
     OLDIFS=$IFS
     IFS=,
     [ ! -f $INPUT ] && {
