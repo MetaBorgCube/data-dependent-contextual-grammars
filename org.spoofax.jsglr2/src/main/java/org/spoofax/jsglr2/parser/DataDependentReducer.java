@@ -58,16 +58,6 @@ public class DataDependentReducer<StackNode extends AbstractStackNode<ParseFores
         reducer(parse, pathEnd, gotoState, reduce, path.getParseForests());
     }
 
-    @Override public void doReductions(Parse<StandardStackNode<ParseForest>, ParseForest> parse,
-        StandardStackNode<ParseForest> stack, ISGLRReduce reduce) {
-        if(reduce.production().isCompletionOrRecovery())
-            return;
-
-        for(StackPath<StandardStackNode<ParseForest>, ParseForest> path : stackManager.findAllPathsOfLength(stack,
-            reduce.arity()))
-            reducePath(parse, path, reduce);
-    }
-
     private void reducer(Parse<StandardStackNode<ParseForest>, ParseForest> parse, StandardStackNode<ParseForest> stack,
         ISGLRState gotoState, ISGLRReduce reduce, List<ParseForest> parseForests) {
         StandardStackNode<ParseForest> activeStackWithGotoState =
