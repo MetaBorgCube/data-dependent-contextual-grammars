@@ -52,7 +52,7 @@ public class BatchDataDependentParsingBenchmark {
             input = Lists.newArrayList();
             BufferedReader br = null;
             String line = "";
-            csvFile = new File("resources/" + a_lang.getLanguageName() + "/" + "/" + "files.csv");
+            csvFile = new File("resources/" + a_lang.getLanguageName() + "/" + b_filepath + "/" + "files.csv");
 
             br = new BufferedReader(new FileReader(csvFile));
             while((line = br.readLine()) != null) {
