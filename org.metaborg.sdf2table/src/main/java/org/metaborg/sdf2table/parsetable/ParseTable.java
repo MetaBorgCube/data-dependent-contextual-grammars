@@ -78,7 +78,12 @@ public class ParseTable implements ISGLRParseTable, Serializable {
         // calculate deep priority conflicts based on current priorities
         // and generate contextual productions
         if (solveDeepConflicts) {
-            final DeepConflictsAnalyzer analysis = DeepConflictsAnalyzer.fromParseTable(this);
+            final DeepConflictsAnalyzer analysis = DeepConflictsAnalyzer.fromParseTable(this, true, true, true);
+            analysis.patchParseTable();
+
+            updateLabelsContextualProductions();
+        } else {
+            final DeepConflictsAnalyzer analysis = DeepConflictsAnalyzer.fromParseTable(this, false, false, false);
             analysis.patchParseTable();
 
             updateLabelsContextualProductions();

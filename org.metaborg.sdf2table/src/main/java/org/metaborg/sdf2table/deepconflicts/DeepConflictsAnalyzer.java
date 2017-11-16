@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 
 public class DeepConflictsAnalyzer {
 
-    public static DeepConflictsAnalyzer fromParseTable(ParseTable pt) {
+    public static DeepConflictsAnalyzer fromParseTable(ParseTable pt, boolean operatorStyle, boolean danglingElse, boolean longestMatch) {
         final DeepConflictsAnalyzer phase1 = new DeepConflictsAnalyzer(pt);
-        phase1.deepConflictAnalysis();
+        phase1.deepConflictAnalysis(pt, operatorStyle, danglingElse, longestMatch);
 
         // TODO: due to usage of factory labels might be different from one phase to another; needs checking.
         Set<Integer> newLabels = phase1.productionLabels.inverse().keySet().stream().collect(Collectors.toSet());
