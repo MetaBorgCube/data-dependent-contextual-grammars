@@ -32,10 +32,10 @@ public class DeepConflictsAnalyzer {
         this.pt = pt;
 
         this.isContextMappingStable = false;
-        this.leftmostContextsMapping = Maps.newHashMap();
-        this.rightmostContextsMapping = Maps.newHashMap();
+        this.leftmostContextsMapping = Maps.newLinkedHashMap();
+        this.rightmostContextsMapping = Maps.newLinkedHashMap();
 
-        this.uniqueProductionMapping = Maps.newHashMap(pt.normalizedGrammar().getUniqueProductionMapping());
+        this.uniqueProductionMapping = Maps.newLinkedHashMap(pt.normalizedGrammar().getUniqueProductionMapping());
         this.prodContextualProdMapping = HashBiMap.create(pt.normalizedGrammar().getProdContextualProdMapping());
         this.productionLabels = HashBiMap.create(pt.productionLabels());
         this.symbolProductionsMapping = HashMultimap.create(pt.normalizedGrammar().getSymbolProductionsMapping());
@@ -50,7 +50,7 @@ public class DeepConflictsAnalyzer {
         this.leftmostContextsMapping = ImmutableMap.copyOf(leftmostContextsMapping);
         this.rightmostContextsMapping = ImmutableMap.copyOf(rightmostContextsMapping);
 
-        this.uniqueProductionMapping = Maps.newHashMap(pt.normalizedGrammar().getUniqueProductionMapping());
+        this.uniqueProductionMapping = Maps.newLinkedHashMap(pt.normalizedGrammar().getUniqueProductionMapping());
         this.prodContextualProdMapping = HashBiMap.create(pt.normalizedGrammar().getProdContextualProdMapping());
         this.productionLabels = HashBiMap.create(pt.productionLabels());
         this.symbolProductionsMapping = HashMultimap.create(pt.normalizedGrammar().getSymbolProductionsMapping());

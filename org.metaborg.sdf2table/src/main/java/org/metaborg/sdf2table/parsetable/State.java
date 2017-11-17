@@ -14,7 +14,7 @@ import org.metaborg.sdf2table.jsglrinterfaces.ISGLRGoto;
 import org.metaborg.sdf2table.jsglrinterfaces.ISGLRReduce;
 import org.metaborg.sdf2table.jsglrinterfaces.ISGLRState;
 
-import com.google.common.collect.HashMultimap;
+import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
@@ -30,20 +30,20 @@ public class State implements ISGLRState, Comparable<State>, Serializable {
     private Map<Integer, ISGLRGoto> gotosMapping;
     private final Set<LRItem> kernel;
     private Set<LRItem> items;
-    private SetMultimap<Symbol, LRItem> symbol_items;
-    private SetMultimap<CharacterClass, ISGLRAction> lr_actions;
+    private LinkedHashMultimap<Symbol, LRItem> symbol_items;
+    private LinkedHashMultimap<CharacterClass, ISGLRAction> lr_actions;
 
     private StateStatus status = StateStatus.VISIBLE;
 
     public Set<State> states = Sets.newHashSet();
 
     public State(IProduction p, ParseTable pt) {
-        items = Sets.newHashSet();
-        gotos = Sets.newHashSet();
+        items = Sets.newLinkedHashSet();
+        gotos = Sets.newLinkedHashSet();
         gotosMapping = Maps.newHashMap();
         kernel = Sets.newHashSet();
-        symbol_items = HashMultimap.create();
-        lr_actions = HashMultimap.create();
+        symbol_items = LinkedHashMultimap.create();
+        lr_actions = LinkedHashMultimap.create();
 
         this.pt = pt;
         label = this.pt.totalStates();
@@ -56,11 +56,11 @@ public class State implements ISGLRState, Comparable<State>, Serializable {
     }
 
     public State(Set<LRItem> kernel, ParseTable pt) {
-        items = Sets.newHashSet();
-        gotos = Sets.newHashSet();
+        items = Sets.newLinkedHashSet();
+        gotos = Sets.newLinkedHashSet();
         gotosMapping = Maps.newHashMap();
-        symbol_items = HashMultimap.create();
-        lr_actions = HashMultimap.create();
+        symbol_items = LinkedHashMultimap.create();
+        lr_actions = LinkedHashMultimap.create();
 
         this.kernel = Sets.newHashSet();
         this.kernel.addAll(kernel);
@@ -84,9 +84,9 @@ public class State implements ISGLRState, Comparable<State>, Serializable {
     public void doShift() {
         for(Symbol s_at_dot : symbol_items.keySet()) {
             if(s_at_dot instanceof CharacterClass) {
-                Set<LRItem> new_kernel = Sets.newHashSet();
-                Set<GoTo> new_gotos = Sets.newHashSet();
-                Set<Shift> new_shifts = Sets.newHashSet();
+                Set<LRItem> new_kernel = Sets.newLinkedHashSet();
+                Set<GoTo> new_gotos = Sets.newLinkedHashSet();
+                Set<Shift> new_shifts = Sets.newLinkedHashSet();
                 for(LRItem item : symbol_items.get(s_at_dot)) {
                     Shift shift = new Shift((CharacterClass) s_at_dot);
                     new_kernel.add(item.shiftDot());
@@ -106,9 +106,9 @@ public class State implements ISGLRState, Comparable<State>, Serializable {
                         p = pt.normalizedGrammar().getProdContextualProdMapping().get(p);
                     }
 
-                    Set<LRItem> new_kernel = Sets.newHashSet();
-                    Set<GoTo> new_gotos = Sets.newHashSet();
-                    Set<Shift> new_shifts = Sets.newHashSet();
+                    Set<LRItem> new_kernel = Sets.newLinkedHashSet();
+                    Set<GoTo> new_gotos = Sets.newLinkedHashSet();
+                    Set<Shift> new_shifts = Sets.newLinkedHashSet();
                     for(LRItem item : symbol_items.get(s_at_dot)) {
                         // if item.prod does not conflict with p
                         if(!LRItem.isPriorityConflict(item, p, pt.normalizedGrammar().priorities())) {

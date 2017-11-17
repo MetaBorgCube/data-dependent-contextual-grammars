@@ -40,24 +40,24 @@ public class ParseTable implements ISGLRParseTable, Serializable {
 
     private BiMap<IProduction, Integer> productionLabels;
     private LabelFactory prodLabelFactory = new LabelFactory(ParseTable.FIRST_PRODUCTION_LABEL);
-    private Map<Integer, ISGLRState> stateLabels = Maps.newHashMap();
+    private Map<Integer, ISGLRState> stateLabels = Maps.newLinkedHashMap();
 
     // mapping from a symbol X to all items A = α . X β to all states s that have that item
     private SymbolStatesMapping symbolStatesMapping = new SymbolStatesMapping();
 
-    private Map<Set<LRItem>, State> kernelStatesMapping = Maps.newHashMap();
-    private Map<LRItem, Set<LRItem>> itemDerivedItemsCache = Maps.newHashMap();
+    private Map<Set<LRItem>, State> kernelStatesMapping = Maps.newLinkedHashMap();
+    private Map<LRItem, Set<LRItem>> itemDerivedItemsCache = Maps.newLinkedHashMap();
 
     // maps a set of contexts to a unique integer
     private Map<Set<Context>, Integer> ctxUniqueInt = Maps.newHashMap();
 
-    private final Map<Integer, Integer> leftmostContextsMapping = Maps.newHashMap();
-    private final Map<Integer, Integer> rightmostContextsMapping = Maps.newHashMap();
+    private final Map<Integer, Integer> leftmostContextsMapping = Maps.newLinkedHashMap();
+    private final Map<Integer, Integer> rightmostContextsMapping = Maps.newLinkedHashMap();
 
     private int totalStates = 0;
 
     private List<ISGLRProduction> productions = Lists.newArrayList();
-    Map<IProduction, ParseTableProduction> productionsMapping = Maps.newHashMap();
+    Map<IProduction, ParseTableProduction> productionsMapping = Maps.newLinkedHashMap();
 
     public ParseTable(NormGrammar grammar, boolean dynamic, boolean dataDependent, boolean solveDeepConflicts) {
         this.grammar = grammar;
