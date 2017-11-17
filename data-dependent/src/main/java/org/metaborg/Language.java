@@ -21,6 +21,18 @@ public enum Language {
         public String getMainSDF3Module() {
             return "java-front";
         }
+    }, TEST {
+
+        @Override
+        public String getLanguageName() {
+            return "Test";
+        }
+
+        @Override
+        public String getMainSDF3Module() {
+            return "Test";
+        }
+        
     };
     
     public abstract String getLanguageName();
