@@ -1,0 +1,7 @@
+match
+    1
+  with a ->
+    match 2 with
+   a when 2 ->  0
+  | a -> 3
+  | None -> 2

@@ -6,3 +6,4 @@ data-dependent/Results/*
 data-dependent/resources/parseTables/*
 !data-dependent/test/Java/disamb.java
 !data-dependent/test/OCaml/disamb.ml
+!data-dependent/test/Test*
