@@ -82,6 +82,7 @@ public class ParseTable implements ISGLRParseTable, Serializable {
             analysis.patchParseTable();
 
             updateLabelsContextualProductions();
+        // shallow conflicts due to indirect recursion that cannot be solved at parse table generation time
         } else {
             final DeepConflictsAnalyzer analysis = DeepConflictsAnalyzer.fromParseTable(this, false, false, false);
             analysis.patchParseTable();
