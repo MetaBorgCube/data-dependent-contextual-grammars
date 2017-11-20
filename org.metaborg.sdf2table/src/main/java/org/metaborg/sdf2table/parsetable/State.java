@@ -41,7 +41,7 @@ public class State implements ISGLRState, Comparable<State>, Serializable {
         items = Sets.newLinkedHashSet();
         gotos = Sets.newLinkedHashSet();
         gotosMapping = Maps.newHashMap();
-        kernel = Sets.newHashSet();
+        kernel = Sets.newLinkedHashSet();
         symbol_items = LinkedHashMultimap.create();
         lr_actions = LinkedHashMultimap.create();
 
@@ -62,7 +62,7 @@ public class State implements ISGLRState, Comparable<State>, Serializable {
         symbol_items = LinkedHashMultimap.create();
         lr_actions = LinkedHashMultimap.create();
 
-        this.kernel = Sets.newHashSet();
+        this.kernel = Sets.newLinkedHashSet();
         this.kernel.addAll(kernel);
         pt.kernelMap().put(kernel, this);
 

@@ -23,7 +23,7 @@ import com.google.common.collect.Lists;
 
 public class CheckCorrectness {
 
-    public static Language[] languages = { Language.TEST };
+    public static Language[] languages = { Language.OCAML };
     public static String filesWithDeepConflicts = "files/withDeepConflicts/files.csv";
     public static String filesWithoutDeepConflicts = "files/withoutDeepConflicts/files.csv";
 
@@ -73,7 +73,6 @@ public class CheckCorrectness {
     private static ParseTable generateParseTable(Language a_lang, String pathToParseTable, boolean dynamic,
         boolean dataDependent, boolean solvesDeepConflicts) throws FileSystemException, Exception {
         ParseTable pt;
-        ParseTable pt2;
         FileSystemManager fsManager = VFS.getManager();
         File PTpath = new File(pathToParseTable);
         if(!(PTpath.exists())) {
@@ -92,9 +91,9 @@ public class CheckCorrectness {
             File mainFile = new File("normalizedGrammars/" + a_lang.getLanguageName() + "/normalized/"
                 + a_lang.getMainSDF3Module() + "-norm.aterm");
 
-            File atermFile = new File(pathToParseTable + "sdf.tbl");
+//            File atermFile = new File(pathToParseTable + "sdf.tbl");
 
-            ParseTableGenerator ptg = new ParseTableGenerator(mainFile, atermFile, persistedFile, null,
+            ParseTableGenerator ptg = new ParseTableGenerator(mainFile, null, persistedFile, null,
                 Lists.newArrayList("normalizedGrammars/" + a_lang.getLanguageName()));
 
             ptg.outputTable(dynamic, dataDependent, solvesDeepConflicts);

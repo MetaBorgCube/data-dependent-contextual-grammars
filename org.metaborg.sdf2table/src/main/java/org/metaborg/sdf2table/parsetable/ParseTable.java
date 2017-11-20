@@ -78,13 +78,7 @@ public class ParseTable implements ISGLRParseTable, Serializable {
         // calculate deep priority conflicts based on current priorities
         // and generate contextual productions
         if (solveDeepConflicts) {
-            final DeepConflictsAnalyzer analysis = DeepConflictsAnalyzer.fromParseTable(this, true, true, true);
-            analysis.patchParseTable();
-
-            updateLabelsContextualProductions();
-        // shallow conflicts due to indirect recursion that cannot be solved at parse table generation time
-        } else {
-            final DeepConflictsAnalyzer analysis = DeepConflictsAnalyzer.fromParseTable(this, false, false, false);
+            final DeepConflictsAnalyzer analysis = DeepConflictsAnalyzer.fromParseTable(this);
             analysis.patchParseTable();
 
             updateLabelsContextualProductions();
@@ -349,7 +343,7 @@ public class ParseTable implements ISGLRParseTable, Serializable {
         for(IPriority p : grammar.priorities().keySet()) {
             // right associative
             if(grammar.priorities().get(p).contains(Integer.MIN_VALUE)) {
-                if(p.higher().leftRecursivePosition() == -1)
+                if(p.higher().leftRecursivePosition() == -1 || p.higher().rightRecursivePosition() == -1)
                     continue;
 
                 // p right p and indirect recursion on p
@@ -370,7 +364,8 @@ public class ParseTable implements ISGLRParseTable, Serializable {
             }
             // left associative
             if(grammar.priorities().get(p).contains(Integer.MAX_VALUE)) {
-                if(p.higher().rightRecursivePosition() == -1)
+                // if production is not both right and left recursive
+                if(p.higher().rightRecursivePosition() == -1 || p.higher().leftRecursivePosition() == -1)
                     continue;
 
                 // p left p and indirect recursion on p
