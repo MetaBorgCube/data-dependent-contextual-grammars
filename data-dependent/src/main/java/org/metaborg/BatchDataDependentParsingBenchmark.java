@@ -2,10 +2,18 @@ package org.metaborg;
 
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
+import iguana.utils.input.Input;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.vfs2.FileObject;
 import org.apache.commons.vfs2.FileSystemManager;
 import org.apache.commons.vfs2.VFS;
+import org.iguana.grammar.Grammar;
+import org.iguana.grammar.iggy.IggyParser;
+import org.iguana.grammar.symbol.Nonterminal;
+import org.iguana.parser.Iguana;
+import org.iguana.parser.ParseError;
+import org.iguana.parser.ParseResult;
+import org.iguana.parser.ParseSuccess;
 import org.metaborg.sdf2table.io.ParseTableGenerator;
 import org.metaborg.sdf2table.parsetable.ParseTable;
 import org.openjdk.jmh.annotations.*;
@@ -164,23 +172,24 @@ public class BatchDataDependentParsingBenchmark {
 
         // @formatter:off
         Options options = new OptionsBuilder()
-            .warmupIterations(10)
-            .measurementIterations(15)
-            .mode(Mode.Throughput)
-                .param("a_lang", "JAVA")
-                .param("a_lang", "OCAML")
-                .param("b_filename", "files/withDeepConflicts")
-                .param("b_filename", "files/withoutDeepConflicts")
-                .param("c_isLazyGeneration", "true")
+//            .warmupIterations(10)
+//            .measurementIterations(15)
+            .mode(Mode.SingleShotTime)
+//                .param("a_lang", "JAVA")
+//                .param("a_lang", "OCAML")
+                .param("a_lang", "TEST")
+//                .param("b_filename", "files/withDeepConflicts")
+                .param("b_filepath", "files/withoutDeepConflicts")
+//                .param("c_isLazyGeneration", "true")
                 .param("c_isLazyGeneration", "false")
-                .param("d_isDataDependent", "true")
+//                .param("d_isDataDependent", "true")
                 .param("d_isDataDependent", "false")
                 .param("e_solvesDeepConflicts", "true")
-                .param("e_solvesDeepConflicts", "false")
-            .forks(1)
+//                .param("e_solvesDeepConflicts", "false")
+            .forks(0)
             .threads(1)
             .shouldDoGC(true)
-            .include(BatchDataDependentParsingBenchmark.class.getSimpleName() + ".parseFilesWithCharacterLimit")
+            .include(BatchDataDependentParsingBenchmark.class.getSimpleName() + ".parseIguana")
             .timeUnit(TimeUnit.SECONDS)
             .build();
 
@@ -255,6 +264,25 @@ public class BatchDataDependentParsingBenchmark {
         }
 
         // System.out.println(characterCount);
+    }
+
+    @Benchmark
+    public void parseIguana(Blackhole bh, BenchmarkLanguages bl, FileConfig fc) throws IOException {
+        String program = "1 + - if 0 then 2 else 3 + 4";
+
+        final Grammar grammar = IggyParser.getGrammar(Input.fromPath("iguanaGrammars/OCaml.iggy"));
+
+        final Input input = Input.fromString(program);
+        final Nonterminal start = Nonterminal.withName("start");
+        final ParseResult result = Iguana.parse(input, grammar, start);
+
+        if (result.isParseSuccess()) {
+            final ParseSuccess parseSuccess = result.asParseSuccess();
+            System.out.println(parseSuccess.getStatistics());
+        } else {
+            final ParseError parseError = result.asParseError();
+            System.out.println(parseError.toString());
+        }
     }
 
 }
