@@ -6,7 +6,7 @@
  * 
  */
 
-// Top-level             
+// Top-level
 
 start
    ::= TopLevel
@@ -97,8 +97,8 @@ ExtendedModuleName
 Typexpr 
    ::= "?"? LabelName ":" Typexpr
      > Typexpr TypeConstr
-     > star:  Typexpr "*" Typexpr_ ("*" Typexpr_)*                                    non-assoc           /* label "star"  */
-     > arrow: Typexpr "->" Typexpr                                                    right               /* label "arrow" */
+     > Typexpr "*" Typexpr_ ("*" Typexpr_)*                                              <star>              non-assoc           /* label "star"  */
+     > Typexpr "->" Typexpr                                                              <arrow>             right               /* label "arrow" */
      > Typexpr "as" "\'" Ident 
      > "private" Typexpr
      | "\'" Ident
@@ -459,3 +459,263 @@ PackageType
 
 PackageConstraint
    ::= "type" TypeConstr "="  Typexpr
+
+
+// Lexical
+
+regex {
+Ident                                                                     // was "lexical"
+   ::= LowercaseIdentifier 
+     | CapitalizedIdentifier
+}
+
+// underscore is considered a lower case identifier
+@NoLayout
+LowercaseIdentifier                                                                     // was "lexical"
+    ::= [a-zA-Z_0-9] !<< LowercaseIdentifierChars \ Keywords
+
+regex {
+LowercaseIdentifierChars                                                                    // was "token"
+   ::= [a-z_][A-Za-z0-9_']*
+}
+
+@NoLayout
+CapitalizedIdentifier                                                                     // was "lexical"
+    ::= [a-zA-Z_0-9] !<< CapitalizedIdentifierChars \ Keywords
+
+regex {
+CapitalizedIdentifierChars                                                                    // was "token"
+   ::= [A-Z] [A-Za-z0-9_']*
+}
+
+regex {
+Int32Literal                                                                    // was "token"
+   ::=  [\-]? SpecialInt [l]  
+}
+
+regex {
+Int64Literal                                                                    // was "token"
+   ::= [\-]? SpecialInt [L]  
+}
+
+regex {
+NativeIntLiteral                                                                    // was "token"
+   ::=  [\-]? SpecialInt [n]
+}
+
+regex {
+SpecialInt                                                                    // was "token"
+   ::= [0-9] [0-9_]* 
+    | ("0x"| "0X") [0-9A-Fa-f][0-9A-Fa-f_]*   
+    | ("0o"| "0O") [0-7] [0-7_]*
+    | ("0b"| "0B") [0-1] [0-1_]*
+}
+
+regex {
+IntegerLiteral                                                                    // was "token"
+   ::= [\-]? [0-9] [0-9_]*
+    | [\-]? ("0x"| "0X") [0-9A-Fa-f][0-9A-Fa-f_]*  
+    | [\-]? ("0o"| "0O") [0-7] [0-7_]* 
+    | [\-]? ("0b"| "0B") [0-1] [0-1_]* 
+}
+
+regex {
+FloatLiteral                                                                    // was "token"
+   ::= [\-]? [0-9] [0-9_]* [eE] [+\-]? [0-9] [0-9_]*              // only with e
+  | [\-]? [0-9] [0-9_]* [.] [0-9_]*                          // only with .
+    | [\-]? [0-9] [0-9_]* [.] [0-9_]* [eE] [+\-]? [0-9] [0-9_]*  // with both . and e
+}
+
+regex {
+CharLiteral                                                                     // was "token"
+   ::= ['] (RegularChar | EscapeSequence) [']
+}
+
+regex {
+EscapeSequence                                                                    // was "token"
+   ::= ([\\] [\\ " ' n t b r])
+  | ([\\] [0-9][0-9][0-9])
+  | ([\\][x] [0-9A-Fa-f][0-9A-Fa-f])
+}
+
+regex {
+StringLiteral1                                                                    // was "token"
+   ::= ["] StringCharacter* ["]
+}
+
+regex {
+StringCharacter                                                                     // was "token"
+   ::= RegularCharStr 
+    | EscapeSequence 
+    | [\\][\n] 
+    | [\\][\ ]
+}
+
+regex {
+RegularChar                                                                     // was "token"
+   ::= [^ ' \\]
+}
+
+regex {
+RegularCharStr                                                                    // was "token"
+   ::= [^ " \\]
+}
+
+regex {
+OperatorChar                                                                    // was "token"
+   ::= [! $ % & * + \- . / : < = > ? @ ^ | ~]
+}
+
+// TODO PrefixSymbol                                                                    // was "lexical"
+//     ::= ([!] OperatorChar*) \ "!="
+//       | [? ~] OperatorChar+ 
+
+@NoLayout
+Label                                                                     // was "lexical"
+    ::= "~" LowercaseIdentifier !>> ":"
+
+regex {
+LabelColon                                                                    // was "lexical"
+    ::= "~" LowercaseIdentifier ":"
+}
+
+@NoLayout
+OptLabel                                                                    // was "lexical"
+    ::= "?" LowercaseIdentifier !>> ":"
+
+regex {
+OptLabelColon                                                                     // was "lexical"
+    ::= "?" LowercaseIdentifier ":" 
+}
+
+regex {
+InfixSymbol                                                                   // was "lexical"
+    ::= InfixSymbol1
+      | InfixSymbol2
+      | InfixSymbol3
+      | InfixSymbol4
+      | InfixSymbol5
+      | InfixSymbol6
+      | InfixSymbol7
+      | InfixSymbol8        
+}
+
+regex {
+InfixSymbol1                                                                    // was "token"
+    ::= "lsl" | "lsr" | "asr" 
+      | [*][*] OperatorChar+
+}      
+
+// InfixSymbol2                                                                    // was "lexical"
+//     ::= "mod" | "land"| "lor" | "lxor" 
+//       | ([/ % *] OperatorChar*) !>> [! $ % & * + \- . / : < = > ? @ ^ | ~] \ "**"
+
+// TODO InfixSymbol3                                                                    // was "lexical"
+//     ::= ([+ \-] OperatorChar*) !>> [! $ % & * + \- . / : < = > ? @ ^ | ~] \ "->"
+      
+// TODO InfixSymbol4                                                                    // was "lexical"
+//     ::= [@ ^] OperatorChar* !>> [! $ % & * + \- . / : < = > ? @ ^ | ~]
+      
+// TODO InfixSymbol5                                                                    // was "lexical"
+//     ::= "!=" 
+//       | ([= < > | & $] OperatorChar*) !>> [! $ % & * + \- . / : < = > ? @ ^ | ~] \ InfixSymbol5Exclude 
+
+regex {
+InfixSymbol5Exclude                                                                     // was "token"
+    ::= "|" 
+      | "||" 
+      | "&&" 
+      | "&" 
+      | "<-"
+}
+
+regex {
+InfixSymbol6                                                                    // was "token"
+   ::= "&" 
+      | "&&"
+}
+
+regex {
+InfixSymbol7                                                                    // was "token"
+    ::= "||" 
+      | "or"
+}
+
+regex {
+InfixSymbol8                                                                    // was "token"
+    ::= ":="
+}
+
+regex {
+Keywords                                                                        // was "keywords"
+  ::= "_"
+    | "and"
+    | "as"
+    | "assert"
+    | "asr"
+    | "begin"
+    | "class"
+    | "constraint"
+    | "do"
+    | "done"
+    | "downto"
+    | "else"
+    | "end"
+    | "exception"
+    | "external"
+    | "false"
+    | "for"
+    | "fun"
+    | "function"
+    | "functor"
+    | "if"
+    | "in"
+    | "include"
+    | "inherit"
+    | "initializer"
+    | "land"
+    | "lazy"
+    | "let"
+    | "lor"
+    | "lsl"
+    | "lsr"
+    | "lxor"
+    | "match"
+    | "method"
+    | "mod"
+    | "module"
+    | "mutable"
+    | "new"
+    | "object"
+    | "of"
+    | "open"
+    | "or"
+    | "private"
+    | "rec"
+    | "sig"
+    | "struct"
+    | "then"
+    | "to"
+    | "true"
+    | "try"
+    | "type"
+    | "val"
+    | "virtual"
+    | "when"
+    | "while"
+    | "with"
+}
+
+// TODO Comment                                                                     // was "lexical"
+//     ::= "(*" ([^(*] | Comment | "*" !>> [)] | "(" !>> [*])* "*)"
+
+// TODO: unicode literal \u0009-\u000D not working
+regex /* was "token" */ {
+Whitespace
+    ::= [\ \t\n\r]+
+}
+
+// TODO: unicode literal \u0009-\u000D not working
+@Layout /* was "layout" */
+Layout
+  ::= (Comment | Whitespace)* !>> [\ \t\n\r] !>> "(*"
