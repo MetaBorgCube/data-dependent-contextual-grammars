@@ -141,61 +141,61 @@ TagSpecFull
 // Expressions
 
 Expr
-  ::= prefix:                     PrefixSymbol Expr
-    > field:                Expr "." Ident
-    | dotBracket1:               Expr ".(" Expr ")"
-    | dotBracket2:               Expr ".[" Expr "]"
-    | dotBracket3:               Expr ".{" Expr "}"
-    | hash:                  Expr "#" MethodName
-    > functionApplication:     Expr /*!comma*/  Arg+                                                                                  non-assoc
-    //| constrExp:                Constr Expr    To avoid ambiguities with Expr Arg+ as Expr can derive Constr                  non-assoc
-    //| polyVariant:              "`" TagName Expr  To Avoid ambiguities with Constant("`" TagName) Arg(Expr)                   non-assoc
-    | lazy:                  "lazy" Expr                                                                                        non-assoc
-    | assertExpr:            "assert" Expr                                                                                      non-assoc
-    > unaryMinus:          "-"  Expr
-    | floatUnaryMinus:     "-." Expr
-    > infix1:          Expr InfixSymbol1 Expr                                                                                   right
-    > infix2:          Expr InfixSymbol2 Expr                                                                                   left
-    > infix3:          Expr InfixSymbol3 Expr                                                                                   left      // to disambiguate [|   5.2026032092;     19132e-10;  -39e-10 |];
-    > coloncolon: Expr "::" Expr                                                                                                 right
-    > infix4:          Expr InfixSymbol4 Expr                                                                                                   right
-    >  infix5:          Expr InfixSymbol5 Expr                                                                                                       left
-    > infix6:          Expr InfixSymbol6 Expr                                                                                                   right
-    > infix7:          Expr InfixSymbol7 Expr                                                                                                   right
-    > comma:  Expr ("," Expr_2)+                                                                                                 non-assoc
-    > assign:         Expr "<-" Expr                                                                                                  right
-    > infix8:          Expr InfixSymbol8 Expr                                                                                                   right
-    > ifThenElse:            "if" Expr  "then" Expr_1 "else" Expr
-    | ifThen:                     "if"  Expr "then" Expr !>> "else"                                                                  // was !>>> (follow restriction on productions???)
-    //> semicolon:                Expr ";" !>>  ";"
-    > sep:             Expr ";" Expr                                                                                                  right
-    > match:                 "match" Expr "with" PatternMatching !>> "|"                                                                  // was !>>> (follow restriction on productions???)
-    | function:              "function" PatternMatching !>> "|"                                                                      // was !>>> (follow restriction on productions???)
-    | fun:                       "fun" MultipleMatching
-    | tryBlock:              "try" Expr ";"? "with" PatternMatching !>> "|"                                                                         // was !>>> (follow restriction on productions???)
-    | letbinding:            "let" "rec"? LetBinding ";"? ("and" LetBinding ";"?)* "in" Expr
-    | letModule:             "let" "module" ModuleExpr "="  ModuleExpr "in"  Expr
-    | letOpen:             "let" "open" ModulePath "in"  Expr
-    | brackets:              "(" Expr ";"? ")"
-    | beginEnd:             "begin" Expr ";"? "end"
-    | brackets1:            "(" Expr ":" Typexpr ")"
-    | brackets2:            "(" Expr ":>"  Typexpr ")"
-    | brackets3:            "(" Expr ":"  Typexpr ":>"  Typexpr ")"
-    | brackets4:            "{<" InstVarName "=" Expr_1  (";" InstVarName "="  Expr)*  ";"? ">}"
-    | tupl:                 "["  Expr_1 (";" Expr_1)* ";"? "]"
-    | array:                 "[|" Expr_1 (";" Expr_1)* ";"? "|]"
-    | record1:                    "{" Field ("=" Expr_1)? (";" Field ("=" Expr_1)?)* ";"? "}"
-    | record2:               "{" Expr "with" Field ("=" Expr_1 )? (";" Field ("=" Expr_1)?)* ";"? "}"
-    | whileloop:             "while" Expr "do" Expr ";"? "done"
-    | forloop:               "for" ValueName "=" Expr ("to" | "downto") Expr "do" Expr ";"? "done"
-    | new:                   "new" ClassPath
-    | object:                     "object" ClassBody "end"
-    | moduleExpr:            "(" "module" ModuleExpr  (":" PackageType)? ")"
-    //| valuePath:                ValuePath
-    |                             ValueName
-    | constant:             Constant /*!constr*/   // To avoid ambiguities with Expr "." Field
-    |                      ConstrName
-    //|                           InstVarName
+  ::= PrefixSymbol Expr                <prefix>
+    > Expr "." Ident                   <field>
+    | Expr ".(" Expr ")"               <dotBracket1>
+    | Expr ".[" Expr "]"               <dotBracket2>
+    | Expr ".{" Expr "}"               <dotBracket3>
+    | Expr "#" MethodName              <hash>
+    > Expr /*!comma*/ Arg+             <functionApplication>         non-assoc
+    //| constrExp:                Constr Expr                        non-assoc           /* To avoid ambiguities with Expr Arg+ as Expr can derive Constr */
+    //| polyVariant:              "`" TagName Expr                   non-assoc           /* To Avoid ambiguities with Constant("`" TagName) Arg(Expr) */
+    | lazy" Expr                       <lazy>                        non-assoc
+    | assert" Expr                     <assertExpr>                  non-assoc
+    > "-"  Exp                         <unaryMinus>
+    | "-." Exp                         <floatUnaryMinus>
+    > Expr InfixSymbol1 Expr           <infix1>                      right
+    > Expr InfixSymbol2 Expr           <infix2>                      left
+    > Expr InfixSymbol3 Expr           <infix3>                      left                /* to disambiguate [|   5.2026032092;     19132e-10;  -39e-10 |]; */
+    > Expr "::" Expr                   <coloncolon>                  right
+    > Expr InfixSymbol4 Expr           <infix4>                      right
+    > Expr InfixSymbol5 Expr           <infix5>                      left
+    > Expr InfixSymbol6 Expr           <infix6>                      right
+    > Expr InfixSymbol7 Expr           <infix7>                      right
+    > Expr ("," Expr_2)+               <comma>                       non-assoc
+    > Expr "<-" Expr                   <assign>                      right
+    > Expr InfixSymbol8 Expr           <infix8>                      right
+    > "if" Expr "then" Expr_1 "else" Expr             <ifThenElse>
+    | "if" Expr "then" Expr !>> "else"                <ifThen>                           /* was !>>> (follow restriction on productions???) */
+    //> Expr ";" !>>  ";"  <semicolon>
+    > Expr ";" Expr                                   <sep>          right
+    > "match" Expr "with" PatternMatching !>> "|"     <match>                            /* was !>>> (follow restriction on productions???) */
+    | "function" PatternMatching !>> "|"              <function>                         /* was !>>> (follow restriction on productions???) */
+    | "fun" MultipleMatching                          <fun>
+    | "try" Expr ";"? "with" PatternMatching !>> "|"  <tryBlock>                         /* was !>>> (follow restriction on productions???) */
+    | "let" "rec"? LetBinding ";"? ("and" LetBinding ";"?)* "in" Expr          <letbinding>
+    | "let" "module" ModuleExpr "="  ModuleExpr "in"  Expr                     <letModule>
+    | "let" "open" ModulePath "in" Expr               <letOpen>
+    | "(" Expr ";"? ")"                               <brackets>
+    | "begin" Expr ";"? "end"                         <beginEnd>
+    | "(" Expr ":" Typexpr ")"                        <brackets1>
+    | "(" Expr ":>"  Typexpr ")"                      <brackets2>
+    | "(" Expr ":"  Typexpr ":>"  Typexpr ")"         <brackets3>
+    | "{<" InstVarName "=" Expr_1 (";" InstVarName "="  Expr)*  ";"? ">}"      <brackets4>
+    | "["  Expr_1 (";" Expr_1)* ";"? "]"                                       <tupl>
+    | "[|" Expr_1 (";" Expr_1)* ";"? "|]"                                      <array>
+    | "{" Field ("=" Expr_1)? (";" Field ("=" Expr_1)?)* ";"? "}"              <record1>
+    | "{" Expr "with" Field ("=" Expr_1 )? (";" Field ("=" Expr_1)?)* ";"? "}" <record2>
+    | "while" Expr "do" Expr ";"? "done"                                       <whileloop>
+    | "for" ValueName "=" Expr ("to" | "downto") Expr "do" Expr ";"? "done"    <forloop>
+    | "new" ClassPath                                                          <new>
+    | "object" ClassBody "end"                                                 <object>
+    | "(" "module" ModuleExpr  (":" PackageType)? ")"                          <moduleExpr>
+    //| ValuePath  <valuePath>
+    | ValueName
+    | Constant /*!constr*/ <constant>                                                    /* To avoid ambiguities with Expr "." Field. */
+    | ConstrName
+    //| InstVarName
 
 Expr_1
   ::= Expr /*!sep*/
@@ -204,85 +204,87 @@ Expr_2
   ::= Expr /*!sep*/ /*!comma*/
 
 Arg
-  ::=                Expr /*!functionApplication*/ /*!lazy*/ /*!assertExpr*/ /*!unaryMinus*/ /*!floatUnaryMinus*/ /*!infix1*/ /*!infix2*/ /*!infix3*/
-                            /*!coloncolon*/ /*!infix4*/ /*!infix5*/ /*!infix6*/ /*!infix7*/ /*!comma*/
-                            /*!infix8*/ /*!ifThenElse*/ /*!ifThen*/ /*!sep*/ /*!match*/ /*!function*/ /*!fun*/ /*!tryBlock*/ /*!letbinding*/ /*!letModule*/
-    | label:         Label
-    | labelColon:    LabelColon Expr /*!functionApplication*/ /*!lazy*/ /*!assertExpr*/ /*!unaryMinus*/ /*!floatUnaryMinus*/ /*!infix1*/ /*!infix2*/ /*!infix3*/
-                                      /*!coloncolon*/ /*!infix4*/ /*!infix5*/ /*!infix6*/ /*!infix7*/ /*!comma*/
-                                      /*!infix8*/ /*!ifThenElse*/ /*!ifThen*/ /*!sep*/ /*!match*/ /*!function*/ /*!fun*/ /*!tryBlock*/ /*!letbinding*/ /*!letModule*/
-    | optlabel:      OptLabel
-    | optlabelColon: OptLabelColon Expr /*!functionApplication*/ /*!lazy*/ /*!assertExpr*/ /*!unaryMinus*/ /*!floatUnaryMinus*/ /*!infix1*/ /*!infix2*/ /*!infix3*/
-                                         /*!coloncolon*/ /*!infix4*/ /*!infix5*/ /*!infix6*/ /*!infix7*/ /*!comma*/
-                                         /*!infix8*/ /*!ifThenElse*/ /*!ifThen*/ /*!sep*/ /*!match*/ /*!function*/ /*!fun*/ /*!tryBlock*/ /*!letbinding*/ /*!letModule*/
+  ::= Expr /*!functionApplication*/ /*!lazy*/ /*!assertExpr*/ /*!unaryMinus*/ /*!floatUnaryMinus*/ /*!infix1*/ /*!infix2*/ /*!infix3*/
+           /*!coloncolon*/ /*!infix4*/ /*!infix5*/ /*!infix6*/ /*!infix7*/ /*!comma*/
+           /*!infix8*/ /*!ifThenElse*/ /*!ifThen*/ /*!sep*/ /*!match*/ /*!function*/ /*!fun*/ /*!tryBlock*/ /*!letbinding*/ /*!letModule*/
+    | Label                            <label>
+    | LabelColon Expr /*!functionApplication*/ /*!lazy*/ /*!assertExpr*/ /*!unaryMinus*/ /*!floatUnaryMinus*/ /*!infix1*/ /*!infix2*/ /*!infix3*/
+                      /*!coloncolon*/ /*!infix4*/ /*!infix5*/ /*!infix6*/ /*!infix7*/ /*!comma*/
+                      /*!infix8*/ /*!ifThenElse*/ /*!ifThen*/ /*!sep*/ /*!match*/ /*!function*/ /*!fun*/ /*!tryBlock*/ /*!letbinding*/ /*!letModule*/
+                                       <labelColon>
+    | OptLabel                         <optlabel>
+    | OptLabelColon Expr /*!functionApplication*/ /*!lazy*/ /*!assertExpr*/ /*!unaryMinus*/ /*!floatUnaryMinus*/ /*!infix1*/ /*!infix2*/ /*!infix3*/
+                         /*!coloncolon*/ /*!infix4*/ /*!infix5*/ /*!infix6*/ /*!infix7*/ /*!comma*/
+                         /*!infix8*/ /*!ifThenElse*/ /*!ifThen*/ /*!sep*/ /*!match*/ /*!function*/ /*!fun*/ /*!tryBlock*/ /*!letbinding*/ /*!letModule*/
+                                       <optlabelColon>
 
 PatternMatching
-  ::=  "|"? Pattern ("when" Expr)? "->" Expr InnerPatternMatching*
+  ::= "|"? Pattern ("when" Expr)? "->" Expr InnerPatternMatching*
 
 InnerPatternMatching
   ::= ";"? "|" Pattern ("when" Expr)? "->" Expr
 
 LetBinding
-  ::=                  Pattern /*!patternValueName*/ "="  Expr
-    | letBinding:      ValueName Parameter* (":" PolyTypExpr)? (":>" Typexpr)? "=" Expr
-    | bindingNew:       ValueName ":" "type"  TypeConstr* "."  Typexpr "="  Expr
+  ::= Pattern /*!patternValueName*/ "=" Expr
+    | ValueName Parameter* (":" PolyTypExpr)? (":>" Typexpr)? "=" Expr         <letBinding>
+    | ValueName ":" "type" TypeConstr* "." Typexpr "=" Expr                    <bindingNew>
 
 MultipleMatching
-  ::= multipleMatching: Parameter+ ("when" Expr)? "->" Expr
+  ::= Parameter+ ("when" Expr)? "->" Expr                                      <multipleMatching>
 
 Parameter
-  ::= patternParam: Pattern /*!constrPattern*/  // Paramter always comes in lists and can match another pattern
-    | param1:            Label
-    | param2:       "~" "(" LabelName (":" Typexpr)? ")"
-    | param3:       LabelColon Pattern
-    | param4:       OptLabel
-    | param5:       "?" "(" LabelName (":" Typexpr)? ("=" Expr)? ")"
-    | param6:            OptLabelColon Pattern
-    | param7:            OptLabelColon "(" Pattern ":" Typexpr "=" Expr ")"
-    | typeParam:    "(" "type" TypeconstrName ")"
+  ::= patternParam: Pattern /*!constrPattern*/                                           /* Paramter always comes in lists and can match another pattern */
+    | Label                                                                    <param1>
+    | "~" "(" LabelName (":" Typexpr)? ")"                                     <param2>
+    | LabelColon Pattern                                                       <param3>
+    | OptLabel                                                                 <param4>
+    | "?" "(" LabelName (":" Typexpr)? ("=" Expr)? ")"                         <param5>
+    | OptLabelColon Pattern                                                    <param6>
+    | OptLabelColon "(" Pattern ":" Typexpr "=" Expr ")"                       <param7>
+    | "(" "type" TypeconstrName ")"                                            <typeParam>
 
 // Patterns
 
 Pattern
-  ::= lazyPattern:           "lazy" Pattern
-    > constrPattern:           Constr Pattern
-    > tagNamePattern:          "`" TagName Pattern
-    > listCons:          Pattern "::" Pattern                                                                                                   right
-    > patterns:      Pattern "," Pattern_ ("," Pattern_)*                                                                                       non-assoc
-    > patternBar:    Pattern "|" Pattern                                                                                                        left
-    > patternAs:               Pattern "as" ValueName
-    | patternValueName:        ValueName
-    | anyPattern:              "_" !>> [a-zA-Z0-9]   // To enforce longest match with identifiers
-    | patternConstant:    Constant
-    | patternRange:            CharLiteral ".." CharLiteral   // Extensions
-    | patternBrackets:    "(" Pattern ")"
-    | patternTypxprBrackets: "(" Pattern ":" Typexpr ")"
-    | patternHash:             "#" TypeconstrName
-    | patternRec:              "{" Field ("=" Pattern)? (";" Field ("=" Pattern)?)* (";" "_")? ";"? "}"
-    | patternTuple:            "["  Pattern (";" Pattern)* ";"? "]"
-    | patternArray:            "[|" Pattern (";" Pattern)* ";"? "|]"
-    | patternPackage:          "(" "module" ModuleName  (":" PackageType)? ")"
+  ::= "lazy" Pattern                                                           <lazyPattern>
+    > Constr Pattern                                                           <constrPattern>
+    > "`" TagName Pattern                                                      <tagNamePattern>
+    > Pattern "::" Pattern                                                     <listCons>          right
+    > Pattern "," Pattern_ ("," Pattern_)*                                     <patterns>          non-assoc
+    > Pattern "|" Pattern                                                      <patternBar>        left
+    > Pattern "as" ValueName                                                   <patternAs>
+    | ValueName                                                                <patternValueName>
+    | "_" !>> [a-zA-Z0-9]                                                      <anyPattern>        /* To enforce longest match with identifiers */
+    | Constant                                                                 <patternConstant>
+    | CharLiteral ".." CharLiteral                                             <patternRange>      /* Extensions */
+    | "(" Pattern ")"                                                          <patternBrackets>
+    | "(" Pattern ":" Typexpr ")"                                              <patternTypxprBrackets>
+    | "#" TypeconstrName                                                       <patternHash>
+    | "{" Field ("=" Pattern)? (";" Field ("=" Pattern)?)* (";" "_")? ";"? "}" <patternRec>
+    | "["  Pattern (";" Pattern)* ";"? "]"                                     <patternTuple>
+    | "[|" Pattern (";" Pattern)* ";"? "|]"                                    <patternArray>
+    | "(" "module" ModuleName  (":" PackageType)? ")"                          <patternPackage>
 
 Pattern_
   ::= Pattern /*!patterns*/ /*!patternBar*/ /*!patternAs*/
 
 Constant
-  ::= posInt:                 [\-] !<< IntegerLiteral !>> [0-9_A-Fa-f.eElLn]
-    | floatLiteral:      [\-] !<< FloatLiteral !>> [0-9_.eE\-]
-    | charLiteral:       CharLiteral
-    | stringLiteral:     StringLiteral1
-    | constr:                 Constr
-    | falseConstant:     "false"
-    | trueConstant:      "true"
-    | emptyParenthesis: "(" ")"
-    | emptyBrackets:     "[" "]"
-    | emptyArray:        "[|" "|]"
-    | emptyCurly:        "{<" ">}"
-    |                    "`" TagName
-    | int32:             [\-] !<< Int32Literal
-    | int64:             [\-] !<< Int64Literal
-    | nativeInt:         [\-] !<< NativeIntLiteral
-    |                    "begin" "end"     // An alias for "(" ")"
+  ::= [\-] !<< IntegerLiteral !>> [0-9_A-Fa-f.eElLn]       <posInt>
+    | [\-] !<< FloatLiteral !>> [0-9_.eE\-]                <floatLiteral>
+    | CharLiteral                                          <charLiteral>
+    | StringLiteral1                                       <stringLiteral>
+    | Constr                                               <constr>
+    | "false"                                              <falseConstant>
+    | "true"                                               <trueConstant>
+    | "(" ")"                                              <emptyParenthesis>
+    | "[" "]"                                              <emptyBrackets>
+    | "[|" "|]"                                            <emptyArray>
+    | "{<" ">}"                                            <emptyCurly>
+    | "`" TagName
+    | [\-] !<< Int32Literal                                <int32>
+    | [\-] !<< Int64Literal                                <int64>
+    | [\-] !<< NativeIntLiteral                            <nativeInt>
+    | "begin" "end"                                                                                /* An alias for "(" ")" */
 
 // ModuleExpressions
 
@@ -314,7 +316,7 @@ ModuleExpr
     | ModuleExpr "(" ModuleExpr ":" ModuleType ")"
     | "(" ModuleExpr ")"
     | "(" ModuleExpr ":" ModuleType ")"
-    | "(" "val" Expr  (":" PackageType)? ")"
+    | "(" "val" Expr (":" PackageType)? ")"
 
 ModuleItems
   ::= ";;"? ( (Definition ";"?) | (Expr ";"?)) ((";;"? Definition ";"?) | (";;" Expr ";"?))* ";;"?
@@ -333,9 +335,9 @@ ModuleType
 
 ModConstraint
   ::= "type" TypeParams? TypeConstr "=" Typexpr
-    | "type" TypeParameters?  TypeConstr ":="  TypeParameters?  TypeConstr
+    | "type" TypeParameters? TypeConstr ":=" TypeParameters? TypeConstr
     | "module" ModulePath "=" ExtendedModulePath
-    | "module" ModuleName ":="  ExtendedModulePath
+    | "module" ModuleName ":=" ExtendedModulePath
 
 
 // Type And Exceptions
@@ -355,7 +357,7 @@ TypeEquation
 TypeRepresentation
   ::= "=" "private"? "|"? ConstrDecl ("|" ConstrDecl)*
     | "=" "private"? "{" FieldDecl (";" FieldDecl)* ";"? "}"
-    | "=" "[" (ConstrDecl ("|" ConstrDecl)*)? "]"   // Revised syntax
+    | "=" "[" (ConstrDecl ("|" ConstrDecl)*)? "]"                                                  /* Revised syntax */
 
 TypeParams
   ::= TypeParam
@@ -420,7 +422,7 @@ ClassField
     | "method" "virtual" "private"  MethodName ":" PolyTypExpr
     | "constraint" Typexpr "=" Typexpr
     | "initializer" Expr
-    | ("method"|"method!") "private"? MethodName ":" "type"  TypeconstrName+ "."  Typexpr "="  Expr   // Extensions §7.13
+    | ("method"|"method!") "private"? MethodName ":" "type" TypeconstrName+ "." Typexpr "=" Expr   /* Extensions §7.13 */
 
 ClassDefinition
   ::= "class" ClassBinding ("and" ClassBinding)*
@@ -454,10 +456,10 @@ ExternalDeclaration
 
 PackageType
   ::= ModTypePath
-    | ModTypePath "with"  PackageConstraint  ("and" PackageConstraint)*
+    | ModTypePath "with" PackageConstraint  ("and" PackageConstraint)*
 
 PackageConstraint
-  ::= "type" TypeConstr "="  Typexpr
+  ::= "type" TypeConstr "=" Typexpr
 
 
 // Lexical
@@ -469,11 +471,11 @@ Ident
 }
 
 // underscore is considered a lower case identifier
-@NoLayout /* was "lexical" */ {
+@NoLayout /* was "lexical" */
 LowercaseIdentifier
   ::= [a-zA-Z_0-9] !<< LowercaseIdentifierChars \ Keywords
 
-regex regex /* was "token" */ {
+regex /* was "token" */ {
 LowercaseIdentifierChars
   ::= [a-z_][A-Za-z0-9_']*
 }
@@ -489,7 +491,7 @@ CapitalizedIdentifierChars
 
 regex /* was "token" */ {
 Int32Literal
-  ::=  [\-]? SpecialInt [l]
+  ::= [\-]? SpecialInt [l]
 }
 
 regex /* was "token" */ {
@@ -499,7 +501,7 @@ Int64Literal
 
 regex /* was "token" */ {
 NativeIntLiteral
-  ::=  [\-]? SpecialInt [n]
+  ::= [\-]? SpecialInt [n]
 }
 
 regex /* was "token" */ {
