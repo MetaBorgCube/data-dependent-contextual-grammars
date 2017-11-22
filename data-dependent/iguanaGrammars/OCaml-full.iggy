@@ -24,7 +24,7 @@ CompilationUnit
 // Names
 
 ValuePath
-  ::= valuePath: (ModulePath ".")? ValueName
+  ::= (ModulePath ".")? ValueName      <valuePath>
 
 ValueName
   ::= LowercaseIdentifier
@@ -233,7 +233,7 @@ MultipleMatching
   ::= Parameter+ ("when" Expr)? "->" Expr                                      <multipleMatching>
 
 Parameter
-  ::= patternParam: Pattern /*!constrPattern*/                                           /* Paramter always comes in lists and can match another pattern */
+  ::= Pattern /*!constrPattern*/                                               <patternParam>      /* Paramter always comes in lists and can match another pattern */
     | Label                                                                    <param1>
     | "~" "(" LabelName (":" Typexpr)? ")"                                     <param2>
     | LabelColon Pattern                                                       <param3>
@@ -308,7 +308,7 @@ Definition
     | "include" ModuleType
 
 ModuleExpr
-  ::= modulePath: ModulePath
+  ::= ModulePath                                                               <modulePath>
     | "struct" ";;"? ModuleItems? "end"
     | "functor" "(" ModuleName ":" ModuleType ")" "->" ModuleExpr
     | "functor" "(" ")" "->" ModuleExpr
@@ -324,13 +324,13 @@ ModuleItems
 // ModuleTypes
 
 ModuleType
-  ::= modTypePath:       ModTypePath
-    | sig:               "sig" ( Definition ";;"? )* "end"
-    | modTypeOf:         "module" "type" "of" ModuleExpr
-    | modTypeWith:       ModuleType "with" ModConstraint ("and" ModConstraint)*
-    | bracketModType2:   ModuleType /*!modTypeWith*/ "(" ModuleType ")"
-    > functor:           "functor" "(" ModuleName ":" ModuleType ")" "->" ModuleType
-    | bracketModType1:   "(" ModuleType ")"
+  ::= ModTypePath                                                              <modTypePath>
+    | "sig" ( Definition ";;"? )* "end"                                        <sig>
+    | "module" "type" "of" ModuleExpr                                          <modTypeOf>
+    | ModuleType "with" ModConstraint ("and" ModConstraint)*                   <modTypeWith>
+    | ModuleType /*!modTypeWith*/ "(" ModuleType ")"                           <bracketModType2>
+    > "functor" "(" ModuleName ":" ModuleType ")" "->" ModuleType              <functor>
+    | "(" ModuleType ")"                                                       <bracketModType1>
 
 
 ModConstraint
@@ -404,13 +404,13 @@ ClassFieldSpec
 
 ClassExpr
   ::= ClassPath
-    | classExprBrackets1: "[" Typexpr ("," Typexpr)* "]" ClassPath
-    | classExprBrackets2: "(" ClassExpr ")"
-    | classExprBrackets3: "(" ClassExpr ":" ClassType ")"
-    | classArgs: ClassExpr /*!classArgs*/ Arg+
-    | classFun: "fun" Parameter+ "->" ClassExpr
-    | letClass: "let" "rec"? LetBinding ("and" LetBinding)* "in" ClassExpr
-    | object: "object" ClassBody "end"
+    | "[" Typexpr ("," Typexpr)* "]" ClassPath                                 <classExprBrackets1>
+    | "(" ClassExpr ")"                                                        <classExprBrackets2>
+    | "(" ClassExpr ":" ClassType ")"                                          <classExprBrackets3>
+    | ClassExpr /*!classArgs*/ Arg+                                            <classArgs>
+    | "fun" Parameter+ "->" ClassExpr                                          <classFun>
+    | "let" "rec"? LetBinding ("and" LetBinding)* "in" ClassExpr               <letClass>
+    | "object" ClassBody "end"                                                 <object>
 
 ClassField
   ::= ("inherit" | "inherit!") ClassExpr ("as" ValueName)?
