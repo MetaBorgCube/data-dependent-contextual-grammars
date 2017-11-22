@@ -17,6 +17,9 @@ test/OCaml/bucklescript/jscomp/test/set_gen.ml
 test/OCaml/bucklescript/jscomp/test/ocaml_parsetree_test.ml
 test/OCaml/bucklescript/jscomp/test/ext_array.ml
 test/OCaml/bucklescript/jscomp/test/sexp.ml
+test/OCaml/bucklescript/jscomp/test/gpr_1600_test.ml
+test/OCaml/bucklescript/jscomp/test/unsafe_ppx_test.ml
+test/OCaml/bucklescript/jscomp/test/ppx_this_obj_field.ml
 test/OCaml/bucklescript/jscomp/test/test_internalOO.ml
 test/OCaml/bucklescript/jscomp/test/test_set.ml
 test/OCaml/bucklescript/jscomp/test/hamming_test.ml

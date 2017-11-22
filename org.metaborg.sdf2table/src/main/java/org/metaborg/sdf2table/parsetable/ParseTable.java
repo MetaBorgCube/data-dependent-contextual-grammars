@@ -550,16 +550,9 @@ public class ParseTable implements ISGLRParseTable, Serializable {
             for(IProduction p : grammar.getSymbolProductionsMapping().get(ctx_s.getOrigSymbol())) {
                 int labelP = productionLabels.get(p);
 
-                // generate new productions for shallow contexts
-                Context shallowRight_ctx = new Context(labelP, ContextType.SHALLOW, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
-                Context shallowLeft_ctx = new Context(labelP, ContextType.SHALLOW, ContextPosition.LEFTMOST, leftmostContextsMapping, rightmostContextsMapping);
-                if(ctx_s.getContexts().contains(shallowRight_ctx) || ctx_s.getContexts().contains(shallowLeft_ctx)) {
-                    continue;
-                }
-
                 // generate new productions for deep contexts
-                Context deepLeft_ctx = new Context(labelP, ContextType.DEEP, ContextPosition.LEFTMOST, leftmostContextsMapping, rightmostContextsMapping);
-                Context deepRight_ctx = new Context(labelP, ContextType.DEEP, ContextPosition.RIGHTMOST, leftmostContextsMapping, rightmostContextsMapping);
+                Context deepLeft_ctx = new Context(labelP, ContextType.DEEP, ContextPosition.LEFTMOST, false, leftmostContextsMapping, rightmostContextsMapping);
+                Context deepRight_ctx = new Context(labelP, ContextType.DEEP, ContextPosition.RIGHTMOST, false, leftmostContextsMapping, rightmostContextsMapping);
                 if(ctx_s.getContexts().contains(deepLeft_ctx) || ctx_s.getContexts().contains(deepRight_ctx)) {
                     continue;
                 }

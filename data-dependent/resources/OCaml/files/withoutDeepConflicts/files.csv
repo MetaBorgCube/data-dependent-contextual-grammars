@@ -111,7 +111,6 @@ test/OCaml/bucklescript/jscomp/test/class4_test.ml
 test/OCaml/bucklescript/jscomp/test/class8_test.ml
 test/OCaml/bucklescript/jscomp/test/OCaml_parsetree_main.ml
 test/OCaml/bucklescript/jscomp/test/utf8_decode_test.ml
-test/OCaml/bucklescript/jscomp/test/gpr_1600_test.ml
 test/OCaml/bucklescript/jscomp/test/single_module_alias.ml
 test/OCaml/bucklescript/jscomp/test/list_test.ml
 test/OCaml/bucklescript/jscomp/test/module_missing_conversion.ml
@@ -128,7 +127,6 @@ test/OCaml/bucklescript/jscomp/test/js_bool_test.ml
 test/OCaml/bucklescript/jscomp/test/test_index.ml
 test/OCaml/bucklescript/jscomp/test/hash_test.ml
 test/OCaml/bucklescript/jscomp/test/complex_test.ml
-test/OCaml/bucklescript/jscomp/test/unsafe_ppx_test.ml
 test/OCaml/bucklescript/jscomp/test/attr_test.ml
 test/OCaml/bucklescript/jscomp/test/promise_catch_test.ml
 test/OCaml/bucklescript/jscomp/test/test_array_primitive.ml
@@ -425,7 +423,6 @@ test/OCaml/bucklescript/jscomp/test/testing.ml
 test/OCaml/bucklescript/jscomp/test/primitive_reg_test.ml
 test/OCaml/bucklescript/jscomp/test/functor_ffi.ml
 test/OCaml/bucklescript/jscomp/test/installation_test.ml
-test/OCaml/bucklescript/jscomp/test/ppx_this_obj_field.ml
 test/OCaml/bucklescript/jscomp/test/small_inline_test.ml
 test/OCaml/bucklescript/jscomp/test/guide_for_ext.ml
 test/OCaml/bucklescript/jscomp/test/queue_test.ml

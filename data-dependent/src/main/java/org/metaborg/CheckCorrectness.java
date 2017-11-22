@@ -23,7 +23,7 @@ import com.google.common.collect.Lists;
 
 public class CheckCorrectness {
 
-    public static Language[] languages = { Language.OCAML };
+    public static Language[] languages = { Language.OCAML, Language.JAVA };
     public static String filesWithDeepConflicts = "files/withDeepConflicts/files.csv";
     public static String filesWithoutDeepConflicts = "files/withoutDeepConflicts/files.csv";
 
@@ -50,9 +50,9 @@ public class CheckCorrectness {
             // comparing ASTs of files without deep conflicts
             pathToParseTable += "notSolveDeepConflicts/";
 
-            notSolveDeepConflictsPt = generateParseTable(a_lang, pathToParseTable, false, false, false);
-            dataDependentPt = generateParseTable(a_lang, pathToDataDependentParseTable, false, true, true);
-            contextualPt = generateParseTable(a_lang, pathToContextualGrammarPt, false, false, true);
+            notSolveDeepConflictsPt = generateParseTable(a_lang, pathToParseTable, true, false, false);
+            dataDependentPt = generateParseTable(a_lang, pathToDataDependentParseTable, true, true, true);
+            contextualPt = generateParseTable(a_lang, pathToContextualGrammarPt, true, false, true);
 
             parser = JSGLR2.naive(notSolveDeepConflictsPt);
             dataDependentParser = JSGLR2.dataDependent(dataDependentPt);
@@ -124,6 +124,8 @@ public class CheckCorrectness {
         File file = new File("Results/" + outputFile + ".txt");
         final BufferedWriter output = new BufferedWriter(new FileWriter(file));
 
+        System.out.println(" -- Parsing Files -- ");
+        
         try {
             input.stream().forEach(program -> {
                 try {
@@ -132,12 +134,16 @@ public class CheckCorrectness {
                     if(!astParser1.equals(astParser2)) {
                         output.write("ASTs of the different parsers are different for program "
                             + programs.get(input.indexOf(program)) + "\n");
+                        System.out.println("ASTs of the different parsers are different for program "
+                            + programs.get(input.indexOf(program)));
                     } else {
                         output.write("Processed File: " + programs.get(input.indexOf(program)) + "\n");
+                        System.out.println("Processed File: " + programs.get(input.indexOf(program)));
                     }
                 } catch(Exception e) {
                     try {
                         output.write("Could not parse file: " + programs.get(input.indexOf(program)) + "\n");
+                        System.out.println("Could not parse file: " + programs.get(input.indexOf(program)));
                     } catch(IOException e1) {
                         System.out.println("output is invalid");
                     }

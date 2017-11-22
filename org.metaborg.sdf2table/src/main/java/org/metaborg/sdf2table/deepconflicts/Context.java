@@ -12,13 +12,14 @@ public class Context implements Serializable {
     private final ContextType type;
     // propagate shallow context only to leftmost or rightmost symbols
     private final ContextPosition position;
-
+    private boolean isIndirect;
     private final long contextBitmap;
 
-    public Context(int context, ContextType type, ContextPosition position, final Map<Integer, Integer> leftmostContextsMapping, final Map<Integer, Integer> rightmostContextsMapping) {
+    public Context(int context, ContextType type, ContextPosition position, boolean isIndirect, final Map<Integer, Integer> leftmostContextsMapping, final Map<Integer, Integer> rightmostContextsMapping) {
         this.context = context;
         this.type = type;
         this.position = position;
+        this.isIndirect = isIndirect;
 
         if (position == ContextPosition.LEFTMOST && leftmostContextsMapping.containsKey(context)) {
             contextBitmap = 1L << leftmostContextsMapping.get(context);
@@ -32,11 +33,6 @@ public class Context implements Serializable {
 
     @Override
     public String toString() {
-        if(getType() == ContextType.SHALLOW && getPosition() == ContextPosition.LEFTMOST) {
-            return "SHALLOW-LEFT: " + getContext();
-        } else if(getType() == ContextType.SHALLOW && getPosition() == ContextPosition.RIGHTMOST) {
-            return "SHALLOW-RIGHT: " + getContext();
-        }
         return "" + context;
     }
 
@@ -45,6 +41,7 @@ public class Context implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + context;
+        result = prime * result + (isIndirect ? 1231 : 1237);
         result = prime * result + ((position == null) ? 0 : position.hashCode());
         result = prime * result + ((type == null) ? 0 : type.hashCode());
         return result;
@@ -60,6 +57,8 @@ public class Context implements Serializable {
             return false;
         Context other = (Context) obj;
         if(context != other.context)
+            return false;
+        if(isIndirect != other.isIndirect)
             return false;
         if(position != other.position)
             return false;
@@ -82,6 +81,14 @@ public class Context implements Serializable {
 
     public long getContextBitmap() {
         return contextBitmap;
+    }
+
+    public boolean isIndirect() {
+        return isIndirect;
+    }
+
+    public void setIndirect(boolean isIndirect) {
+        this.isIndirect = isIndirect;
     }
 
 }
