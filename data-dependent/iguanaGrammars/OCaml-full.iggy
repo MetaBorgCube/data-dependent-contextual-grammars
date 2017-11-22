@@ -1,9 +1,9 @@
 /**
- * 
+ *
  * Extracted from the OCaml reference manual 4.00 by Ali Afroozeh
- *  
- * Converted to Iggy Reference format by Michael J.Steindorfer 
- * 
+ *
+ * Converted to Iggy Reference format by Michael J.Steindorfer
+ *
  */
 
 // Top-level
@@ -11,95 +11,95 @@
 start
    ::= TopLevel
 
-TopLevel 
+TopLevel
    ::= TopLevelPhrase*
 
-TopLevelPhrase 
+TopLevelPhrase
    ::= Definition
      | Expr
 
-      
+
 CompilationUnit
-   ::= ModuleItems?          
-       
+   ::= ModuleItems?
+
 // Names
-ValuePath 
+ValuePath
    ::= valuePath: (ModulePath ".")? ValueName
 
-ValueName 
-   ::= LowercaseIdentifier 
+ValueName
+   ::= LowercaseIdentifier
      | "(" OperatorName ")"
-     
+
 OperatorName
    ::= PrefixSymbol
-     | InfixSymbol     
+     | InfixSymbol
 
-TagName 
+TagName
    ::= Ident
 
-TypeconstrName 
+TypeconstrName
    ::= LowercaseIdentifier
 
-TypeConstr 
+TypeConstr
    ::= (ExtendedModulePath ".")? TypeconstrName
 
-ConstrName 
+ConstrName
    ::= CapitalizedIdentifier
 
-LabelName 
+LabelName
    ::= LowercaseIdentifier
 
-ModuleName 
+ModuleName
    ::= CapitalizedIdentifier
 
-FieldName 
+FieldName
    ::= LowercaseIdentifier
 
-ClassName 
+ClassName
    ::= LowercaseIdentifier
 
-InstVarName 
+InstVarName
    ::= LowercaseIdentifier
 
-MethodName 
+MethodName
    ::= LowercaseIdentifier
 
-ModTypeName 
+ModTypeName
    ::= Ident
 
-ModulePath 
+ModulePath
    ::= (ModuleName ".")* ModuleName
 
-Constr 
-   ::= (ModulePath ".")? ConstrName 
+Constr
+   ::= (ModulePath ".")? ConstrName
 
-Field 
+Field
    ::= (ModulePath ".")? FieldName
 
-ClassPath 
+ClassPath
    ::= (ExtendedModulePath "." )? ClassName
 
-ModTypePath 
+ModTypePath
    ::= (ExtendedModulePath "." )? ModTypName
 
-ModTypName 
+ModTypName
    ::= Ident
 
-ExtendedModulePath 
+ExtendedModulePath
    ::= ExtendedModuleName ( "." ExtendedModuleName )*
-     
+
 ExtendedModuleName
-   ::= ModuleName ("(" ExtendedModulePath ")")*     
+   ::= ModuleName ("(" ExtendedModulePath ")")*
 
 
 // Type expressions
 
-Typexpr 
+Typexpr
    ::= "?"? LabelName ":" Typexpr
      > Typexpr TypeConstr
      > Typexpr "*" Typexpr_ ("*" Typexpr_)*                                              <star>              non-assoc           /* label "star"  */
      > Typexpr "->" Typexpr                                                              <arrow>             right               /* label "arrow" */
-     > Typexpr "as" "\'" Ident 
+     > Typexpr "as" "\'" Ident
      > "private" Typexpr
      | "\'" Ident
      | "_" !>> [a-zA-Z0-9]
@@ -108,41 +108,41 @@ Typexpr
      | "(" Typexpr ("," Typexpr)+ ")" TypeConstr
      | PolymorphicVariantType
      | "<" ".."? ">"
-     | "<" MethodType (";" MethodType)* (";" "..")? ">"     
+     | "<" MethodType (";" MethodType)* (";" "..")? ">"
      | "#" ClassPath
      | Typexpr "#" ClassPath
      | "(" Typexpr ("," Typexpr)* ")" "#" ClassPath
-     | "(" "module" PackageType ")"  
+     | "(" "module" PackageType ")"
 
 Typexpr_
    ::= Typexpr /*!star*/ /*!arrow*/
-    
+
 PolymorphicVariantType
    ::= "[" "|"? (TagSpec ("|" TagSpec)*)? "]"
      | "[>" (TagSpec ("|" TagSpec)*)? "]"
      | "[<"  "|"? TagSpecFull ("|" TagSpecFull)* (">" ("`" TagName)+ )?  "]"
-       
-PolyTypExpr 
+
+PolyTypExpr
    ::= Typexpr
      | ("\'" Ident)+ "." Typexpr
-       
-MethodType 
-   ::= MethodName ":" PolyTypExpr  
-       
+
+MethodType
+   ::= MethodName ":" PolyTypExpr
+
 TagSpec
    ::= "`" TagName ("of" Typexpr)?
      | Typexpr
 
-TagSpecFull 
+TagSpecFull
    ::= "`" TagName ("of" Typexpr)? ("&" Typexpr)*
      | Typexpr
 
 
 // Expressions
 
-Expr 
+Expr
    ::= prefix:                     PrefixSymbol Expr
-     > field:                Expr "." Ident  
+     > field:                Expr "." Ident
      | dotBracket1:               Expr ".(" Expr ")"
      | dotBracket2:               Expr ".[" Expr "]"
      | dotBracket3:               Expr ".{" Expr "}"
@@ -155,7 +155,7 @@ Expr
      > unaryMinus:          "-"  Expr
      | floatUnaryMinus:     "-." Expr
      > infix1:          Expr InfixSymbol1 Expr                                                                                   right
-     > infix2:          Expr InfixSymbol2 Expr                                                                                   left 
+     > infix2:          Expr InfixSymbol2 Expr                                                                                   left
      > infix3:          Expr InfixSymbol3 Expr                                                                                   left      // to disambiguate [|   5.2026032092;     19132e-10;  -39e-10 |];
      > coloncolon: Expr "::" Expr                                                                                                 right
      > infix4:          Expr InfixSymbol4 Expr                                                                                                   right
@@ -174,14 +174,14 @@ Expr
      | fun:                       "fun" MultipleMatching
      | tryBlock:              "try" Expr ";"? "with" PatternMatching !>> "|"                                                                         // was !>>> (follow restriction on productions???)
      | letbinding:            "let" "rec"? LetBinding ";"? ("and" LetBinding ";"?)* "in" Expr
-     | letModule:             "let" "module" ModuleExpr "="  ModuleExpr "in"  Expr 
+     | letModule:             "let" "module" ModuleExpr "="  ModuleExpr "in"  Expr
      | letOpen:             "let" "open" ModulePath "in"  Expr
      | brackets:              "(" Expr ";"? ")"
       | beginEnd:             "begin" Expr ";"? "end"
       | brackets1:            "(" Expr ":" Typexpr ")"
-      | brackets2:            "(" Expr ":>"  Typexpr ")"  
-      | brackets3:            "(" Expr ":"  Typexpr ":>"  Typexpr ")"  
-      | brackets4:            "{<" InstVarName "=" Expr_1  (";" InstVarName "="  Expr)*  ";"? ">}"  
+      | brackets2:            "(" Expr ":>"  Typexpr ")"
+      | brackets3:            "(" Expr ":"  Typexpr ":>"  Typexpr ")"
+      | brackets4:            "{<" InstVarName "=" Expr_1  (";" InstVarName "="  Expr)*  ";"? ">}"
       | tupl:                 "["  Expr_1 (";" Expr_1)* ";"? "]"
      | array:                 "[|" Expr_1 (";" Expr_1)* ";"? "|]"
      | record1:                    "{" Field ("=" Expr_1)? (";" Field ("=" Expr_1)?)* ";"? "}"
@@ -189,63 +189,63 @@ Expr
      | whileloop:             "while" Expr "do" Expr ";"? "done"
      | forloop:               "for" ValueName "=" Expr ("to" | "downto") Expr "do" Expr ";"? "done"
      | new:                   "new" ClassPath
-     | object:                     "object" ClassBody "end"  
-     | moduleExpr:            "(" "module" ModuleExpr  (":" PackageType)? ")"  
+     | object:                     "object" ClassBody "end"
+     | moduleExpr:            "(" "module" ModuleExpr  (":" PackageType)? ")"
      //| valuePath:                ValuePath
      |                             ValueName
       | constant:             Constant /*!constr*/   // To avoid ambiguities with Expr "." Field
       |                      ConstrName
-     //|                           InstVarName 
-     
-Expr_1 
+     //|                           InstVarName
+
+Expr_1
    ::= Expr /*!sep*/
 
 Expr_2
-   ::= Expr /*!sep*/ /*!comma*/     
-  
-     
-Arg 
-   ::=                Expr /*!functionApplication*/ /*!lazy*/ /*!assertExpr*/ /*!unaryMinus*/ /*!floatUnaryMinus*/ /*!infix1*/ /*!infix2*/ /*!infix3*/ 
-                            /*!coloncolon*/ /*!infix4*/ /*!infix5*/ /*!infix6*/ /*!infix7*/ /*!comma*/ 
-                            /*!infix8*/ /*!ifThenElse*/ /*!ifThen*/ /*!sep*/ /*!match*/ /*!function*/ /*!fun*/ /*!tryBlock*/ /*!letbinding*/ /*!letModule*/ 
+   ::= Expr /*!sep*/ /*!comma*/
+
+
+Arg
+   ::=                Expr /*!functionApplication*/ /*!lazy*/ /*!assertExpr*/ /*!unaryMinus*/ /*!floatUnaryMinus*/ /*!infix1*/ /*!infix2*/ /*!infix3*/
+                            /*!coloncolon*/ /*!infix4*/ /*!infix5*/ /*!infix6*/ /*!infix7*/ /*!comma*/
+                            /*!infix8*/ /*!ifThenElse*/ /*!ifThen*/ /*!sep*/ /*!match*/ /*!function*/ /*!fun*/ /*!tryBlock*/ /*!letbinding*/ /*!letModule*/
       | label:         Label
-     | labelColon:    LabelColon Expr /*!functionApplication*/ /*!lazy*/ /*!assertExpr*/ /*!unaryMinus*/ /*!floatUnaryMinus*/ /*!infix1*/ /*!infix2*/ /*!infix3*/ 
-                                      /*!coloncolon*/ /*!infix4*/ /*!infix5*/ /*!infix6*/ /*!infix7*/ /*!comma*/  
+     | labelColon:    LabelColon Expr /*!functionApplication*/ /*!lazy*/ /*!assertExpr*/ /*!unaryMinus*/ /*!floatUnaryMinus*/ /*!infix1*/ /*!infix2*/ /*!infix3*/
+                                      /*!coloncolon*/ /*!infix4*/ /*!infix5*/ /*!infix6*/ /*!infix7*/ /*!comma*/
                                       /*!infix8*/ /*!ifThenElse*/ /*!ifThen*/ /*!sep*/ /*!match*/ /*!function*/ /*!fun*/ /*!tryBlock*/ /*!letbinding*/ /*!letModule*/
      | optlabel:      OptLabel
-     | optlabelColon: OptLabelColon Expr /*!functionApplication*/ /*!lazy*/ /*!assertExpr*/ /*!unaryMinus*/ /*!floatUnaryMinus*/ /*!infix1*/ /*!infix2*/ /*!infix3*/ 
-                                         /*!coloncolon*/ /*!infix4*/ /*!infix5*/ /*!infix6*/ /*!infix7*/ /*!comma*/  
+     | optlabelColon: OptLabelColon Expr /*!functionApplication*/ /*!lazy*/ /*!assertExpr*/ /*!unaryMinus*/ /*!floatUnaryMinus*/ /*!infix1*/ /*!infix2*/ /*!infix3*/
+                                         /*!coloncolon*/ /*!infix4*/ /*!infix5*/ /*!infix6*/ /*!infix7*/ /*!comma*/
                                          /*!infix8*/ /*!ifThenElse*/ /*!ifThen*/ /*!sep*/ /*!match*/ /*!function*/ /*!fun*/ /*!tryBlock*/ /*!letbinding*/ /*!letModule*/
-           
-PatternMatching 
-   ::=  "|"? Pattern ("when" Expr)? "->" Expr InnerPatternMatching*  
-     
-InnerPatternMatching
-   ::= ";"? "|" Pattern ("when" Expr)? "->" Expr     
-           
-LetBinding 
-   ::=                  Pattern /*!patternValueName*/ "="  Expr  
-     | letBinding:      ValueName Parameter* (":" PolyTypExpr)? (":>" Typexpr)? "=" Expr 
-     | bindingNew:       ValueName ":" "type"  TypeConstr* "."  Typexpr "="  Expr
-      
-MultipleMatching
-   ::= multipleMatching: Parameter+ ("when" Expr)? "->" Expr     
 
-Parameter 
+PatternMatching
+   ::=  "|"? Pattern ("when" Expr)? "->" Expr InnerPatternMatching*
+
+InnerPatternMatching
+   ::= ";"? "|" Pattern ("when" Expr)? "->" Expr
+
+LetBinding
+   ::=                  Pattern /*!patternValueName*/ "="  Expr
+     | letBinding:      ValueName Parameter* (":" PolyTypExpr)? (":>" Typexpr)? "=" Expr
+     | bindingNew:       ValueName ":" "type"  TypeConstr* "."  Typexpr "="  Expr
+
+MultipleMatching
+   ::= multipleMatching: Parameter+ ("when" Expr)? "->" Expr
+
+Parameter
    ::= patternParam: Pattern /*!constrPattern*/  // Paramter always comes in lists and can match another pattern
-     | param1:            Label 
+     | param1:            Label
      | param2:       "~" "(" LabelName (":" Typexpr)? ")"
      | param3:       LabelColon Pattern
-     | param4:       OptLabel 
+     | param4:       OptLabel
      | param5:       "?" "(" LabelName (":" Typexpr)? ("=" Expr)? ")"
      | param6:            OptLabelColon Pattern
      | param7:            OptLabelColon "(" Pattern ":" Typexpr "=" Expr ")"
-     | typeParam:    "(" "type" TypeconstrName ")"  
+     | typeParam:    "(" "type" TypeconstrName ")"
 
 // Patterns
 
-Pattern 
-   ::= lazyPattern:           "lazy" Pattern 
+Pattern
+   ::= lazyPattern:           "lazy" Pattern
      > constrPattern:           Constr Pattern
      > tagNamePattern:          "`" TagName Pattern
      > listCons:          Pattern "::" Pattern                                                                                                   right
@@ -262,12 +262,12 @@ Pattern
      | patternRec:              "{" Field ("=" Pattern)? (";" Field ("=" Pattern)?)* (";" "_")? ";"? "}"
      | patternTuple:            "["  Pattern (";" Pattern)* ";"? "]"
      | patternArray:            "[|" Pattern (";" Pattern)* ";"? "|]"
-     | patternPackage:          "(" "module" ModuleName  (":" PackageType)? ")"  
-     
+     | patternPackage:          "(" "module" ModuleName  (":" PackageType)? ")"
+
 Pattern_
-   ::= Pattern /*!patterns*/ /*!patternBar*/ /*!patternAs*/            
-         
-Constant 
+   ::= Pattern /*!patterns*/ /*!patternBar*/ /*!patternAs*/
+
+Constant
    ::= posInt:                 [\-] !<< IntegerLiteral !>> [0-9_A-Fa-f.eElLn]
      | floatLiteral:      [\-] !<< FloatLiteral !>> [0-9_.eE\-]
      | charLiteral:       CharLiteral
@@ -280,15 +280,15 @@ Constant
      | emptyArray:        "[|" "|]"
      | emptyCurly:        "{<" ">}"
      |                         "`" TagName
-     | int32:             [\-] !<< Int32Literal  
-      | int64:                 [\-] !<< Int64Literal  
+     | int32:             [\-] !<< Int32Literal
+      | int64:                 [\-] !<< Int64Literal
      | nativeInt:         [\-] !<< NativeIntLiteral
      |                   "begin" "end"     // An alias for "(" ")"
 
-// ModuleExpressions 
+// ModuleExpressions
 
-Definition 
-   ::= "let" "rec"? LetBinding (";"? "and" LetBinding)* 
+Definition
+   ::= "let" "rec"? LetBinding (";"? "and" LetBinding)*
      | "val" ValueName ":" Typexpr
      | "external" ValueName ":" Typexpr "=" ExternalDeclaration
      | TypeDefinition
@@ -303,10 +303,10 @@ Definition
      | "module" "rec" ModuleName ":"  ModuleType "="  ModuleExpr  ("and" ModuleName ":"  ModuleType "="  ModuleExpr)*
      | "module" "rec" ModuleName ":"  ModuleType  ("and" ModuleName ":"  ModuleType)*
      | "open" ModulePath
-     | "include" ModuleExpr /*!modulePath*/ 
+     | "include" ModuleExpr /*!modulePath*/
      | "include" ModuleType
-     
-ModuleExpr 
+
+ModuleExpr
    ::= modulePath: ModulePath
      |             "struct" ";;"? ModuleItems? "end"
      |                 "functor" "(" ModuleName ":" ModuleType ")" "->" ModuleExpr
@@ -315,14 +315,14 @@ ModuleExpr
      |            ModuleExpr "(" ModuleExpr ":" ModuleType ")"
      |             "(" ModuleExpr ")"
      |                 "(" ModuleExpr ":" ModuleType ")"
-     |                 "(" "val" Expr  (":" PackageType)? ")"       
-     
+     |                 "(" "val" Expr  (":" PackageType)? ")"
+
 ModuleItems
-   ::= ";;"? ( (Definition ";"?) | (Expr ";"?)) ((";;"? Definition ";"?) | (";;" Expr ";"?))* ";;"?     
-     
+   ::= ";;"? ( (Definition ";"?) | (Expr ";"?)) ((";;"? Definition ";"?) | (";;" Expr ";"?))* ";;"?
+
 // ModuleTypes
-     
-ModuleType 
+
+ModuleType
    ::= modTypePath:       ModTypePath
      | sig:               "sig" ( Definition ";;"? )* "end"
      | modTypeOf:         "module" "type" "of" ModuleExpr
@@ -332,76 +332,76 @@ ModuleType
      | bracketModType1:   "(" ModuleType ")"
 
 
-ModConstraint 
+ModConstraint
    ::= "type" TypeParams? TypeConstr "=" Typexpr
      | "type" TypeParameters?  TypeConstr ":="  TypeParameters?  TypeConstr
      | "module" ModulePath "=" ExtendedModulePath
-     | "module" ModuleName ":="  ExtendedModulePath      
+     | "module" ModuleName ":="  ExtendedModulePath
 
 
 // Type And Exceptions
 
-TypeDefinition 
+TypeDefinition
    ::= "type" TypeDef ("and" TypeDef)*
-     
-TypeDef 
+
+TypeDef
    ::= TypeParams? TypeconstrName TypeInformation
 
-TypeInformation 
+TypeInformation
    ::= TypeEquation? TypeRepresentation? TypeConstraint*
 
-TypeEquation 
+TypeEquation
    ::= "=" Typexpr
-          
-TypeRepresentation 
+
+TypeRepresentation
    ::= "=" "private"? "|"? ConstrDecl ("|" ConstrDecl)*
      | "=" "private"? "{" FieldDecl (";" FieldDecl)* ";"? "}"
      | "=" "[" (ConstrDecl ("|" ConstrDecl)*)? "]"   // Revised syntax
 
-TypeParams 
+TypeParams
    ::= TypeParam
      | "(" TypeParam ("," TypeParam)* ")"
 
-TypeParam 
+TypeParam
    ::= Variance? "#"? "\'" Ident
-     | Variance? "_" !>> [a-zA-Z0-9]     
-     
-Variance 
-   ::= "+" 
+     | Variance? "_" !>> [a-zA-Z0-9]
+
+Variance
+   ::= "+"
      | "-"
-     
-ConstrDecl 
-   ::= (ConstrName | ("(" ")")) ("of" Typexpr_ ("*" Typexpr_)*)?    
+
+ConstrDecl
+   ::= (ConstrName | ("(" ")")) ("of" Typexpr_ ("*" Typexpr_)*)?
      | ConstrName ":" Typexpr_ ("*" Typexpr_)* ("->"  Typexpr)?
 
-FieldDecl 
+FieldDecl
    ::= "mutable"? FieldName ":" PolyTypExpr
 
-TypeConstraint 
+TypeConstraint
    ::= "constraint" "\'" Ident "=" Typexpr
-     
-ExceptionDefinition 
+
+ExceptionDefinition
    ::= "exception" ConstrName ("of" Typexpr_ ("*" Typexpr_ )* )?
      | "exception" ConstrName "=" Constr
-     
+
 // Classes
 
-ClassType 
+ClassType
    ::= ( Typexpr_ "->")* ClassBodyType
 
-ClassBodyType 
+ClassBodyType
    ::= "object" ("(" Typexpr ")")? ClassFieldSpec* "end"
      | ("[" Typexpr ("," Typexpr)* "]")? ClassPath
 
-ClassFieldSpec 
+ClassFieldSpec
    ::= "inherit" ClassType
      | "val" "mutable"? "virtual"? InstVarName ":" PolyTypExpr
      | "val" "virtual" "mutable" InstVarName ":" PolyTypExpr
      | "method" "private"? "virtual"? MethodName ":" PolyTypExpr
      | "method" "virtual" "private" MethodName ":" PolyTypExpr
      | "constraint" Typexpr "=" Typexpr
-     
-ClassExpr 
+
+ClassExpr
    ::= ClassPath
      | classExprBrackets1: "[" Typexpr ("," Typexpr)* "]" ClassPath
      | classExprBrackets2: "(" ClassExpr ")"
@@ -411,51 +411,51 @@ ClassExpr
      | letClass: "let" "rec"? LetBinding ("and" LetBinding)* "in" ClassExpr
      | object: "object" ClassBody "end"
 
-ClassField 
+ClassField
    ::= ("inherit" | "inherit!") ClassExpr ("as" ValueName)?
      | ("val"|"val!") "mutable"? InstVarName (":" Typexpr)? "=" Expr
      | "val" "mutable"? "virtual" InstVarName ":" Typexpr
      | "val" "virtual" "mutable" InstVarName ":" Typexpr
-     | ("method" | "method!") "private"? MethodName Parameter* (":" PolyTypExpr)? "=" Expr     
+     | ("method" | "method!") "private"? MethodName Parameter* (":" PolyTypExpr)? "=" Expr
      | "method" "private"? "virtual" MethodName ":" PolyTypExpr
      | "method" "virtual" "private"  MethodName ":" PolyTypExpr
      | "constraint" Typexpr "=" Typexpr
      | "initializer" Expr
      | ("method"|"method!") "private"? MethodName ":" "type"  TypeconstrName+ "."  Typexpr "="  Expr   // Extensions §7.13
-     
-ClassDefinition 
-   ::= "class" ClassBinding ("and" ClassBinding)* 
-     
-ClassBody 
+
+ClassDefinition
+   ::= "class" ClassBinding ("and" ClassBinding)*
+
+ClassBody
    ::= ("(" Pattern (":" Typexpr)? ")")? (ClassField ";"?)*
 
-ClassBinding 
+ClassBinding
    ::= "virtual"? ("[" TypeParameters "]")? ClassName Parameter* (":" ClassType)? "=" ClassExpr
 
-TypeParameters 
+TypeParameters
    ::= "\'" Ident ("," "\'" Ident)*
-      
-ClassSpecification 
+
+ClassSpecification
    ::= "class" ClassSpec ("and" ClassSpec)*
 
-ClassSpec 
+ClassSpec
    ::= "virtual"? ("[" TypeParameters "]")? ClassName ":" ClassType
 
-ClassTypeDefinition 
+ClassTypeDefinition
    ::= "class" "type" ClasstypeDef ("and" ClasstypeDef)*
 
-ClasstypeDef 
+ClasstypeDef
    ::= "virtual"? ("[" TypeParameters "]")? ClassName "=" ClassBodyType
-     
-ExternalDeclaration 
-   ::= StringLiteral1+     
-     
+
+ExternalDeclaration
+   ::= StringLiteral1+
+
 
 // Extensions
 
 PackageType
-   ::= ModTypePath  
-     | ModTypePath "with"  PackageConstraint  ("and" PackageConstraint)*  
+   ::= ModTypePath
+     | ModTypePath "with"  PackageConstraint  ("and" PackageConstraint)*
 
 PackageConstraint
    ::= "type" TypeConstr "="  Typexpr
@@ -465,7 +465,7 @@ PackageConstraint
 
 regex /* was "lexical" */ {
 Ident
-   ::= LowercaseIdentifier 
+   ::= LowercaseIdentifier
      | CapitalizedIdentifier
 }
 
@@ -490,12 +490,12 @@ CapitalizedIdentifierChars
 
 regex /* was "token" */ {
 Int32Literal
-   ::=  [\-]? SpecialInt [l]  
+   ::=  [\-]? SpecialInt [l]
 }
 
 regex /* was "token" */ {
 Int64Literal
-   ::= [\-]? SpecialInt [L]  
+   ::= [\-]? SpecialInt [L]
 }
 
 regex /* was "token" */ {
@@ -505,8 +505,8 @@ NativeIntLiteral
 
 regex /* was "token" */ {
 SpecialInt
-   ::= [0-9] [0-9_]* 
-    | ("0x"| "0X") [0-9A-Fa-f][0-9A-Fa-f_]*   
+   ::= [0-9] [0-9_]*
+    | ("0x"| "0X") [0-9A-Fa-f][0-9A-Fa-f_]*
     | ("0o"| "0O") [0-7] [0-7_]*
     | ("0b"| "0B") [0-1] [0-1_]*
 }
@@ -514,9 +514,9 @@ SpecialInt
 regex /* was "token" */ {
 IntegerLiteral
    ::= [\-]? [0-9] [0-9_]*
-    | [\-]? ("0x"| "0X") [0-9A-Fa-f][0-9A-Fa-f_]*  
-    | [\-]? ("0o"| "0O") [0-7] [0-7_]* 
-    | [\-]? ("0b"| "0B") [0-1] [0-1_]* 
+    | [\-]? ("0x"| "0X") [0-9A-Fa-f][0-9A-Fa-f_]*
+    | [\-]? ("0o"| "0O") [0-7] [0-7_]*
+    | [\-]? ("0b"| "0B") [0-1] [0-1_]*
 }
 
 regex /* was "token" */ {
@@ -545,9 +545,9 @@ StringLiteral1
 
 regex /* was "token" */ {
 StringCharacter
-   ::= RegularCharStr 
-    | EscapeSequence 
-    | [\\][\n] 
+   ::= RegularCharStr
+    | EscapeSequence
+    | [\\][\n]
     | [\\][\ ]
 }
 
@@ -568,7 +568,7 @@ OperatorChar
 
 // TODO PrefixSymbol /* was "lexical" */
 //     ::= ([!] OperatorChar*) \ "!="
-//       | [? ~] OperatorChar+ 
+//       | [? ~] OperatorChar+
 
 @NoLayout /* was "lexical" */
 Label
@@ -585,7 +585,7 @@ OptLabel
 
 regex /* was "lexical" */ {
 OptLabelColon
-    ::= "?" LowercaseIdentifier ":" 
+    ::= "?" LowercaseIdentifier ":"
 }
 
 regex /* was "lexical" */ {
@@ -597,47 +597,47 @@ InfixSymbol
       | InfixSymbol5
       | InfixSymbol6
       | InfixSymbol7
-      | InfixSymbol8        
+      | InfixSymbol8
 }
 
 regex /* was "token" */ {
 InfixSymbol1
-    ::= "lsl" | "lsr" | "asr" 
+    ::= "lsl" | "lsr" | "asr"
       | [*][*] OperatorChar+
-}      
+}
 
 // InfixSymbol2 /* was "lexical" */
-//     ::= "mod" | "land"| "lor" | "lxor" 
+//     ::= "mod" | "land"| "lor" | "lxor"
 //       | ([/ % *] OperatorChar*) !>> [! $ % & * + \- . / : < = > ? @ ^ | ~] \ "**"
 
 // TODO InfixSymbol3 /* was "lexical" */
 //     ::= ([+ \-] OperatorChar*) !>> [! $ % & * + \- . / : < = > ? @ ^ | ~] \ "->"
-      
+
 // TODO InfixSymbol4 /* was "lexical" */
 //     ::= [@ ^] OperatorChar* !>> [! $ % & * + \- . / : < = > ? @ ^ | ~]
-      
+
 // TODO InfixSymbol5 /* was "lexical" */
-//     ::= "!=" 
-//       | ([= < > | & $] OperatorChar*) !>> [! $ % & * + \- . / : < = > ? @ ^ | ~] \ InfixSymbol5Exclude 
+//     ::= "!="
+//       | ([= < > | & $] OperatorChar*) !>> [! $ % & * + \- . / : < = > ? @ ^ | ~] \ InfixSymbol5Exclude
 
 regex /* was "token" */ {
 InfixSymbol5Exclude
-    ::= "|" 
-      | "||" 
-      | "&&" 
-      | "&" 
+    ::= "|"
+      | "||"
+      | "&&"
+      | "&"
       | "<-"
 }
 
 regex /* was "token" */ {
 InfixSymbol6
-   ::= "&" 
+   ::= "&"
       | "&&"
 }
 
 regex /* was "token" */ {
 InfixSymbol7
-    ::= "||" 
+    ::= "||"
       | "or"
 }
 
