@@ -180,8 +180,8 @@ public class BatchDataDependentParsingBenchmark {
             .forks(1)
             .threads(1)
             .shouldDoGC(true)
-            .include(BatchDataDependentParsingBenchmark.class.getSimpleName() + ".parseFilesWithCharacterLimit")
-            .timeUnit(TimeUnit.SECONDS)
+            .include(BatchDataDependentParsingBenchmark.class.getSimpleName() + ".parseFile")
+            .timeUnit(TimeUnit.HOURS)
             .build();
 
      // @formatter:on

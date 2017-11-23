@@ -15,6 +15,7 @@ import org.apache.commons.vfs2.FileSystemManager;
 import org.apache.commons.vfs2.VFS;
 import org.metaborg.sdf2table.io.ParseTableGenerator;
 import org.metaborg.sdf2table.parsetable.ParseTable;
+import org.spoofax.interpreter.terms.IStrategoAppl;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.jsglr2.JSGLR2;
 
@@ -91,7 +92,7 @@ public class CheckCorrectness {
             File mainFile = new File("normalizedGrammars/" + a_lang.getLanguageName() + "/normalized/"
                 + a_lang.getMainSDF3Module() + "-norm.aterm");
 
-//            File atermFile = new File(pathToParseTable + "sdf.tbl");
+            // File atermFile = new File(pathToParseTable + "sdf.tbl");
 
             ParseTableGenerator ptg = new ParseTableGenerator(mainFile, null, persistedFile, null,
                 Lists.newArrayList("normalizedGrammars/" + a_lang.getLanguageName()));
@@ -125,13 +126,18 @@ public class CheckCorrectness {
         final BufferedWriter output = new BufferedWriter(new FileWriter(file));
 
         System.out.println(" -- Parsing Files -- ");
-        
+
         try {
             input.stream().forEach(program -> {
                 try {
                     IStrategoTerm astParser1 = parser.parse(program);
                     IStrategoTerm astParser2 = parser2.parse(program);
-                    if(!astParser1.equals(astParser2)) {
+                    if(containsAmbNodes(astParser2)) {
+                        output.write("AST for program " + programs.get(input.indexOf(program))
+                            + " contains ambiguities." + "\n");
+                        System.out.println(
+                            "AST for program " + programs.get(input.indexOf(program)) + " contains ambiguities.");
+                    } else if(!astParser1.equals(astParser2)) {
                         output.write("ASTs of the different parsers are different for program "
                             + programs.get(input.indexOf(program)) + "\n");
                         System.out.println("ASTs of the different parsers are different for program "
@@ -152,5 +158,24 @@ public class CheckCorrectness {
         } finally {
             output.close();
         }
+    }
+
+
+    private static boolean containsAmbNodes(IStrategoTerm ast) {
+
+        if(ast instanceof IStrategoAppl) {
+            IStrategoAppl amb = (IStrategoAppl) ast;
+            if(amb.getConstructor().getName().equals("amb")) {
+                return true;
+            }
+        }
+
+        for(IStrategoTerm child : ast.getAllSubterms()) {
+            if(containsAmbNodes(child)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -343,7 +343,7 @@ public class ParseTable implements ISGLRParseTable, Serializable {
         for(IPriority p : grammar.priorities().keySet()) {
             // right associative
             if(grammar.priorities().get(p).contains(Integer.MIN_VALUE)) {
-                if(p.higher().leftRecursivePosition() == -1 || p.higher().rightRecursivePosition() == -1)
+                if(p.higher().leftRecursivePosition() == -1)
                     continue;
 
                 // p right p and indirect recursion on p
@@ -365,7 +365,7 @@ public class ParseTable implements ISGLRParseTable, Serializable {
             // left associative
             if(grammar.priorities().get(p).contains(Integer.MAX_VALUE)) {
                 // if production is not both right and left recursive
-                if(p.higher().rightRecursivePosition() == -1 || p.higher().leftRecursivePosition() == -1)
+                if(p.higher().rightRecursivePosition() == -1)
                     continue;
 
                 // p left p and indirect recursion on p
