@@ -464,16 +464,14 @@ PackageConstraint
 
 // Lexical
 
-regex /* was "lexical" */ {
+@NoLayout /* was "lexical" */  
 Ident
   ::= LowercaseIdentifier
     | CapitalizedIdentifier
-}
 
-// underscore is considered a lower case identifier
 @NoLayout /* was "lexical" */
 LowercaseIdentifier
-  ::= [a-zA-Z_0-9] !<< LowercaseIdentifierChars \ Keywords
+  ::= [a-zA-Z_0-9] !<< LowercaseIdentifierChars \ Keywords                                         /* underscore is considered a lower case identifier */
 
 regex /* was "token" */ {
 LowercaseIdentifierChars
@@ -489,10 +487,9 @@ CapitalizedIdentifierChars
   ::= [A-Z][A-Za-z0-9_']*
 }
 
-regex /* was "token" */ {
+regex /* was "token" */
 Int32Literal
   ::= [\-]? SpecialInt [l]
-}
 
 regex /* was "token" */ {
 Int64Literal
@@ -504,13 +501,24 @@ NativeIntLiteral
   ::= [\-]? SpecialInt [n]
 }
 
-regex /* was "token" */ {
+regex /* was "token" */
 SpecialInt
-  ::= [0-9] [0-9_]*
-    | ("0x"| "0X") [0-9A-Fa-f][0-9A-Fa-f_]*
-    | ("0o"| "0O") [0-7] [0-7_]*
-    | ("0b"| "0B") [0-1] [0-1_]*
-}
+  ::= [0-9][0-9_]*
+    | ("0x" | "0X") [0-9A-Fa-f][0-9A-Fa-f_]*
+    | ("0o" | "0O") [0-7] [0-7_]*
+    | ("0b" | "0B") [0-1] [0-1_]*
+
+// SpecialInt
+//   ::= SpecialInt1
+//     | SpecialInt2
+//     | SpecialInt3
+//     | SpecialInt4
+
+// regex SpecialInt1 ::= [0-9][0-9_]*
+// regex SpecialInt2 ::= ("0x" | "0X") [0-9A-Fa-f][0-9A-Fa-f_]*
+// regex SpecialInt3 ::= ("0o" | "0O") [0-7] [0-7_]*
+// regex SpecialInt4 ::= ("0b" | "0B") [0-1] [0-1_]*
+
 
 regex /* was "token" */ {
 IntegerLiteral
@@ -647,8 +655,7 @@ InfixSymbol8
   ::= ":="
 }
 
-regex /* was "keywords" */ {
-Keywords
+regex Keywords /* was "keywords" */
   ::= "_"
     | "and"
     | "as"
@@ -705,7 +712,6 @@ Keywords
     | "when"
     | "while"
     | "with"
-}
 
 // TODO Comment /* was "lexical" */
 //   ::= "(*" ([^(*] | Comment | "*" !>> [)] | "(" !>> [*])* "*)"
