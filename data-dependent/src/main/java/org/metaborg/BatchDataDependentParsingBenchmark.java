@@ -270,7 +270,7 @@ public class BatchDataDependentParsingBenchmark {
     public void parseIguana(Blackhole bh, BenchmarkLanguages bl, FileConfig fc) throws IOException {
         String program = "1 + - if 0 then 2 else 3 + 4";
 
-        final Grammar grammar = IggyParser.getGrammar(Input.fromPath("iguanaGrammars/OCaml.iggy"));
+        final Grammar grammar = IggyParser.getGrammar(Input.fromPath("iguanaGrammars/OCaml-full.iggy"));
 
         final Input input = Input.fromString(program);
         final Nonterminal start = Nonterminal.withName("start");
