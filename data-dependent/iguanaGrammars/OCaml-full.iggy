@@ -464,7 +464,7 @@ PackageConstraint
 
 // Lexical
 
-@NoLayout /* was "lexical" */  
+@NoLayout /* was "lexical" */
 Ident
   ::= LowercaseIdentifier
     | CapitalizedIdentifier
@@ -473,33 +473,25 @@ Ident
 LowercaseIdentifier
   ::= [a-zA-Z_0-9] !<< LowercaseIdentifierChars \ Keywords                                         /* underscore is considered a lower case identifier */
 
-regex /* was "token" */ {
-LowercaseIdentifierChars
+regex LowercaseIdentifierChar /* was "token" */s
   ::= [a-z_][A-Za-z0-9_']*
-}
 
 @NoLayout /* was "lexical" */
 CapitalizedIdentifier
   ::= [a-zA-Z_0-9] !<< CapitalizedIdentifierChars \ Keywords
 
-regex /* was "token" */ {
-CapitalizedIdentifierChars
+regex CapitalizedIdentifierCh /* was "token" */ars
   ::= [A-Z][A-Za-z0-9_']*
-}
 
 regex /* was "token" */
 Int32Literal
   ::= [\-]? SpecialInt [l]
 
-regex /* was "token" */ {
-Int64Literal
+regex Int64Literal /* was "token" */
   ::= [\-]? SpecialInt [L]
-}
 
-regex /* was "token" */ {
-NativeIntLiteral
+regex NativeIntLiteral /* was "token" */
   ::= [\-]? SpecialInt [n]
-}
 
 regex /* was "token" */
 SpecialInt
@@ -520,60 +512,42 @@ SpecialInt
 // regex SpecialInt4 ::= ("0b" | "0B") [0-1] [0-1_]*
 
 
-regex /* was "token" */ {
-IntegerLiteral
+regex IntegerLiteral /* was "token" */
   ::= [\-]? [0-9] [0-9_]*
     | [\-]? ("0x"| "0X") [0-9A-Fa-f][0-9A-Fa-f_]*
     | [\-]? ("0o"| "0O") [0-7] [0-7_]*
     | [\-]? ("0b"| "0B") [0-1] [0-1_]*
-}
 
-regex /* was "token" */ {
-FloatLiteral
+regex FloatLiteral /* was "token" */
   ::= [\-]? [0-9] [0-9_]* [eE] [+\-]? [0-9] [0-9_]*              // only with e
     | [\-]? [0-9] [0-9_]* [.] [0-9_]*                            // only with .
     | [\-]? [0-9] [0-9_]* [.] [0-9_]* [eE] [+\-]? [0-9] [0-9_]*  // with both . and e
-}
 
-regex /* was "token" */ {
-CharLiteral
+regex CharLiteral /* was "token" */
   ::= ['] (RegularChar | EscapeSequence) [']
-}
 
-regex /* was "token" */ {
-EscapeSequence
+regex EscapeSequence /* was "token" */
   ::= ([\\] [\\ " ' n t b r])
     | ([\\] [0-9][0-9][0-9])
     | ([\\][x] [0-9A-Fa-f][0-9A-Fa-f])
-}
 
-regex /* was "token" */ {
-StringLiteral1
+regex StringLiteral1 /* was "token" */
   ::= ["] StringCharacter* ["]
-}
 
-regex /* was "token" */ {
-StringCharacter
+regex StringCharacter /* was "token" */
   ::= RegularCharStr
     | EscapeSequence
     | [\\][\n]
     | [\\][\ ]
-}
 
-regex /* was "token" */ {
-RegularChar
+regex RegularChar /* was "token" */
   ::= [^ ' \\]
-}
 
-regex /* was "token" */ {
-RegularCharStr
+regex RegularCharStr /* was "token" */
   ::= [^ " \\]
-}
 
-regex /* was "token" */ {
-OperatorChar
+regex OperatorChar /* was "token" */
   ::= [! $ % & * + \- . / : < = > ? @ ^ | ~]
-}
 
 // TODO PrefixSymbol /* was "lexical" */
 //   ::= ([!] OperatorChar*) \ "!="
@@ -583,22 +557,17 @@ OperatorChar
 Label
   ::= "~" LowercaseIdentifier !>> ":"
 
-regex /* was "lexical" */ {
-LabelColon
+regex LabelColon /* was "lexical" */
   ::= "~" LowercaseIdentifier ":"
-}
 
 @NoLayout /* was "lexical" */
 OptLabel
   ::= "?" LowercaseIdentifier !>> ":"
 
-regex /* was "lexical" */ {
-OptLabelColon
+regex OptLabelColon /* was "lexical" */
   ::= "?" LowercaseIdentifier ":"
-}
 
-regex /* was "lexical" */ {
-InfixSymbol
+regex InfixSymbol /* was "lexical" */
   ::= InfixSymbol1
     | InfixSymbol2
     | InfixSymbol3
@@ -607,13 +576,10 @@ InfixSymbol
     | InfixSymbol6
     | InfixSymbol7
     | InfixSymbol8
-}
 
-regex /* was "token" */ {
-InfixSymbol1
+regex InfixSymbol1 /* was "token" */
   ::= "lsl" | "lsr" | "asr"
     | [*][*] OperatorChar+
-}
 
 // InfixSymbol2 /* was "lexical" */
 //   ::= "mod" | "land"| "lor" | "lxor"
@@ -629,31 +595,23 @@ InfixSymbol1
 //   ::= "!="
 //     | ([= < > | & $] OperatorChar*) !>> [! $ % & * + \- . / : < = > ? @ ^ | ~] \ InfixSymbol5Exclude
 
-regex /* was "token" */ {
-InfixSymbol5Exclude
+regex InfixSymbol5Exclude /* was "token" */
   ::= "|"
     | "||"
     | "&&"
     | "&"
     | "<-"
-}
 
-regex /* was "token" */ {
-InfixSymbol6
+regex InfixSymbol6 /* was "token" */
   ::= "&"
     | "&&"
-}
 
-regex /* was "token" */ {
-InfixSymbol7
+regex InfixSymbol7 /* was "token" */
   ::= "||"
     | "or"
-}
 
-regex /* was "token" */ {
-InfixSymbol8
+regex InfixSymbol8 /* was "token" */
   ::= ":="
-}
 
 regex Keywords /* was "keywords" */
   ::= "_"
@@ -717,10 +675,8 @@ regex Keywords /* was "keywords" */
 //   ::= "(*" ([^(*] | Comment | "*" !>> [)] | "(" !>> [*])* "*)"
 
 // TODO: unicode literal \u0009-\u000D not working
-regex /* was "token" */ {
-Whitespace
+regex Whitespace /* was "token" */
   ::= [\ \t\n\r]+
-}
 
 // TODO: unicode literal \u0009-\u000D not working
 @Layout /* was "layout" */
